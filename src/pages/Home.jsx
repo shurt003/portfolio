@@ -111,7 +111,7 @@ const PROJECTS = [
     title: 'MagicSignal',
     subtitle: 'From zero research to a shipped iOS app, every decision made with one eye on the user.',
     href: '/magic-signal',
-    image: '/images/magicSignal/magicSignalHero.webp',
+    image: '/images/magicSignal/ms-home-thumbnail.png',
   },
 ]
 
