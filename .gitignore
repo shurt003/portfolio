@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+dist-ssr/
+build/
+
+# Local env files
+.env
+.env.local
+.env.*.local
+
+# macOS
+.DS_Store
+.AppleDouble
+
+# Editor
+.vscode/
+*.sw?
+
+# Claude Code agent files
+.agents/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "portfolio-dev",
+      "runtimeExecutable": "/Users/stephenhurt/.nvm/versions/node/v22.17.1/bin/node",
+      "runtimeArgs": ["/Users/stephenhurt/Documents/PortfolioClaude/node_modules/.bin/vite"],
+      "port": 5173
+    }
+  ]
+}
