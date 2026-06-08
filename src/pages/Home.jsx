@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
 import { useNavTheme } from '../contexts/NavTheme'
 import RivePiece from '../components/RivePiece'
+import ProjectThumb from '../components/ProjectThumbs'
 
 const HeroRings = lazy(() => import('../components/HeroRings'))
 
@@ -48,13 +49,11 @@ function ProjectCard({ project, index }) {
   return (
     <FadeUp delay={index * 0.08}>
       <Link to={project.href} className="group block">
-        <div className="relative rounded-2xl overflow-hidden mb-5" style={{ aspectRatio: '16/10' }}>
-          <img
-            src={project.image}
-            alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-            loading="lazy"
-          />
+        <div className="relative rounded-2xl overflow-hidden mb-5 transition-transform duration-700 ease-out group-hover:scale-[1.04]" style={{ aspectRatio: '16/10' }}>
+          {project.image
+            ? <img src={project.image} alt={project.title} className="w-full h-full object-cover" loading="lazy" />
+            : <ProjectThumb href={project.href} accent={project.accent} />
+          }
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
         </div>
         <div className="flex items-start justify-between gap-4">
@@ -104,7 +103,7 @@ const PROJECTS = [
     title: 'Form Validation',
     subtitle: 'Research-driven case for moving Q2\'s platform to inline validation.',
     href: '/validation',
-    image: '/images/FormValidation/formvalidationherobg.webp',
+    accent: '#7B9EC7',
   },
   {
     id: 'magic-signal',
