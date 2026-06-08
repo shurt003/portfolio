@@ -12,7 +12,7 @@ const projects = [
     tags: ['Design System', 'Enterprise SaaS', 'Ongoing'],
     impact: '20M+ users, with accessibility and visual consistency at scale',
     accent: '#7B9EC7',
-    year: '2022-24',
+    year: '2026',
   },
   {
     href: '/messaging-redesign',
@@ -22,6 +22,7 @@ const projects = [
     impact: '92.9 SUS score, affecting 20M+ users',
     accent: '#E8C547',
     year: '2024',
+    image: '/images/SecureMessaging/securemessagingbgheroimage.webp',
   },
   {
     href: '/interstitial',
@@ -30,7 +31,8 @@ const projects = [
     tags: ['Product Design', 'Interaction Design', 'Q2'],
     impact: 'Accidentally unlocked an $8M deal',
     accent: '#1B4F8A',
-    year: '2023',
+    year: '2025',
+    image: '/images/Interstitial/interstitial-home-thumbnail.png',
   },
   {
     href: '/validation',
@@ -39,7 +41,7 @@ const projects = [
     tags: ['UX Research', 'Usability Testing', 'Q2'],
     impact: 'Moderated study that changed platform-wide validation patterns',
     accent: '#7B9EC7',
-    year: '2023',
+    year: '2026',
   },
   {
     href: '/magic-signal',
@@ -48,7 +50,8 @@ const projects = [
     tags: ['Product Design', 'iOS & Android', 'AI-Powered'],
     impact: 'Designed, built, and shipped solo, on the App Store and Google Play',
     accent: '#5B8DEA',
-    year: '2024',
+    year: '2025',
+    image: '/images/magicSignal/ms-home-thumbnail.png',
   },
 ]
 
@@ -64,7 +67,7 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 }
 
-function FeaturedCard({ href, title, subtitle, tags, impact, accent, year }) {
+function FeaturedCard({ href, title, subtitle, tags, impact, accent, year, image }) {
   const [hovered, setHovered] = useState(false)
 
   return (
@@ -85,7 +88,10 @@ function FeaturedCard({ href, title, subtitle, tags, impact, accent, year }) {
           style={{ backgroundColor: accent + '18' }}
         >
           <div className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-[1.03]">
-            <ProjectThumb href={href} accent={accent} />
+            {image
+              ? <img src={image} alt={title} className="w-full h-full object-cover" />
+              : <ProjectThumb href={href} accent={accent} />
+            }
           </div>
         </div>
 
@@ -124,7 +130,7 @@ function FeaturedCard({ href, title, subtitle, tags, impact, accent, year }) {
   )
 }
 
-function ProjectCard({ href, title, subtitle, tags, impact, accent, year, index }) {
+function ProjectCard({ href, title, subtitle, tags, impact, accent, year, index, image }) {
   const [hovered, setHovered] = useState(false)
 
   return (
@@ -145,7 +151,10 @@ function ProjectCard({ href, title, subtitle, tags, impact, accent, year, index 
           style={{ backgroundColor: accent + '15' }}
         >
           <div className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-[1.04]">
-            <ProjectThumb href={href} accent={accent} />
+            {image
+              ? <img src={image} alt={title} className="w-full h-full object-cover" />
+              : <ProjectThumb href={href} accent={accent} />
+            }
           </div>
           {/* Project number */}
           <span className="absolute top-4 left-4 font-display text-xs tracking-widest text-ink/25">

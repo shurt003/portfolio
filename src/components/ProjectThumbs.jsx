@@ -171,95 +171,73 @@ function ClaudeCodeThumb({ accent }) {
 }
 
 function ValidationDiagram() {
-  const Field = ({ error, inline }) => (
-    <div style={{ marginBottom: inline ? 0 : 5 }}>
-      <div style={{
-        height: 22,
-        borderRadius: 3,
-        border: error ? '1.5px solid rgba(180,40,40,0.8)' : '1.5px solid rgba(255,255,255,0.2)',
-        backgroundColor: error ? 'rgba(180,40,40,0.08)' : 'rgba(255,255,255,0.05)',
-      }} />
-      {inline && error && (
-        <div style={{ marginTop: 3, marginBottom: 5 }}>
-          <div style={{ height: 5, width: '55%', borderRadius: 2, backgroundColor: 'rgba(180,40,40,0.6)' }} />
-        </div>
-      )}
-    </div>
-  )
-
-  const Check = ({ pass }) => (
-    <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8, marginBottom: 10 }}>
-      <div style={{
-        width: 16, height: 16, borderRadius: '50%', flexShrink: 0, marginTop: 1,
-        backgroundColor: pass ? 'rgba(60,160,80,0.25)' : 'rgba(180,40,40,0.25)',
-        border: `1.5px solid ${pass ? 'rgba(60,160,80,0.7)' : 'rgba(180,40,40,0.7)'}`,
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        fontSize: 9, color: pass ? 'rgba(60,160,80,0.9)' : 'rgba(180,40,40,0.9)',
-      }}>
-        {pass ? '✓' : '✕'}
-      </div>
-      <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.82)', lineHeight: 1.4 }}>
-        {pass
-          ? (pass === 'cognitive' ? 'Low cognitive load on memory' : 'Shorter time to correct errors')
-          : 'Longer time to correct errors'}
-      </span>
-    </div>
-  )
-
-  const col = { flex: 1, display: 'flex', flexDirection: 'column' }
+  const LX = 16, LW = 153, RX = 187, RW = 157, FH = 16
+  const leftFields  = [44, 64, 84, 104, 124, 144]
+  const leftErrors  = new Set([64, 104, 144])
+  const rightFields = [22, 42, 68, 88, 114, 134]
+  const rightErrors = new Set([42, 88])
 
   return (
-    <div style={{
-      width: '100%', height: '100%', padding: '18px 20px',
-      backgroundColor: 'rgba(8,12,24,0.92)',
-      display: 'flex', flexDirection: 'column', gap: 14,
-      fontFamily: 'system-ui, sans-serif',
-    }}>
-      <div style={{ display: 'flex', gap: 20, flex: 1 }}>
-        {/* Left — Top of Form */}
-        <div style={col}>
-          <p style={{ fontSize: 10, fontWeight: 600, color: 'rgba(255,255,255,0.65)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 10 }}>
-            Top of Form
-          </p>
-          <div style={{
-            marginBottom: 6, padding: '5px 8px', borderRadius: 4,
-            backgroundColor: 'rgba(180,40,40,0.12)',
-            border: '1px solid rgba(180,40,40,0.3)',
-          }}>
-            <div style={{ height: 4, width: '80%', borderRadius: 2, backgroundColor: 'rgba(180,40,40,0.6)', marginBottom: 4 }} />
-            <div style={{ height: 4, width: '55%', borderRadius: 2, backgroundColor: 'rgba(180,40,40,0.4)' }} />
-          </div>
-          <Field error={false} />
-          <Field error={true} />
-          <Field error={false} />
-          <Field error={true} />
-          <Field error={false} />
-          <div style={{ flex: 1 }} />
-          <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 10 }}>
-            <Check pass={false} />
-            <Check pass={null} />
-          </div>
-        </div>
-        {/* Divider */}
-        <div style={{ width: 1, backgroundColor: 'rgba(255,255,255,0.08)', alignSelf: 'stretch' }} />
-        {/* Right — Inline */}
-        <div style={col}>
-          <p style={{ fontSize: 10, fontWeight: 600, color: 'rgba(255,255,255,0.65)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 10 }}>
-            Inline
-          </p>
-          <Field error={false} inline />
-          <Field error={true} inline />
-          <Field error={false} inline />
-          <Field error={true} inline />
-          <Field error={false} inline />
-          <div style={{ flex: 1 }} />
-          <div style={{ borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 10 }}>
-            <Check pass="cognitive" />
-            <Check pass="time" />
-          </div>
-        </div>
-      </div>
-    </div>
+    <svg viewBox="0 0 360 220" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%', display: 'block' }}>
+      <rect width="360" height="220" fill="rgba(8,12,24,0.94)"/>
+
+      {/* Labels */}
+      <text x={LX} y="14" fill="rgba(255,255,255,0.6)" fontSize="7.5" fontWeight="700" letterSpacing="0.8" fontFamily="system-ui,sans-serif">TOP OF FORM</text>
+      <text x={RX} y="14" fill="rgba(255,255,255,0.6)" fontSize="7.5" fontWeight="700" letterSpacing="0.8" fontFamily="system-ui,sans-serif">INLINE</text>
+
+      {/* Vertical divider */}
+      <line x1="176" y1="8" x2="176" y2="196" stroke="rgba(255,255,255,0.08)" strokeWidth="1"/>
+
+      {/* Left error banner */}
+      <rect x={LX} y="22" width={LW} height="15" rx="2.5" fill="rgba(180,40,40,0.13)" stroke="rgba(180,40,40,0.28)" strokeWidth="1"/>
+      <rect x={LX+6} y="26.5" width="78" height="3" rx="1.5" fill="rgba(180,40,40,0.6)"/>
+      <rect x={LX+6} y="31.5" width="54" height="3" rx="1.5" fill="rgba(180,40,40,0.38)"/>
+
+      {/* Left fields */}
+      {leftFields.map(y => (
+        <rect key={y} x={LX} y={y} width={LW} height={FH} rx="2.5"
+          fill={leftErrors.has(y) ? 'rgba(180,40,40,0.08)' : 'rgba(255,255,255,0.04)'}
+          stroke={leftErrors.has(y) ? 'rgba(180,40,40,0.75)' : 'rgba(255,255,255,0.18)'}
+          strokeWidth="1.5"
+        />
+      ))}
+
+      {/* Right fields + inline error bars */}
+      {rightFields.map(y => (
+        <g key={y}>
+          <rect x={RX} y={y} width={RW} height={FH} rx="2.5"
+            fill={rightErrors.has(y) ? 'rgba(180,40,40,0.08)' : 'rgba(255,255,255,0.04)'}
+            stroke={rightErrors.has(y) ? 'rgba(180,40,40,0.75)' : 'rgba(255,255,255,0.18)'}
+            strokeWidth="1.5"
+          />
+          {rightErrors.has(y) && <rect x={RX} y={y + FH + 3} width="84" height="3.5" rx="1.5" fill="rgba(180,40,40,0.55)"/>}
+        </g>
+      ))}
+
+      {/* Horizontal rules */}
+      <line x1={LX} y1="168" x2="172" y2="168" stroke="rgba(255,255,255,0.08)" strokeWidth="1"/>
+      <line x1={RX} y1="168" x2="346" y2="168" stroke="rgba(255,255,255,0.08)" strokeWidth="1"/>
+
+      {/* Left ✕ icons + labels — fully inlined, no sub-components */}
+      <circle cx="23" cy="180" r="6.5" fill="rgba(180,40,40,0.22)" stroke="rgba(180,40,40,0.65)" strokeWidth="1.2"/>
+      <line x1="20" y1="177" x2="26" y2="183" stroke="rgba(180,40,40,0.85)" strokeWidth="1.3" strokeLinecap="round"/>
+      <line x1="26" y1="177" x2="20" y2="183" stroke="rgba(180,40,40,0.85)" strokeWidth="1.3" strokeLinecap="round"/>
+      <text x="34" y="184" fill="rgba(255,255,255,0.8)" fontSize="8.5" fontFamily="system-ui,sans-serif">Longer time to correct errors</text>
+
+      <circle cx="23" cy="196" r="6.5" fill="rgba(180,40,40,0.22)" stroke="rgba(180,40,40,0.65)" strokeWidth="1.2"/>
+      <line x1="20" y1="193" x2="26" y2="199" stroke="rgba(180,40,40,0.85)" strokeWidth="1.3" strokeLinecap="round"/>
+      <line x1="26" y1="193" x2="20" y2="199" stroke="rgba(180,40,40,0.85)" strokeWidth="1.3" strokeLinecap="round"/>
+      <text x="34" y="200" fill="rgba(255,255,255,0.8)" fontSize="8.5" fontFamily="system-ui,sans-serif">Longer time to correct errors</text>
+
+      {/* Right ✓ icons + labels — fully inlined */}
+      <circle cx="194" cy="180" r="6.5" fill="rgba(60,160,80,0.22)" stroke="rgba(60,160,80,0.65)" strokeWidth="1.2"/>
+      <path d="M190.5 180 L193.5 183 L198.5 176.5" stroke="rgba(60,160,80,0.9)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+      <text x="205" y="184" fill="rgba(255,255,255,0.8)" fontSize="8.5" fontFamily="system-ui,sans-serif">Low cognitive load on memory</text>
+
+      <circle cx="194" cy="196" r="6.5" fill="rgba(60,160,80,0.22)" stroke="rgba(60,160,80,0.65)" strokeWidth="1.2"/>
+      <path d="M190.5 196 L193.5 199 L198.5 192.5" stroke="rgba(60,160,80,0.9)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+      <text x="205" y="200" fill="rgba(255,255,255,0.8)" fontSize="8.5" fontFamily="system-ui,sans-serif">Shorter time to correct errors</text>
+    </svg>
   )
 }
 

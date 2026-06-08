@@ -96,7 +96,7 @@ const PROJECTS = [
     title: 'Interstitial',
     subtitle: 'A forgotten loading screen became a branded moment, and an $8M deal.',
     href: '/interstitial',
-    image: '/images/Interstitial/NewCustomImage.png',
+    image: '/images/Interstitial/interstitial-home-thumbnail.png',
   },
   {
     id: 'validation',

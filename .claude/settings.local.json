@@ -94,7 +94,14 @@
       "Bash(cp /Users/stephenhurt/Downloads/StephenHurt_Resume.pdf /Users/stephenhurt/Documents/PortfolioClaude/public/_resume_view.pdf && echo \"copied to public for local viewing\")",
       "Bash(curl -sS --max-time 12 \"https://api.svgl.app\" -o svgl.json)",
       "Bash(echo \"exit:$?\")",
-      "WebFetch(domain:vanschneider.com)"
+      "WebFetch(domain:vanschneider.com)",
+      "Bash(curl -s \"https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap\" -H \"User-Agent: Mozilla/5.0 \\(Macintosh; Intel Mac OS X 10_15_7\\) AppleWebKit/537.36\")",
+      "Bash(curl -sL \"https://fonts.gstatic.com/s/spacegrotesk/v22/V8mDoQDjQSkFtoMM3T6r8E7mPbF4C_k3HqU.woff2\" -o \"space-grotesk.woff2\")",
+      "Bash(curl -sL \"https://cdn.fontshare.com/wf/FPDAZ2S6SW4QMSRIIKNNGTPM6VIXYMKO/5HNPQ453FRLIQWV2FNOBUU3FKTDZQVSG/Z3MGHFHX6DCTLQ55LJYRJ5MDCZPMFZU6.woff2\" -o \"clash-display-600.woff2\")",
+      "Bash(curl -sL \"https://cdn.fontshare.com/wf/BFBSY7LX5W2U2EROCLVVTQP4VS7S4PC3/IIUX4FGTMD2LK2VWD3RVTAS4SSMUN7B5/53RZKGODFYDW3QHTIL7IPOWTBCSUEZK7.woff2\" -o \"clash-display-700.woff2\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)"
     ]
   }
 }
