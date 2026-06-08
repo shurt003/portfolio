@@ -54,11 +54,12 @@ export default function Footer() {
           style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
         >
           <p className="font-sans text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>
-            © 2025 Stephen Hurt. Designed & built in Austin, TX.
+            © 2026 Stephen Hurt. Designed & built in Austin, TX.
           </p>
           <div className="flex gap-8">
             {[
               { label: 'Work', href: '/projects' },
+              { label: 'Motion Lab', href: '/motion-lab' },
               { label: 'About', href: '/about' },
               { label: 'Contact', href: '/contact' },
             ].map(link => (
