@@ -14,7 +14,7 @@ export default function Footer() {
         <div>
           <p
             className="font-sans text-xs uppercase tracking-[0.25em] mb-4"
-            style={{ color: 'rgba(255,255,255,0.35)' }}
+            style={{ color: 'rgba(255,255,255,0.5)' }}
           >
             Get in touch
           </p>
@@ -27,11 +27,11 @@ export default function Footer() {
           </h2>
           <div className="flex flex-wrap gap-4">
             <a
-              href="mailto:eclipticsh@gmail.com"
+              href="mailto:stephenchurt@gmail.com"
               className="inline-flex items-center gap-2 font-sans text-sm font-medium px-8 py-4 rounded-full transition-opacity duration-200 hover:opacity-90"
               style={{ backgroundColor: BLUE, color: '#fff' }}
             >
-              eclipticsh@gmail.com
+              stephenchurt@gmail.com
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                 <path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
@@ -53,7 +53,7 @@ export default function Footer() {
           className="flex flex-col md:flex-row md:items-center justify-between gap-6 pt-10"
           style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
         >
-          <p className="font-sans text-sm" style={{ color: 'rgba(255,255,255,0.3)' }}>
+          <p className="font-sans text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>
             © 2025 Stephen Hurt. Designed & built in Austin, TX.
           </p>
           <div className="flex gap-8">
