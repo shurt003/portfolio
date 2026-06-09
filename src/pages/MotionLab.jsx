@@ -238,9 +238,14 @@ function OrchestrationSection() {
   const [hovered, setHovered] = useState(null)
   const [selected, setSelected] = useState(null)
   const [proj, setProj] = useState(null)
+  const [reduceMotion, setReduceMotion] = useState(false)
   const node = selected != null ? NODES_META[selected] : null
 
   const AMBER = '#F5A623'
+
+  useEffect(() => {
+    setReduceMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+  }, [])
 
   // Intersection Observer — mount canvas 200px before visible, pause when away
   useEffect(() => {
@@ -331,7 +336,7 @@ function OrchestrationSection() {
         />
 
         {/* HUD overlay */}
-        {proj && <OrchestrationHUD center={proj.center} radius={proj.radius} reduce={!inView} compact={typeof window !== 'undefined' && window.innerWidth < 768} />}
+        {proj && <OrchestrationHUD center={proj.center} radius={proj.radius} reduce={reduceMotion} compact={typeof window !== 'undefined' && window.innerWidth < 768} />}
 
         {/* headline */}
         <div className="pointer-events-none relative z-10 px-6 md:px-14 lg:px-20 pt-28">
@@ -348,8 +353,9 @@ function OrchestrationSection() {
             One layer, coordinating many autonomous agents.
           </h2>
           <p className="font-sans max-w-md mt-5 text-base md:text-lg" style={{ color: 'rgba(245,240,232,0.6)' }}>
-            A particle study built in Three.js. Independent nodes, one orchestration layer. Hover the globe to shift the
-            view — <span style={{ color: ACCENT_LT }}>click an asset node</span> to inspect it.
+            A concept for a real-time command interface — coordinating many autonomous assets from a single
+            orchestration layer. Built from scratch in WebGL / Three.js, with live telemetry, depth-aware 3D
+            visualization, and an operator HUD. Hover the globe to shift the view — <span style={{ color: ACCENT_LT }}>click an asset node</span> to inspect it.
           </p>
         </div>
 

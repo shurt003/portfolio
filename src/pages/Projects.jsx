@@ -46,8 +46,8 @@ const projects = [
   {
     href: '/magic-signal',
     title: 'Magic Signal',
-    subtitle: 'AI-powered stock analysis app for iOS & Android',
-    tags: ['Product Design', 'iOS & Android', 'AI-Powered'],
+    subtitle: 'Real-time market data visualization, AI-powered, for iOS & Android',
+    tags: ['Product Design', 'Data Viz', 'AI-Powered'],
     impact: 'Designed, built, and shipped solo, on the App Store and Google Play',
     accent: '#5B8DEA',
     year: '2025',

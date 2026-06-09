@@ -26,7 +26,7 @@ const PRINCIPLES = [
 ]
 
 const CAPABILITIES = [
-  { title: 'Interaction & motion', body: 'Flows, prototyping, and interface motion, with ten years of After Effects, Rive, and Lottie behind every transition.' },
+  { title: 'Motion, interaction & 3D', body: 'Flows, prototyping, and interface motion — ten years of After Effects, Rive, and Lottie, plus Cinema 4D and WebGL/Three.js for 3D and spatial interfaces.' },
   { title: 'UX research', body: 'Moderated studies, usability testing, heuristic evaluation, competitive analysis. Research that moves decisions.' },
   { title: 'Design systems', body: 'Component libraries, tokens, and documentation teams reach for.' },
   { title: 'Accessibility', body: 'WCAG 2.1 AA, ARIA semantics, and keyboard and screen-reader support, built in from the start instead of bolted on later.' },
