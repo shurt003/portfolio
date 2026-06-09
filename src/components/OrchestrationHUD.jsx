@@ -231,11 +231,6 @@ export default function OrchestrationHUD({ center, radius, reduce = false, compa
             <Cell label="Latency">{latency}MS</Cell>
             {!compact && <Cell label="Grid ref">{coord}</Cell>}
           </div>
-          {!compact && (
-          <span className="font-mono text-[10px] uppercase tracking-[0.22em]" style={{ color: `${CREAM}0.4)` }}>
-            Built by Stephen Hurt
-          </span>
-          )}
         </div>
       </div>
     </div>
