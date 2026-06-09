@@ -294,7 +294,11 @@ function OrchestrationSection() {
   ]
 
   return (
-    <section ref={sectionRef} className="-mx-6 md:-mx-14 lg:-mx-20 mt-20 md:mt-28" style={{ backgroundColor: '#0E1015' }}>
+    <section
+      ref={sectionRef}
+      className="mt-20 md:mt-28"
+      style={{ backgroundColor: '#0E1015', width: '100vw', marginLeft: 'calc(50% - 50vw)' }}
+    >
       {/* ── Globe viewport: exactly 100vh, self-contained ──────── */}
       <div ref={stageRef} className="relative overflow-hidden" style={{ height: '100vh' }}>
         {/* Globe canvas — only mounted after first scroll into view */}
