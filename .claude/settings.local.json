@@ -106,7 +106,9 @@
       "Bash(npm list *)",
       "Bash(node build_resume.js)",
       "Bash(mkdir -p /tmp/resume_build)",
-      "Bash(npm init *)"
+      "Bash(npm init *)",
+      "mcp__Claude_in_Chrome__read_console_messages",
+      "Bash(npx -y acorn --ecma2022 --module --jsx src/pages/MotionLab.jsx)"
     ]
   }
 }

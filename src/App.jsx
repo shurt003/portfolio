@@ -9,6 +9,7 @@ import Projects from './pages/Projects'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import MotionLab from './pages/MotionLab'
+import Orchestration from './pages/Orchestration'
 import ConsumerDashboard from './pages/case-studies/ConsumerDashboard'
 import MessagingRedesign from './pages/case-studies/MessagingRedesign'
 import DesignSystem from './pages/case-studies/DesignSystem'
@@ -47,6 +48,8 @@ function AppContent() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/motion-lab" element={<MotionLab />} />
+          {/* Unlisted concept page (not linked in nav) */}
+          <Route path="/orchestration" element={<Orchestration />} />
           {/* Case studies sit behind a shared cosmetic password gate */}
           <Route element={<CaseStudyGate />}>
             <Route path="/consumer-dashboard" element={<ConsumerDashboard />} />
