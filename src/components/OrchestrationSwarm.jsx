@@ -2,6 +2,7 @@ import { useMemo, useRef, useState, useEffect } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
 
 import * as THREE from 'three'
+import { GLOBE_R, OFFSET_X, OFFSET_Y, CAM_Z, FOV, NODES_META } from './orchestrationConfig'
 
 /*
   OrchestrationSwarm — a particle study for the orchestration concept page.
@@ -23,11 +24,6 @@ const CREAM = '#F5F0E8'
 const BLUE_RGB = [0x8a / 255, 0xa6 / 255, 0xff / 255] // base point colour
 
 const POINT_COUNT = 5200
-const GLOBE_R = 1.75
-const OFFSET_X = 1.35
-const OFFSET_Y = 0.1
-const CAM_Z = 6.2
-const FOV = 45
 const ASSEMBLE_DUR = 1.3
 const STAGGER = 0.95
 const ARC_REVEAL_START = 2.3
@@ -38,18 +34,6 @@ const ARC_IDX_PER_SEG = 36
 const PULSE_PERIOD = 12
 const PULSE_ACTIVE = 2.8
 
-/* Shared so the HUD overlay can project the globe's screen position exactly. */
-export const GLOBE_CONFIG = { radius: GLOBE_R, offsetX: OFFSET_X, offsetY: OFFSET_Y, camZ: CAM_Z, fov: FOV }
-
-/* Asset-node metadata — drives both 3D positions and the HUD detail panel. */
-export const NODES_META = [
-  { id: 'ALPHA',   lat: 28,  lon: -45,  cls: 'RECON',  status: 'ACTIVE',  links: 3 },
-  { id: 'BRAVO',   lat: 54,  lon: 28,   cls: 'RELAY',  status: 'ACTIVE',  links: 3 },
-  { id: 'CHARLIE', lat: -8,  lon: 86,   cls: 'SENSOR', status: 'STANDBY', links: 2 },
-  { id: 'DELTA',   lat: -34, lon: -22,  cls: 'PATROL', status: 'ACTIVE',  links: 2 },
-  { id: 'ECHO',    lat: 12,  lon: 158,  cls: 'RELAY',  status: 'ACTIVE',  links: 3 },
-  { id: 'FOXTROT', lat: 44,  lon: -150, cls: 'UPLINK', status: 'STANDBY', links: 3 },
-]
 const NODE_PAIRS = [[0, 1], [1, 2], [2, 4], [4, 5], [5, 3], [3, 0], [0, 4], [1, 5]]
 
 /* Soft round sprite (radial gradient → transparent edge). */

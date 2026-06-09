@@ -5,11 +5,12 @@ import EasingPlayground from '../components/EasingPlayground'
 import SquashStretch from '../components/SquashStretch'
 import MotionLabIntro from '../components/MotionLabIntro'
 import { useNavTheme } from '../contexts/NavTheme'
-import { GLOBE_CONFIG, NODES_META } from '../components/OrchestrationSwarm'
+import { GLOBE_CONFIG, NODES_META } from '../components/orchestrationConfig'
 import OrchestrationHUD from '../components/OrchestrationHUD'
 
 const HeroParticles = lazy(() => import('../components/HeroParticles'))
 const OrchestrationSwarm = lazy(() => import('../components/OrchestrationSwarm'))
+const PlaybookScene = lazy(() => import('../components/PlaybookScene'))
 
 /* ── Dark "studio" theme tokens ─────────────────────────────────
    Same brand family, inverted: ink becomes the canvas, cream becomes
@@ -20,6 +21,7 @@ const PANEL = '#161A21'
 const CREAM = '#F5F0E8'
 const ACCENT = '#2B59C3'
 const ACCENT_LT = '#8AA6FF'
+const AMBER = '#F5A623'
 
 /* Converge: each child enters offset by `speed` and slides toward its final
    resting position as you scroll down. Alignment completes when the element's
@@ -241,8 +243,6 @@ function OrchestrationSection() {
   const [reduceMotion, setReduceMotion] = useState(false)
   const node = selected != null ? NODES_META[selected] : null
 
-  const AMBER = '#F5A623'
-
   useEffect(() => {
     setReduceMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
   }, [])
@@ -443,6 +443,229 @@ function OrchestrationSection() {
   )
 }
 
+/* ── Autonomous playbook study ────────────────────────────────────────
+   A tactical playbook selector wired to an angled 3D command-map. Choosing
+   a play morphs the fleet formation + link topology. Play metadata is kept
+   local (no Three import) so the heavy scene stays lazy.                  */
+const PLAYS_META = [
+  { code: 'PLAY.01', name: 'Subsurface-to-Air Surveillance', tactic: 'Stack sensing from seabed to orbit; a relay closes the loop.', assets: 6, domains: 'Sea · Surface · Air · Space', links: 5 },
+  { code: 'PLAY.02', name: 'Perimeter Screen', tactic: 'Ring the asset of interest; hand off contacts around the loop.', assets: 6, domains: 'Surface · Air · Space', links: 6 },
+  { code: 'PLAY.03', name: 'Deep-Strike Recon', tactic: 'Push a forward scout; chain a relay back to the orchestrator.', assets: 4, domains: 'Sea · Air · Space', links: 3 },
+  { code: 'PLAY.04', name: 'Distributed Sensor Net', tactic: 'Spread coverage wide; every node reports to the satellite hub.', assets: 6, domains: 'Sea · Surface · Air · Space', links: 5 },
+]
+
+function PlaybookSection() {
+  const sectionRef = useRef(null)
+  const [hasEntered, setHasEntered] = useState(false)
+  const [play, setPlay] = useState(0)
+  const [sel, setSel] = useState(null) // selected asset detail or null
+
+  const selectPlay = (i) => { setPlay(i); setSel(null) }
+
+  useEffect(() => {
+    const el = sectionRef.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setHasEntered(true) },
+      { rootMargin: '200px 0px' },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
+
+  const meta = PLAYS_META[play]
+
+  return (
+    <section
+      ref={sectionRef}
+      className="mt-20 md:mt-28"
+      style={{ backgroundColor: '#0E1015', width: '100vw', marginLeft: 'calc(50% - 50vw)' }}
+    >
+      <div className="relative overflow-hidden" style={{ minHeight: '88vh' }}>
+        {/* command-map scene — full width, but its left edge fades out so it
+            never hard-clips and stays clear of the playbook cards */}
+        {hasEntered && (
+          <div
+            className="absolute inset-0"
+            style={{
+              WebkitMaskImage: 'linear-gradient(90deg, transparent 0%, transparent 6%, #000 34%)',
+              maskImage: 'linear-gradient(90deg, transparent 0%, transparent 6%, #000 34%)',
+            }}
+          >
+            <Suspense fallback={null}>
+              <PlaybookScene
+                playIndex={play}
+                selectedIndex={sel ? sel.index : null}
+                onSelect={setSel}
+                onDeselect={() => setSel(null)}
+              />
+            </Suspense>
+          </div>
+        )}
+
+        <div className="pointer-events-none relative z-10 px-6 md:px-14 lg:px-20 pt-20 pb-10">
+          {/* heading */}
+          <div className="flex items-center gap-3 mb-5">
+            <span className="inline-block w-2 h-2 rounded-full" style={{ backgroundColor: AMBER, boxShadow: `0 0 12px ${AMBER}` }} />
+            <span className="font-mono text-[11px] uppercase tracking-[0.22em]" style={{ color: ACCENT_LT }}>
+              Autonomous playbooks // study
+            </span>
+          </div>
+          <h2 className="font-display font-black tracking-tight max-w-xl" style={{ fontSize: 'clamp(2rem, 4vw, 3.2rem)', lineHeight: 1.05, color: CREAM }}>
+            Pick a play. Watch the fleet take shape.
+          </h2>
+          <p className="font-sans max-w-sm mt-4 text-base md:text-lg" style={{ color: 'rgba(245,240,232,0.6)' }}>
+            High-level tactic in, live spatial picture out. Select a playbook and the mixed-domain
+            assets morph into formation — without losing the operator’s spatial context.
+          </p>
+
+          {/* playbook cards */}
+          <div className="pointer-events-auto mt-8 max-w-md space-y-2.5">
+            {PLAYS_META.map((p, i) => {
+              const sel = i === play
+              return (
+                <button
+                  key={p.code}
+                  onClick={() => selectPlay(i)}
+                  className="w-full text-left rounded-xl px-4 py-3.5 transition-all"
+                  style={{
+                    border: `1px solid ${sel ? 'rgba(245,166,35,0.55)' : 'rgba(245,240,232,0.14)'}`,
+                    backgroundColor: sel ? 'rgba(245,166,35,0.08)' : 'rgba(12,15,21,0.5)',
+                  }}
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.22em]" style={{ color: sel ? AMBER : 'rgba(245,240,232,0.4)' }}>{p.code}</span>
+                    <span className="font-mono text-[10px] tracking-[0.1em]" style={{ color: 'rgba(245,240,232,0.4)' }}>{p.assets} ASSETS</span>
+                  </div>
+                  <div className="font-display font-bold text-[15px] mt-1.5" style={{ color: CREAM }}>{p.name}</div>
+                  <div className="font-sans text-[13px] leading-snug mt-1" style={{ color: 'rgba(245,240,232,0.55)' }}>{p.tactic}</div>
+                </button>
+              )
+            })}
+          </div>
+
+          {/* telemetry strip */}
+          <div className="mt-8 max-w-md flex items-center gap-8 font-mono" style={{ borderTop: '1px solid rgba(245,240,232,0.12)', paddingTop: 14 }}>
+            <div>
+              <div className="text-[10px] uppercase tracking-[0.22em]" style={{ color: 'rgba(245,240,232,0.4)' }}>Domains</div>
+              <div className="text-[12px] tracking-[0.06em] mt-1" style={{ color: 'rgba(245,240,232,0.85)' }}>{meta.domains}</div>
+            </div>
+            <div>
+              <div className="text-[10px] uppercase tracking-[0.22em]" style={{ color: 'rgba(245,240,232,0.4)' }}>Links</div>
+              <div className="text-[12px] tracking-[0.06em] mt-1" style={{ color: 'rgba(245,240,232,0.85)' }}>{String(meta.links).padStart(2, '0')}</div>
+            </div>
+          </div>
+        </div>
+
+        {/* selected-asset detail panel */}
+        <AnimatePresence>
+          {sel && (
+            <motion.div
+              key={sel.id}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 16 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute z-30 right-6 md:right-14 lg:right-20"
+              style={{
+                bottom: 40, width: 248,
+                backgroundColor: 'rgba(12,15,21,0.72)',
+                border: '1px solid rgba(245,240,232,0.14)',
+                borderRadius: 14,
+                backdropFilter: 'blur(6px)',
+                WebkitBackdropFilter: 'blur(6px)',
+                boxShadow: '0 30px 70px -40px rgba(0,0,0,0.9)',
+              }}
+            >
+              <div className="flex items-center justify-between px-4 py-3" style={{ borderBottom: '1px solid rgba(245,240,232,0.1)' }}>
+                <span className="font-mono text-[11px] uppercase tracking-[0.2em]" style={{ color: ACCENT_LT }}>
+                  Asset // {sel.id}
+                </span>
+                <span
+                  className="inline-block w-1.5 h-1.5 rounded-full"
+                  style={{
+                    backgroundColor: sel.status === 'ACTIVE' ? AMBER : 'rgba(245,240,232,0.35)',
+                    boxShadow: sel.status === 'ACTIVE' ? `0 0 8px ${AMBER}` : 'none',
+                  }}
+                />
+              </div>
+              <div className="px-4 py-3 space-y-2.5">
+                {[
+                  ['Class', sel.cls],
+                  ['Domain', sel.domain],
+                  ['Status', sel.status],
+                  ['Links', String(sel.links).padStart(2, '0')],
+                ].map(([label, value]) => (
+                  <div key={label} className="flex items-center justify-between">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.2em]" style={{ color: 'rgba(245,240,232,0.4)' }}>{label}</span>
+                    <span className="font-mono text-[12px] tracking-[0.08em]" style={{ color: 'rgba(245,240,232,0.9)' }}>{value}</span>
+                  </div>
+                ))}
+              </div>
+              <div className="px-4 pb-3">
+                <span className="font-mono text-[9px] uppercase tracking-[0.2em]" style={{ color: 'rgba(245,240,232,0.3)' }}>
+                  Click empty space to deselect
+                </span>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* design rationale */}
+      <div className="relative z-10 px-6 md:px-14 lg:px-20 pb-8" style={{ borderTop: '1px solid rgba(245,240,232,0.08)' }}>
+        <div className="pt-16 max-w-3xl">
+          <span className="font-mono text-[11px] uppercase tracking-[0.22em]" style={{ color: ACCENT_LT }}>
+            The design problem
+          </span>
+          <h3 className="font-display text-2xl md:text-3xl font-bold mt-4" style={{ color: CREAM }}>
+            From a high-level decision to a live spatial picture
+          </h3>
+          <p className="font-sans text-base leading-relaxed mt-4" style={{ color: 'rgba(245,240,232,0.6)' }}>
+            An operator shouldn’t have to hand-place every asset. They choose intent — a play — and the
+            system composes the fleet. The design challenge is the transition: moving from an abstract menu
+            choice into a concrete 3D formation <em>without</em> a jarring cut that costs the operator their
+            spatial bearings. Here the assets morph in place and the link topology re-wires continuously, so
+            the map stays the same map — only the plan changes.
+          </p>
+        </div>
+      </div>
+
+      {/* how it was built */}
+      <div className="relative z-10 px-6 md:px-14 lg:px-20 pb-20">
+        <div className="pt-4 max-w-3xl">
+          <span className="font-mono text-[11px] uppercase tracking-[0.22em]" style={{ color: ACCENT_LT }}>
+            How it was built
+          </span>
+          <h3 className="font-display text-2xl md:text-3xl font-bold mt-4" style={{ color: CREAM }}>
+            A real-time 3D scene, driven by a tactic
+          </h3>
+          <p className="font-sans text-base leading-relaxed mt-4" style={{ color: 'rgba(245,240,232,0.6)' }}>
+            A custom Three.js scene built on React Three Fiber — no map or globe library. The terrain is a
+            generated height field, the fleet morphs procedurally between formations, and the link topology
+            re-draws itself every frame from the assets’ live positions.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-10">
+            {[
+              { label: 'Three.js / R3F', desc: 'A declarative WebGL scene composed in React Three Fiber.' },
+              { label: 'Procedural topography', desc: 'A height field of summed Gaussian hills, traced into contour lines with marching squares — real ridges, saddles and valleys.' },
+              { label: 'Formation morphing', desc: 'Each play defines target positions; assets interpolate toward them every frame, so switching plays animates rather than cuts.' },
+              { label: 'Live link topology', desc: 'Connection lines are recomputed from the assets’ current positions each frame and cross-fade as the active play changes.' },
+              { label: 'Domain as elevation', desc: 'Vertical position encodes domain — satellites in orbit, drones aloft, surface on the terrain, subsurface below.' },
+              { label: 'Lazy + paused', desc: 'The canvas mounts only when scrolled into view and pauses its frame loop when off-screen to keep the page light.' },
+            ].map((t) => (
+              <div key={t.label} className="flex flex-col gap-1.5">
+                <span className="font-mono text-[12px] tracking-[0.1em] font-semibold" style={{ color: CREAM }}>{t.label}</span>
+                <span className="font-sans text-sm leading-relaxed" style={{ color: 'rgba(245,240,232,0.5)' }}>{t.desc}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
@@ -629,6 +852,9 @@ export default function MotionLab() {
 
           {/* ── Orchestration globe ─────────────────────────────────── */}
           <OrchestrationSection />
+
+          {/* ── Autonomous playbook study ───────────────────────────── */}
+          <PlaybookSection />
 
           {/* ── Easing playground ──────────────────────────────────── */}
           <section className="mt-20 md:mt-28">

@@ -133,7 +133,7 @@ const PROJECTS = [
   {
     id: 'magic-signal',
     title: 'MagicSignal',
-    subtitle: 'From zero research to a shipped iOS app, every decision made with one eye on the user.',
+    subtitle: 'A product I designed, built, and shipped solo to iOS and Android.',
     href: '/magic-signal',
     image: '/images/magicSignal/ms-home-thumbnail.png',
   },

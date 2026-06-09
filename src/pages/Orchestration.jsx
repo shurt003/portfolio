@@ -1,7 +1,7 @@
 import { useEffect, useState, lazy, Suspense } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useNavTheme } from '../contexts/NavTheme'
-import { GLOBE_CONFIG, NODES_META } from '../components/OrchestrationSwarm'
+import { GLOBE_CONFIG, NODES_META } from '../components/orchestrationConfig'
 import OrchestrationHUD from '../components/OrchestrationHUD'
 
 const OrchestrationSwarm = lazy(() => import('../components/OrchestrationSwarm'))
