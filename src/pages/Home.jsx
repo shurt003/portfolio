@@ -1,4 +1,4 @@
-import { useEffect, useRef, lazy, Suspense } from 'react'
+import { useState, useEffect, useRef, lazy, Suspense } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
 import { useNavTheme } from '../contexts/NavTheme'
@@ -46,9 +46,15 @@ function Stat({ value, label }) {
 
 /* ── ProjectCard ─────────────────────────────────────────────────────── */
 function ProjectCard({ project, index }) {
+  const [hovered, setHovered] = useState(false)
   return (
     <FadeUp delay={index * 0.08}>
-      <Link to={project.href} className="group block">
+      <Link
+        to={project.href}
+        className="group block"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+      >
         <div className="relative rounded-2xl overflow-hidden mb-5 transition-transform duration-700 ease-out group-hover:scale-[1.04]" style={{ aspectRatio: '16/10' }}>
           {project.image
             ? <img src={project.image} alt={project.title} className="w-full h-full object-cover" loading="lazy" />
@@ -68,14 +74,33 @@ function ProjectCard({ project, index }) {
               {project.subtitle}
             </p>
           </div>
-          <div
-            className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-45 mt-1"
+          <motion.div
+            className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center mt-1"
             style={{ backgroundColor: INK }}
+            animate={{ scale: hovered ? 1.1 : 1 }}
+            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
           >
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-              <path d="M1 13L13 1M13 1H3M13 1V11" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </div>
+            <span style={{ position: 'relative', width: 14, height: 14, overflow: 'hidden', display: 'inline-block', flexShrink: 0 }}>
+              {/* Arrow 1 — exits toward top-right on hover */}
+              <motion.svg
+                width="14" height="14" viewBox="0 0 14 14" fill="none"
+                style={{ position: 'absolute', top: 0, left: 0 }}
+                animate={hovered ? { x: 17, y: -17 } : { x: 0, y: 0 }}
+                transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <path d="M1 13L13 1M13 1H3M13 1V11" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </motion.svg>
+              {/* Arrow 2 — enters from bottom-left on hover */}
+              <motion.svg
+                width="14" height="14" viewBox="0 0 14 14" fill="none"
+                style={{ position: 'absolute', top: 0, left: 0 }}
+                animate={hovered ? { x: 0, y: 0 } : { x: -17, y: 17 }}
+                transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <path d="M1 13L13 1M13 1H3M13 1V11" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </motion.svg>
+            </span>
+          </motion.div>
         </div>
       </Link>
     </FadeUp>
@@ -119,6 +144,8 @@ export default function Home() {
   const { setIsDark } = useNavTheme()
   const heroRef = useRef(null)
   const heroInView = useInView(heroRef, { once: true })
+  const [motionLabHovered, setMotionLabHovered] = useState(false)
+  const [aboutHovered, setAboutHovered] = useState(false)
 
   useEffect(() => {
     setIsDark(false)
@@ -242,13 +269,32 @@ export default function Home() {
                 <div>
                   <Link
                     to="/about"
-                    className="inline-flex items-center gap-2 font-sans text-sm font-medium px-6 py-3 rounded-full border transition-opacity duration-200 hover:opacity-80"
+                    className="inline-flex items-center gap-2 font-sans text-sm font-medium px-6 py-3 rounded-full border"
                     style={{ borderColor: 'rgba(255,255,255,0.25)', color: '#fff' }}
+                    onMouseEnter={() => setAboutHovered(true)}
+                    onMouseLeave={() => setAboutHovered(false)}
                   >
                     More about me
-                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                      <path d="M4 1L9 6L4 11" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
+                    <span style={{ position: 'relative', width: 12, height: 12, overflow: 'hidden', display: 'inline-block', flexShrink: 0 }}>
+                      {/* Arrow 1 — exits toward top-right on hover */}
+                      <motion.svg
+                        width="12" height="12" viewBox="0 0 12 12" fill="none"
+                        style={{ position: 'absolute', top: 0, left: 0 }}
+                        animate={aboutHovered ? { x: 15, y: -15 } : { x: 0, y: 0 }}
+                        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                      >
+                        <path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </motion.svg>
+                      {/* Arrow 2 — enters from bottom-left on hover */}
+                      <motion.svg
+                        width="12" height="12" viewBox="0 0 12 12" fill="none"
+                        style={{ position: 'absolute', top: 0, left: 0 }}
+                        animate={aboutHovered ? { x: 0, y: 0 } : { x: -15, y: 15 }}
+                        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                      >
+                        <path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </motion.svg>
+                    </span>
                   </Link>
                 </div>
               </div>
@@ -373,13 +419,32 @@ export default function Home() {
               </p>
               <Link
                 to="/motion-lab"
-                className="inline-flex items-center gap-2 font-sans text-sm font-medium px-7 py-3.5 rounded-full transition-opacity duration-200 hover:opacity-90"
+                className="inline-flex items-center gap-2 font-sans text-sm font-medium px-7 py-3.5 rounded-full"
                 style={{ backgroundColor: INK, color: '#fff' }}
+                onMouseEnter={() => setMotionLabHovered(true)}
+                onMouseLeave={() => setMotionLabHovered(false)}
               >
                 Explore Motion Lab
-                <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
-                  <path d="M1 12L12 1M12 1H3.5M12 1V9.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
+                <span style={{ position: 'relative', width: 13, height: 13, overflow: 'hidden', display: 'inline-block', flexShrink: 0 }}>
+                  {/* Arrow 1 — exits toward top-right on hover */}
+                  <motion.svg
+                    width="13" height="13" viewBox="0 0 13 13" fill="none"
+                    style={{ position: 'absolute', top: 0, left: 0 }}
+                    animate={motionLabHovered ? { x: 16, y: -16 } : { x: 0, y: 0 }}
+                    transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <path d="M1 12L12 1M12 1H3.5M12 1V9.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                  </motion.svg>
+                  {/* Arrow 2 — enters from bottom-left on hover */}
+                  <motion.svg
+                    width="13" height="13" viewBox="0 0 13 13" fill="none"
+                    style={{ position: 'absolute', top: 0, left: 0 }}
+                    animate={motionLabHovered ? { x: 0, y: 0 } : { x: -16, y: 16 }}
+                    transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    <path d="M1 12L12 1M12 1H3.5M12 1V9.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                  </motion.svg>
+                </span>
               </Link>
             </div>
 

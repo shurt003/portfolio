@@ -101,7 +101,12 @@
       "Bash(curl -sL \"https://cdn.fontshare.com/wf/BFBSY7LX5W2U2EROCLVVTQP4VS7S4PC3/IIUX4FGTMD2LK2VWD3RVTAS4SSMUN7B5/53RZKGODFYDW3QHTIL7IPOWTBCSUEZK7.woff2\" -o \"clash-display-700.woff2\")",
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(pandoc \"/Users/stephenhurt/Downloads/NODA AI - Product Design  .docx\" -o /tmp/noda_jd.md)",
+      "Bash(npm list *)",
+      "Bash(node build_resume.js)",
+      "Bash(mkdir -p /tmp/resume_build)",
+      "Bash(npm init *)"
     ]
   }
 }

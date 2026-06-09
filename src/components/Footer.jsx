@@ -1,8 +1,12 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { motion } from 'framer-motion'
 
 const BLUE = '#2B59C3'
 
 export default function Footer() {
+  const [emailHovered, setEmailHovered] = useState(false)
+
   return (
     <footer
       className="fixed bottom-0 inset-x-0 z-0 overflow-hidden"
@@ -28,13 +32,32 @@ export default function Footer() {
           <div className="flex flex-wrap gap-4">
             <a
               href="mailto:stephenchurt@gmail.com"
-              className="inline-flex items-center gap-2 font-sans text-sm font-medium px-8 py-4 rounded-full transition-opacity duration-200 hover:opacity-90"
+              className="inline-flex items-center gap-2 font-sans text-sm font-medium px-8 py-4 rounded-full"
               style={{ backgroundColor: BLUE, color: '#fff' }}
+              onMouseEnter={() => setEmailHovered(true)}
+              onMouseLeave={() => setEmailHovered(false)}
             >
               stephenchurt@gmail.com
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+              <span style={{ position: 'relative', width: 12, height: 12, overflow: 'hidden', display: 'inline-block', flexShrink: 0 }}>
+                {/* Arrow 1 — exits toward top-right on hover */}
+                <motion.svg
+                  width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  style={{ position: 'absolute', top: 0, left: 0 }}
+                  animate={emailHovered ? { x: 15, y: -15 } : { x: 0, y: 0 }}
+                  transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </motion.svg>
+                {/* Arrow 2 — enters from bottom-left on hover */}
+                <motion.svg
+                  width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  style={{ position: 'absolute', top: 0, left: 0 }}
+                  animate={emailHovered ? { x: 0, y: 0 } : { x: -15, y: 15 }}
+                  transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </motion.svg>
+              </span>
             </a>
             <a
               href="https://www.linkedin.com/in/schurt/"
