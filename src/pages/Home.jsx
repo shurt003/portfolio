@@ -451,7 +451,11 @@ export default function Home() {
             {/* Planet: duplicated from the Motion Lab page's gallery container
                 (rounded, no background box, native hover listener). Wrapped in a
                 Link so the visual still navigates to Motion Lab. */}
-            <Link to="/motion-lab" className="block rounded-2xl overflow-hidden" style={{ aspectRatio: '4 / 3' }}>
+            <Link
+              to="/motion-lab"
+              className="block"
+              style={{ aspectRatio: '4 / 3', clipPath: 'circle(closest-side at center)' }}
+            >
               <RivePiece src="/rive/FRCCGvUVJDSEuCuQL0XwNHnY5QQ.riv" artboard="planet remap" />
             </Link>
           </div>
