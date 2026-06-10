@@ -229,10 +229,10 @@ export default function Home() {
           className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
           initial={{ opacity: 0 }}
           animate={heroInView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.6, delay: 1.0 }}
+          transition={{ duration: 0.6, delay: 2.0 }}
           style={{ opacity: scrollIndicatorOpacity }}
         >
-          <div className="relative w-[2px] h-12 overflow-hidden" style={{ backgroundColor: 'rgba(28,35,34,0.15)' }}>
+          <div className="relative w-[2px] h-12 overflow-hidden" style={{ backgroundColor: 'transparent' }}>
             <motion.div
               className="absolute top-0 left-0 w-full"
               style={{ height: '40%', background: 'rgba(28,35,34,0.5)' }}
