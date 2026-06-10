@@ -720,7 +720,7 @@ export default function MotionLab() {
                 <em> feel</em> like. Most of the pieces below are live, so go ahead and play with them.
               </p>
               <p className="font-mono text-[11px] uppercase tracking-[0.2em] mt-8" style={{ color: 'rgba(245,240,232,0.32)' }}>
-                Rive · Framer Motion · After Effects · Lottie
+                Rive · Framer Motion · After Effects · Lottie · Three.js · React Three Fiber · Cinema 4D · WebGL
               </p>
             </motion.div>
 
