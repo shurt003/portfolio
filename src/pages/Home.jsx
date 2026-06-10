@@ -144,6 +144,8 @@ export default function Home() {
   const { setIsDark } = useNavTheme()
   const heroRef = useRef(null)
   const heroInView = useInView(heroRef, { once: true })
+  const { scrollY } = useScroll()
+  const scrollIndicatorOpacity = useTransform(scrollY, [0, 120], [1, 0])
   const [motionLabHovered, setMotionLabHovered] = useState(false)
   const [aboutHovered, setAboutHovered] = useState(false)
 
@@ -221,6 +223,24 @@ export default function Home() {
             <Stat value="12yr" label="Design career" />
           </motion.div>
         </div>
+
+        {/* ── Scroll indicator ─────────────────────────────────────── */}
+        <motion.div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+          initial={{ opacity: 0 }}
+          animate={heroInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 1.0 }}
+          style={{ opacity: scrollIndicatorOpacity }}
+        >
+          <div className="relative w-[2px] h-12 overflow-hidden" style={{ backgroundColor: 'rgba(28,35,34,0.15)' }}>
+            <motion.div
+              className="absolute top-0 left-0 w-full"
+              style={{ height: '40%', background: 'rgba(28,35,34,0.5)' }}
+              animate={{ y: ['0%', '250%'] }}
+              transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut', repeatDelay: 0.3 }}
+            />
+          </div>
+        </motion.div>
       </section>
 
       {/* ── Divider line ─────────────────────────────────────────────── */}
