@@ -6,15 +6,6 @@ import usePageMeta from '../hooks/usePageMeta'
 
 const projects = [
   {
-    href: '/design-system',
-    title: 'Q2 Component Library',
-    subtitle: 'Modernizing 40+ components across 5+ years of visual debt',
-    tags: ['Design System', 'Enterprise SaaS', 'Ongoing'],
-    impact: '20M+ users, with accessibility and visual consistency at scale',
-    accent: '#7B9EC7',
-    year: '2026',
-  },
-  {
     href: '/messaging-redesign',
     title: 'Secure Messaging Redesign',
     subtitle: 'Modernizing a Legacy Enterprise UI',
@@ -202,7 +193,6 @@ export default function Projects() {
     'Work by Stephen Hurt',
     'Selected product and UX design case studies by Stephen Hurt, spanning design systems, UX research, and interaction design for 20M+ banking users.'
   )
-  const [featured, ...rest] = projects
 
   return (
     <main className="min-h-screen bg-cream pt-28 pb-24 px-8 md:px-14">
@@ -228,8 +218,7 @@ export default function Projects() {
           animate="show"
           className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5"
         >
-          <FeaturedCard {...featured} />
-          {rest.map((p, i) => (
+          {projects.map((p, i) => (
             <ProjectCard key={p.href} {...p} index={i} />
           ))}
         </motion.div>
