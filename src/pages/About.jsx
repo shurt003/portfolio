@@ -13,7 +13,7 @@ const fadeUp = {
 }
 
 const STATS = [
-  { value: '22M+', label: 'People bank on the platforms I design' },
+  { value: '22M+', label: 'People bank on the platform I design' },
   { value: '500+', label: 'Financial institutions served' },
   { value: '10 yrs', label: 'In motion design before UX' },
 ]
@@ -73,7 +73,7 @@ export default function About() {
                 transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
                 className="font-sans text-lg md:text-xl text-ink/70 leading-relaxed mt-7 max-w-xl"
               >
-                A product designer at Q2, where 22 million people bank on the platforms I work on. I came to UX after
+                A product designer at Q2, where 22 million people bank on the platform I work on. I came to UX after
                 ten years in motion design, and that background left me with a strong instinct for where attention
                 goes. Everything since has been about building out the rest: research, design systems, accessibility,
                 and interfaces that stay clear under real complexity.
