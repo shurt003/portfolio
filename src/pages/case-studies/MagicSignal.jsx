@@ -315,7 +315,7 @@ export default function MagicSignal() {
                   Magic Signal inverted this. The primary surface is the synthesized verdict:
                   one sentence, one direction: bullish or bearish. The AI output, the options
                   data, the news context, all present, but subordinate. You read the verdict
-                  in under 5 seconds. You drill into sources if you want to.
+                  in under 30 seconds. You drill into sources if you want to.
                 </p>
                 <p className="font-sans text-base leading-relaxed">
                   The signal strength ring encodes confidence as a proportion. High certainty
@@ -444,7 +444,7 @@ export default function MagicSignal() {
                   {
                     num: '02',
                     title: 'One synthesized verdict',
-                    body: 'One sentence, one direction. The full GPT-4o output is available behind a tap, but the primary read takes under 5 seconds, designed specifically around the 4-8 hour action window.',
+                    body: 'One sentence, one direction. The full GPT-4o output is available behind a tap, but the primary read takes under 30 seconds, designed specifically around the 4-8 hour action window.',
                   },
                   {
                     num: '03',

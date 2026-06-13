@@ -12,7 +12,6 @@ import MotionLab from './pages/MotionLab'
 import Orchestration from './pages/Orchestration'
 import ConsumerDashboard from './pages/case-studies/ConsumerDashboard'
 import MessagingRedesign from './pages/case-studies/MessagingRedesign'
-import DesignSystem from './pages/case-studies/DesignSystem'
 import MagicSignal from './pages/case-studies/MagicSignal'
 import Validation from './pages/case-studies/Validation'
 import Interstitial from './pages/case-studies/Interstitial'
@@ -54,7 +53,6 @@ function AppContent() {
           <Route element={<CaseStudyGate />}>
             <Route path="/consumer-dashboard" element={<ConsumerDashboard />} />
             <Route path="/messaging-redesign" element={<MessagingRedesign />} />
-            <Route path="/design-system" element={<DesignSystem />} />
             <Route path="/magic-signal" element={<MagicSignal />} />
             <Route path="/validation" element={<Validation />} />
             <Route path="/interstitial" element={<Interstitial />} />
