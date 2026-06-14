@@ -7,7 +7,7 @@ import usePageMeta from '../../hooks/usePageMeta'
 const BG       = '#FAF7F2'
 const CARD     = '#FFFFFF'
 const SURFACE  = '#F0EDE5'
-const ACCENT   = '#1B4F8A'   // banking blue, matches Thrive platform tone
+const ACCENT   = '#1B4F8A'   // banking blue, matches Q2 platform tone
 const ACCENT_D = 'rgba(27,79,138,0.10)'
 const TEXT     = '#1C2322'
 const DIM      = 'rgba(28,35,34,0.70)'
@@ -489,7 +489,7 @@ export default function Validation() {
               {[
                 { label: 'Role',     value: 'Product Designer · built the evidence case (desk research + competitive audit) and created the test prototypes; partnered with a UX Researcher who designed and moderated the usability study. Drove the 2026 implementation and platform-wide rollout end-to-end' },
                 { label: 'Scope',    value: 'Desk research, usability study design, moderated sessions, analysis, stakeholder presentation, org-wide rollout' },
-                { label: 'Platform', value: 'Q2 / Thrive, desktop and mobile web' },
+                { label: 'Platform', value: 'Q2 online banking, desktop and mobile web' },
                 { label: 'Timeline', value: 'Research 2024 · dormant 2024-2026 · in development April 2026 · new platform standard May 2026' },
               ].map((item) => (
                 <div key={item.label}>
@@ -516,7 +516,7 @@ export default function Validation() {
                 </h2>
                 <div className="space-y-4 font-sans text-base leading-relaxed" style={{ color: DIM }}>
                   <p>
-                    Q2's Thrive platform was in the middle of UUX Next, a platform-wide initiative to modernize the UI. Most of the interface had been updated, but form error states remained on a legacy pattern: errors surfaced as a summary block at the top of the form after submission.
+                    Q2's online banking platform was in the middle of UUX Next, a platform-wide initiative to modernize the UI. The effort was still early and much of the interface remained on legacy patterns, form error states among them: errors surfaced as a summary block at the top of the form after submission.
                   </p>
                   <p>
                     This pattern, "Top of Form Validation," carried a known usability cost. Users had to read an error summary, remember which fields were affected, scroll to find them, and fix each one. The question was whether research would support switching to inline validation, and how to make that case with evidence rather than opinion.
@@ -643,7 +643,7 @@ export default function Validation() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
               <div>
                 <div className="rounded-2xl overflow-hidden border mb-3" style={{ borderColor: RULE }}>
-                  <img src="/images/validation/presentation/2.png" alt="Top of Form Validation, Thrive Funds Transfer desktop" className="w-full h-auto" loading="lazy" />
+                  <img src="/images/validation/presentation/2.png" alt="Top of Form Validation, Funds Transfer desktop" className="w-full h-auto" loading="lazy" />
                 </div>
                 <div className="flex items-start gap-3 px-1">
                   <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ backgroundColor: '#E8A0B0' }}>
@@ -657,7 +657,7 @@ export default function Validation() {
               </div>
               <div>
                 <div className="rounded-2xl overflow-hidden border mb-3" style={{ borderColor: RULE }}>
-                  <img src="/images/validation/presentation/3.png" alt="Inline Validation, Thrive Funds Transfer desktop" className="w-full h-auto" loading="lazy" />
+                  <img src="/images/validation/presentation/3.png" alt="Inline Validation, Funds Transfer desktop" className="w-full h-auto" loading="lazy" />
                 </div>
                 <div className="flex items-start gap-3 px-1">
                   <div className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5" style={{ backgroundColor: '#4CAF82' }}>
