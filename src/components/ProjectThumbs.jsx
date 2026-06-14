@@ -298,10 +298,8 @@ function InterstitialThumb({ accent }) {
 export default function ProjectThumb({ href, accent }) {
   const thumbs = {
     '/design-system':         DesignSystemThumb,
-    '/consumer-dashboard':    DashboardThumb,
     '/messaging-redesign':    MessagingThumb,
     '/magic-signal':          MagicSignalThumb,
-    '/claude-code':           ClaudeCodeThumb,
     '/validation':            ValidationDiagram,
     '/interstitial':          InterstitialThumb,
   }

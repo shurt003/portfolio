@@ -108,7 +108,18 @@
       "Bash(mkdir -p /tmp/resume_build)",
       "Bash(npm init *)",
       "mcp__Claude_in_Chrome__read_console_messages",
-      "Bash(npx -y acorn --ecma2022 --module --jsx src/pages/MotionLab.jsx)"
+      "Bash(npx -y acorn --ecma2022 --module --jsx src/pages/MotionLab.jsx)",
+      "Bash(sed -i '' '446,568d' src/pages/MotionLab.jsx)",
+      "Bash(sed -n '443,450p' src/pages/MotionLab.jsx)",
+      "Bash(sort -t'|' -k2 -h)",
+      "Bash(awk '{print $5, $9}')",
+      "Bash(git commit *)",
+      "mcp__visualize__read_me",
+      "mcp__visualize__show_widget",
+      "Bash(mkdir -p /Users/stephenhurt/Documents/portfolio-orphaned-images)",
+      "Bash(mv public/images/foodieatx public/images/laFitness /Users/stephenhurt/Documents/portfolio-orphaned-images/)",
+      "Read(//Users/stephenhurt/Documents/**)",
+      "Bash(echo \"exit: $?\")"
     ]
   }
 }

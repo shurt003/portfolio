@@ -9,13 +9,11 @@ import Projects from './pages/Projects'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import MotionLab from './pages/MotionLab'
-import Orchestration from './pages/Orchestration'
-import ConsumerDashboard from './pages/case-studies/ConsumerDashboard'
 import MessagingRedesign from './pages/case-studies/MessagingRedesign'
 import MagicSignal from './pages/case-studies/MagicSignal'
 import Validation from './pages/case-studies/Validation'
 import Interstitial from './pages/case-studies/Interstitial'
-import ClaudeCode from './pages/case-studies/ClaudeCode'
+import AlertsRedesign from './pages/case-studies/AlertsRedesign'
 import CaseStudyGate from './components/CaseStudyGate'
 
 // Footer height as a CSS custom property so the spacer and footer stay in sync
@@ -47,16 +45,13 @@ function AppContent() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/motion-lab" element={<MotionLab />} />
-          {/* Unlisted concept page (not linked in nav) */}
-          <Route path="/orchestration" element={<Orchestration />} />
           {/* Case studies sit behind a shared cosmetic password gate */}
           <Route element={<CaseStudyGate />}>
-            <Route path="/consumer-dashboard" element={<ConsumerDashboard />} />
             <Route path="/messaging-redesign" element={<MessagingRedesign />} />
             <Route path="/magic-signal" element={<MagicSignal />} />
             <Route path="/validation" element={<Validation />} />
             <Route path="/interstitial" element={<Interstitial />} />
-            <Route path="/claude-code" element={<ClaudeCode />} />
+            <Route path="/alerts-redesign" element={<AlertsRedesign />} />
           </Route>
         </Routes>
       </div>
