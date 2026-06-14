@@ -395,7 +395,7 @@ function LayoutShiftDiagram({ reservedSlot }) {
 export default function Validation() {
   usePageMeta(
     'Form Validation by Stephen Hurt',
-    'Building the evidence-based case for inline validation, then shipping it platform-wide across 9 form components with zero new accessibility code.'
+    'Building the evidence-based case for inline validation, then shipping it as the new platform standard across 9 form components with zero new accessibility code.'
   )
   const { scrollY } = useScroll()
   const bgY = useTransform(scrollY, [0, 800], ['0%', '-18%'])
@@ -429,7 +429,7 @@ export default function Validation() {
             transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
             className="flex flex-wrap gap-2 mb-7"
           >
-            {['UX Research', 'Usability Testing', 'Design Systems', 'Q2'].map((t) => (
+            {['UX Research', 'Prototyping', 'Design Systems', 'Q2'].map((t) => (
               <span
                 key={t}
                 className="font-sans text-xs px-3 py-1.5 rounded-full border"
@@ -457,7 +457,7 @@ export default function Validation() {
             className="font-sans text-lg leading-relaxed max-w-xl"
             style={{ color: 'rgba(250,247,242,0.78)' }}
           >
-            Made the research case for inline validation in 2024. Two years later, nine Tecton form components shipped and the change rolled out platform-wide. Here's how the same evidence finally moved through institutional inertia.
+            Made the research case for inline validation in 2024. Two years later, nine Tecton form components shipped and inline became the platform's new standard for form work. Here's how the same evidence finally moved through institutional inertia.
           </motion.p>
         </div>
       </section>
@@ -467,12 +467,12 @@ export default function Validation() {
       {/* ── TL;DR ──────────────────────────────────────────────────────── */}
       <CaseTLDR
         colors={{ text: TEXT, dim: DIM, accent: ACCENT, surface: CARD, rule: RULE }}
-        summary={`The case for inline validation was airtight, academic research, all seven major design systems, and a moderated study all agreed. But in 2024 the org timing wasn't there, so I filed it. Two years later I reopened it and shipped it platform-wide across nine form components in three weeks, reusing an existing component, so it needed zero new accessibility code.`}
+        summary={`The case for inline validation was airtight, academic research, all seven major design systems, and a moderated study all agreed. But in 2024 the org timing wasn't there, so I filed it. Two years later I reopened it and shipped it across nine form components in three weeks as the platform's new standard, reusing an existing component, so it needed zero new accessibility code.`}
         stats={[
           { value: '9', label: 'Tecton form components shipped' },
-          { value: '5/6', label: 'Customers preferred inline' },
+          { value: 'Majority', label: 'Of participants preferred inline' },
           { value: '7/7', label: 'Major design systems agree' },
-          { value: '0', label: 'New accessibility code required' },
+          { value: '0', label: 'New accessibility code at the component level' },
         ]}
       />
 
@@ -487,10 +487,10 @@ export default function Validation() {
           >
             <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
               {[
-                { label: 'Role',     value: 'UX Researcher & Designer · led the project end-to-end; collaborated with a second designer on production' },
+                { label: 'Role',     value: 'Product Designer · built the evidence case (desk research + competitive audit) and created the test prototypes; partnered with a UX Researcher who designed and moderated the usability study. Drove the 2026 implementation and platform-wide rollout end-to-end' },
                 { label: 'Scope',    value: 'Desk research, usability study design, moderated sessions, analysis, stakeholder presentation, org-wide rollout' },
                 { label: 'Platform', value: 'Q2 / Thrive, desktop and mobile web' },
-                { label: 'Timeline', value: 'Research 2024 · dormant 2024-2026 · in development April 2026 · platform-wide rollout May 2026' },
+                { label: 'Timeline', value: 'Research 2024 · dormant 2024-2026 · in development April 2026 · new platform standard May 2026' },
               ].map((item) => (
                 <div key={item.label}>
                   <p className="font-sans text-xs tracking-widest uppercase mb-2" style={{ color: DIMMER }}>{item.label}</p>
@@ -542,7 +542,7 @@ export default function Validation() {
                 >
                   <p className="font-sans text-xs uppercase tracking-widest mb-4" style={{ color: ERROR }}>The business stakes</p>
                   <p className="font-sans text-sm leading-relaxed" style={{ color: DIM }}>
-                    Q2 operates in a competitive enterprise SaaS market where UI quality directly influences deal outcomes. Prospective financial institutions evaluate multiple platforms before signing. An outdated UI doesn't just frustrate users. It signals to buyers that the technology behind it might also be behind. Top of Form Validation was one of the most visible examples of Q2's legacy patterns, and competitors were using it against us.
+                    Q2 operates in a competitive enterprise SaaS market where UI quality directly influences deal outcomes. Prospective financial institutions evaluate multiple platforms before signing. An outdated UI doesn't just frustrate users. It signals to buyers that the technology behind it might also be behind. In sales demos, prospects consistently heard from competitors that Q2's UI looked dated, feedback that reached us through sales and marketing. Top of Form Validation wasn't the only contributor, but to me it was one of the most glaring, and most fixable, examples of that legacy feel.
                   </p>
                 </div>
               </div>
@@ -710,7 +710,7 @@ export default function Validation() {
                   'Both, to test whether preference holds across complexity',
                 ]}
                 chose="Both, to test whether preference holds across complexity"
-                rationale="Top-of-form validation's cognitive cost scales with form length. If we only tested the short form, the legacy pattern would face its easiest test. Running both lets us check whether participants prefer inline regardless of form size, and the preference did hold across both. (In hindsight, a third even longer back-office form would have made the gap more visible, see Reflection.)"
+                rationale="Top-of-form validation's cognitive cost scales with form length. If we only tested the short form, the legacy pattern would face its easiest test. Running both, the short Funds Transfer form and the longer multi-field Online Banking Enrollment form, let us check whether participants prefer inline regardless of form size. The preference held across both, and was clearest on the longer form."
               />
             </div>
 
@@ -745,14 +745,14 @@ export default function Validation() {
               The research held. Users agreed.
             </h2>
             <p className="font-sans text-base leading-relaxed max-w-3xl mb-12" style={{ color: DIM }}>
-              Participants successfully cleared all errors in both variants, across Q2 select, Q2 input, and Q2 textarea components. Task completion was equivalent, which is meaningful context, not a null result. The Funds Transfer form is one of the shortest, most focused forms in the platform; top-of-form's cognitive cost scales with length, so this was the *least punishing* test for the legacy pattern. That users still found it more stressful and less clear is the finding, not the completion rate.
+              Participants successfully cleared all errors in both variants, across Q2 select, Q2 input, and Q2 textarea components. Task completion was equivalent on both forms, which is meaningful context, not a null result. The Funds Transfer form is one of the shortest in the platform, the least punishing test for top-of-form, and even there users found inline less stressful and clearer. On the longer Online Banking Enrollment form, where top-of-form's cognitive cost is highest, the preference for inline was clearest of all. That users found inline more comfortable even where the legacy pattern should perform best is the finding, not the completion rate.
             </p>
 
             <div className="rounded-2xl overflow-hidden border mb-4" style={{ borderColor: RULE }}>
-              <img src={RR(6)} alt="Quantitative metrics, SUS, task completion rate, and SUPR-Q scores" className="w-full h-auto" loading="lazy" />
+              <img src={RR(6)} alt="Quantitative metrics, SEQ, task completion rate, and VisAWI scores" className="w-full h-auto" loading="lazy" />
             </div>
             <p className="font-sans text-xs mb-12 leading-relaxed" style={{ color: DIMMER }}>
-              SUS, task completion rate, and SUPR-Q captured across both conditions. Where scores trended below benchmarks, participants framed this as the inherent friction of any error state, not a failure of either design.
+              SEQ, task completion rate, and VisAWI captured across both conditions. Where scores trended below benchmarks, participants framed this as the inherent friction of any error state, not a failure of either design.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
@@ -784,7 +784,7 @@ export default function Validation() {
               />
               <TakeawayCard
                 number={4}
-                text="The study used the shortest high-traffic form in the platform, the least punishing scenario for top-of-form. Longer back-office forms with more fields and higher error counts would expose the cognitive cost more starkly. Methodology critique I now own and would correct."
+                text="Testing both a short form (Funds Transfer) and a longer multi-field form (Online Banking Enrollment) mattered: top-of-form's cognitive cost scales with length, and the preference for inline was clearest on the longer form, exactly where the legacy pattern is most punishing."
               />
             </div>
           </motion.section>
@@ -824,7 +824,7 @@ export default function Validation() {
               Three independent sources lined up. The recommendation followed.
             </h2>
             <p className="font-sans text-base leading-relaxed max-w-3xl mb-12" style={{ color: DIM }}>
-              Academic evidence, industry precedent, and direct participant preference all aligned. The recommendation was to adopt inline validation as the platform standard and escalate the pattern to UUX Next for formal design system documentation.
+              Academic evidence, industry precedent, and direct participant preference all aligned. The recommendations were to adopt inline validation as the platform standard, add a confirmation page to the Funds Transfer flow, and clarify the transfer-date copy. The key next step: carry inline validation into UUX Next for formal design system documentation.
             </p>
 
             <div className="rounded-2xl overflow-hidden border mb-10" style={{ borderColor: RULE }}>
@@ -835,7 +835,7 @@ export default function Validation() {
               {[
                 { num: '01', title: 'Adopt inline validation', body: 'Move forward with inline validation for error display across all Q2 forms. The evidence, both theoretical and behavioral, supports this regardless of form length.' },
                 { num: '02', title: 'Add a confirmation page',  body: 'Add a confirmation page to the Funds Transfer flow. Participants expected to review transfer details before completing, a standard pattern missing from the current design.' },
-                { num: '03', title: 'Escalate to UUX Next',     body: 'Work with the design system team and engineering to formalize inline validation as a documented UUX Next pattern, applicable platform-wide, not just on Funds Transfer.' },
+                { num: '03', title: 'Clarify transfer-date copy',     body: 'Update the language around transfer dates so users understand when a transfer will actually process. Participants were unsure whether "today" meant same-day, and wanted the initiation date and anticipated processing date labeled clearly. (Refined during the report readout.)' },
               ].map((item) => (
                 <div key={item.num} className="bg-white rounded-2xl border p-6" style={{ borderColor: RULE }}>
                   <div className="font-display text-3xl font-bold leading-none mb-4" style={{ color: ACCENT + '28' }}>{item.num}</div>
@@ -848,7 +848,7 @@ export default function Validation() {
             <div className="flex flex-col sm:flex-row gap-4">
               <StatCard value="6"   label="Study participants" sub="Moderated remote Zoom sessions with banking customers" />
               <StatCard value="7/7" label="Design systems"     sub="Every major enterprise design system uses inline as the standard" />
-              <StatCard value="5/6" label="Preferred inline"   sub="Across both form lengths; preference strengthened with longer forms" />
+              <StatCard value="Majority" label="Preferred inline"   sub="Preference was clearest on the longer form; a couple had no preference on the short form" />
             </div>
           </motion.section>
 
@@ -899,7 +899,7 @@ export default function Validation() {
                 { date: 'April 2026',   label: 'Catalyst question',          detail: "An off-shoot brand designer asked why inline validation wasn't available in Tecton. The file reopened.",                       isActive: true,  isDim: false },
                 { date: 'April 2026',   label: 'Engineering alignment',      detail: 'Two presentations to the development team. Other designers brought in. Scope and approach aligned across the group.',         isActive: true,  isDim: false },
                 { date: 'April 2026',   label: 'In development',             detail: 'Added to sprint. All nine Tecton form components updated.',                                                                   isActive: true,  isDim: false },
-                { date: 'May 2026',     label: 'Platform-wide rollout',      detail: 'The update was presented to all Q2 designers. Each designer connected with their product team developers to audit and migrate their forms, extending the change beyond the 9 system components to every product area.', isActive: true, isDim: false },
+                { date: 'May 2026',     label: 'Shipped as the new standard',      detail: 'The update was presented to all Q2 designers and inline validation became the default for all new form work. Because customers upgrade Tecton on their own schedule, the change was built backwards-compatible and opt-in: release notes recommended switching, and designers could partner with their product-team developers to audit and migrate existing forms.', isActive: true, isDim: false },
               ].map((item, i, arr) => {
                 const borderClr = item.isDim ? 'rgba(28,35,34,0.08)' : item.isActive ? ACCENT + '55' : 'rgba(28,35,34,0.18)'
                 const dotBg     = item.isDim ? BG                    : item.isActive ? ACCENT        : SURFACE
@@ -975,7 +975,7 @@ export default function Validation() {
                     By reusing the component rather than building new, the ARIA wiring came with it. No new accessibility code at the component level.
                   </p>
                   <p>
-                    One documented exception: for very long or complex forms, Q2's developer documentation recommends also placing the standard non-inline Q2 Message variant at the top of the form on submission, indicating how many errors are present in total. The inline errors still appear on every field. The top-level message gives users of long forms a summary anchor before they begin correcting, without replacing the contextual inline errors that do the actual work.
+                    One documented exception, surfaced by a developer before implementation: for very long or complex forms, Q2's developer documentation recommends also placing the standard non-inline Q2 Message variant at the top of the form on submission, indicating how many errors are present in total. The inline errors still appear on every field. The top-level message gives users of long forms a summary anchor before they begin correcting, without replacing the contextual inline errors that do the actual work.
                   </p>
                 </div>
               </div>
@@ -1050,11 +1050,11 @@ export default function Validation() {
                 Since inline messages now appear below each field, the vertical gap between form fields becomes a deliberate design decision, not just a layout preference.
               </p>
               <p>
-                At very tight spacing values, an error message sits so close to the next field's label that users lose the visual association between the error and the field it belongs to. The team evaluated the Funds Transfer form, the same form used in the usability study, with all errors triggered simultaneously across six spacing values to establish a clear minimum recommendation.
+                At very tight spacing values, an error message sits so close to the next field's label that it can read as if it belongs to the field below rather than the one above. Customers can configure this spacing themselves, so the goal was to recommend a sensible default minimum. The team evaluated the Funds Transfer form, the same form used in the usability study, with all errors triggered simultaneously across six spacing values to land on that recommendation.
               </p>
               <p>
                 The recommendation: use a minimum of{' '}
-                <span className="font-semibold" style={{ color: TEXT }}>--app-scale-3x (15px)</span> between form fields. Below that threshold, the error message for one field is easily misread as the label for the field below it.
+                <span className="font-semibold" style={{ color: TEXT }}>--app-scale-3x (15px)</span> between form fields. Below that threshold, the error message for one field can start to read as the label for the field below it.
               </p>
             </div>
 
@@ -1069,7 +1069,7 @@ export default function Validation() {
                   </div>
                   <p className="font-sans text-sm leading-relaxed" style={{ color: DIM }}>
                     <span className="font-semibold" style={{ color: TEXT }}>--app-scale-1x (5px): </span>
-                    Error messages are indistinguishable from the next field's label. No clear visual association between error and field.
+                    At this spacing the error can read as if it belongs to the field below it, blurring the association between an error and its field.
                   </p>
                 </div>
               </div>
@@ -1136,7 +1136,7 @@ export default function Validation() {
               <code className="font-mono text-sm px-1.5 py-0.5 rounded" style={{ backgroundColor: SURFACE, color: ACCENT }}>aria-live</code>,{' '}
               <code className="font-mono text-sm px-1.5 py-0.5 rounded" style={{ backgroundColor: SURFACE, color: ACCENT }}>aria-invalid</code>, and{' '}
               <code className="font-mono text-sm px-1.5 py-0.5 rounded" style={{ backgroundColor: SURFACE, color: ACCENT }}>aria-describedby</code>{' '}
-              ) is inherited by the new inline variant without writing any new accessibility code. The patterns below describe what developers building forms with these components still need to implement correctly.
+              ) is inherited by the new inline variant without writing any new accessibility code at the component level. An accessibility designer then worked directly with the developers to verify the screen reader experience behaved as expected. The patterns below describe what developers building forms with these components still need to implement correctly.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
 
@@ -1212,9 +1212,6 @@ export default function Validation() {
                 </p>
                 <p>
                   If I were to run the study again, I'd push to instrument the post-launch state from day one: error rates by field, form abandonment after failed submission, support ticket volume. Q2 had no instrumentation on form abandonment after failed submission at the time of the study. I've flagged this as a follow-up measurement to establish the pre/post baseline, pairing the usability case with a business case that speaks the language of engineering prioritization.
-                </p>
-                <p>
-                  I'd also include a longer back-office form as a third task. The Funds Transfer form (short, focused, low field count) was the least demanding test scenario for top-of-form validation. The cognitive load penalty scales with form length, and Q2's back-office products use significantly more complex forms. Testing there would have made the performance gap more visible, and strengthened the case in exactly the product areas where the pattern change matters most.
                 </p>
               </div>
             </div>
