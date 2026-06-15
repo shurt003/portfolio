@@ -145,7 +145,7 @@ const STEPS = [
   {
     step: 'Step 1', title: 'Two variants: a simple mode and an advanced mode',
     body: 'My first instinct was to split the experience — a basic flow for casual users and an advanced one for power users. It worked on paper, but meant two parallel systems.',
-    imgs: [['step1-advanced-mode', 'Advanced mode — per-account alert list']],
+    imgs: [],
   },
   {
     step: 'Step 2', title: 'Collapse to a single, scalable experience',
@@ -410,18 +410,23 @@ export default function AlertsRedesign() {
         </motion.div>
 
         <div className="space-y-20">
-          {STEPS.map(({ step, title, body, imgs }) => (
-            <motion.div {...fadeUp} key={step} className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-              <div className="md:col-span-4">
-                <p className="font-mono text-[11px] tracking-[0.18em] uppercase mb-3" style={{ color: BLUE }}>{step}</p>
-                <h3 className="font-display text-xl md:text-2xl font-bold mb-3" style={{ color: INK }}>{title}</h3>
-                <p className="font-sans text-sm leading-relaxed">{body}</p>
-              </div>
-              <div className="md:col-span-8 space-y-6">
-                {imgs.map(([name, cap]) => <ImgSlot key={name} name={name} caption={cap} />)}
-              </div>
-            </motion.div>
-          ))}
+          {STEPS.map(({ step, title, body, imgs }) => {
+            const hasImgs = imgs.length > 0
+            return (
+              <motion.div {...fadeUp} key={step} className={`grid grid-cols-1 gap-8 items-start ${hasImgs ? 'md:grid-cols-12' : ''}`}>
+                <div className={hasImgs ? 'md:col-span-4' : 'max-w-3xl'}>
+                  <p className="font-mono text-[11px] tracking-[0.18em] uppercase mb-3" style={{ color: BLUE }}>{step}</p>
+                  <h3 className="font-display text-xl md:text-2xl font-bold mb-3" style={{ color: INK }}>{title}</h3>
+                  <p className="font-sans text-sm leading-relaxed">{body}</p>
+                </div>
+                {hasImgs && (
+                  <div className="md:col-span-8 space-y-6">
+                    {imgs.map(([name, cap]) => <ImgSlot key={name} name={name} caption={cap} />)}
+                  </div>
+                )}
+              </motion.div>
+            )
+          })}
         </div>
       </section>
 
