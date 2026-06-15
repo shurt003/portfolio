@@ -1190,9 +1190,9 @@ export default function MessagingRedesign() {
             </p>
 
             <div className="rounded-2xl border border-ink/10 bg-ink/[0.025] px-6 py-5 max-w-3xl mt-6">
-              <p className="font-sans text-xs uppercase tracking-widest text-ink/40 mb-2">A late copy decision</p>
+              <p className="font-sans text-xs uppercase tracking-widest text-ink/40 mb-2">A copy change driven by testing</p>
               <p className="font-sans text-sm text-ink/65 leading-relaxed">
-                Through design, the primary action read "New Message" (visible in the earlier wireframes). Shortly before handoff, the product owner and I changed the default label to "Contact Us." For a customer-to-bank channel, it states the intent more plainly than a generic compose verb. The label is customer-configurable, and "Contact Us" is simply the out-of-box default, which is why the shipped spec above shows it.
+                Through design, the primary action read "New Message" (visible in the earlier wireframes). Testing changed that. Two of six participants couldn't find the new-message button when asked to contact support, so before handoff the product owner and I changed the default label to "Contact Us." For a customer-to-bank channel it states the intent more plainly than a generic compose verb. The label is customer-configurable, and "Contact Us" is the out-of-box default, which is why the shipped spec above shows it.
               </p>
             </div>
           </CollapsibleSection>
