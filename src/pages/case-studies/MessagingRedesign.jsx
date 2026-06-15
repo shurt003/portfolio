@@ -1142,7 +1142,7 @@ export default function MessagingRedesign() {
                   <div className="bg-white rounded-2xl border border-ink/8 p-6">
                     <p className="font-sans text-sm font-semibold text-ink mb-2">Alerts were buried</p>
                     <p className="font-sans text-sm text-ink/60 leading-relaxed">
-                      Two of six participants opened the global menu before finding the Alerts tab, and several said they expected alerts to surface on the home screen rather than inside the inbox. A signal that high-importance alerts may need more prominent placement.
+                      Two of six participants opened the global menu before finding the Alerts tab, and several expected alerts to surface on the home screen rather than inside the inbox. The platform already has a lever for this: financial institutions control the tab order, so an FI can set Alerts as the default tab when prominence matters most.
                     </p>
                   </div>
                   <div className="bg-white rounded-2xl border border-ink/8 p-6">
