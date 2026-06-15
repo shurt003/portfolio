@@ -721,7 +721,7 @@ export default function MessagingRedesign() {
         summary={`Secure Messaging is one of the highest-trust channels between a bank and its customers, and it was one of the last screens still on a decade-old, email-style paradigm. I led the redesign to chat-style threading with compliance-safe alert separation and accessible unread states, grounded in competitive analysis and validated with banking customers, then shipped it on a platform serving 20M+ users with a directional 92.9 SUS from formative testing.`}
         stats={[
           { value: '92.9', label: 'SUS: excellent range (directional, n=6)' },
-          { value: '0', label: 'Task failures (formative test, n=6)' },
+          { value: '8/10', label: 'Tasks at 100% completion (n=6)' },
           { value: '20M+', label: 'Platform reach (Q2 total banking users)' },
         ]}
       />
@@ -1070,13 +1070,56 @@ export default function MessagingRedesign() {
                 <MetricCard
                   value="92.9"
                   label="SUS Score"
-                  sub="System Usability Scale - 'Excellent' range against industry benchmarks. Directional at n=6 (formative sample), not a powered estimate."
+                  sub="System Usability Scale - 92.92 average, 'Excellent' range (>80.3). 95% CI 81.6–100. Directional at n=6, not a powered estimate."
                 />
                 <MetricCard
                   value="6.1/7"
                   label="VisAWI Score"
-                  sub="Visual Aesthetics of Websites Inventory - strong alignment between design intent and user perception"
+                  sub="Visual Aesthetics of Websites Inventory - 6.1 average (95% CI 5.6–6.7), above Q2's internal threshold of 6."
                 />
+              </div>
+
+              {/* Per-task results — full breakdown from the readout */}
+              <div className="mb-10">
+                <p className="font-sans text-xs tracking-widest uppercase text-ink/40 mb-1">Per-task results</p>
+                <p className="font-sans text-sm text-ink/55 mb-4">Completion and single-ease (SEQ) across all 10 tasks, n=6</p>
+                <div className="overflow-hidden rounded-2xl border border-ink/10 bg-white">
+                  <table className="w-full text-left border-collapse">
+                    <thead>
+                      <tr className="bg-ink/[0.03]">
+                        <th className="font-sans text-[10px] uppercase tracking-widest text-ink/40 px-5 py-3">Task</th>
+                        <th className="font-sans text-[10px] uppercase tracking-widest text-ink/40 px-5 py-3">Completion</th>
+                        <th className="font-sans text-[10px] uppercase tracking-widest text-ink/40 px-5 py-3">SEQ (1–7)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {[
+                        ['1 — Go to inbox', '100%', '6.7'],
+                        ['2 — View the message', '100%', '6.8'],
+                        ['3 — Reply with an attachment', '100%', '7.0'],
+                        ['4 — Search for a message', '100%', '6.8'],
+                        ['5 — Delete the message', '100%', '6.8'],
+                        ['6 — View alerts (find the Alerts tab)', '66.7%', '5.2'],
+                        ['7 — Delete all alerts', '100%', '6.7'],
+                        ['8 — Delete a few messages', '100%', '6.3'],
+                        ['9 — Contact support (new-message button)', '66.7%', '5.5'],
+                        ['10 — Find drafts', '100%', '6.5'],
+                      ].map(([t, c, s], i) => {
+                        const miss = c !== '100%'
+                        return (
+                          <tr key={i} className="border-t border-ink/8">
+                            <td className="font-sans text-sm text-ink/75 px-5 py-3.5 align-top">{t}</td>
+                            <td className="font-sans text-sm font-semibold px-5 py-3.5 align-top" style={{ color: miss ? '#B7791F' : '#1C2322' }}>{c}</td>
+                            <td className="font-sans text-sm text-ink/60 px-5 py-3.5 align-top">{s}</td>
+                          </tr>
+                        )
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+                <p className="font-sans text-xs text-ink/40 mt-3 leading-relaxed">
+                  8 of 10 tasks reached 100% completion. The two that didn't were both findability tasks — locating the Alerts tab and the new-message button.
+                </p>
               </div>
 
               <div
@@ -1085,10 +1128,37 @@ export default function MessagingRedesign() {
               >
                 <p className="font-sans text-xs uppercase tracking-widest text-ink/40 mb-3">Validation Outcome</p>
                 <p className="font-display text-xl font-bold text-ink leading-snug mb-3">
-                  Across all six sessions, every task was completed without facilitator intervention - zero task failures in the formative round.
+                  Eight of the ten tasks hit 100% completion with no assistance. The two that fell to 66.7% were both findability tasks — locating the Alerts tab and the new-message button.
                 </p>
                 <p className="font-sans text-sm text-ink/60 leading-relaxed max-w-2xl">
                   The SUS score of 92.9 placed the redesign in the "Excellent" category, well above the 68-point industry average and the 80-point threshold commonly considered "good." The VisAWI score confirmed that visual improvements mapped directly to perceived credibility and trustworthiness, meaningful signals in a financial services context. The intention is to supplement this with a longitudinal follow-up study post-launch to validate whether the mental model holds for low-frequency users over time.
+                </p>
+              </div>
+
+              {/* What testing surfaced */}
+              <div className="mt-10">
+                <p className="font-sans text-xs tracking-widest uppercase text-ink/40 mb-4">What testing surfaced</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-white rounded-2xl border border-ink/8 p-6">
+                    <p className="font-sans text-sm font-semibold text-ink mb-2">Alerts were buried</p>
+                    <p className="font-sans text-sm text-ink/60 leading-relaxed">
+                      Two of six participants opened the global menu before finding the Alerts tab, and several said they expected alerts to surface on the home screen rather than inside the inbox - a signal that high-importance alerts may need more prominent placement.
+                    </p>
+                  </div>
+                  <div className="bg-white rounded-2xl border border-ink/8 p-6">
+                    <p className="font-sans text-sm font-semibold text-ink mb-2">"New Message" was hard to find</p>
+                    <p className="font-sans text-sm text-ink/60 leading-relaxed">
+                      When asked to contact support, two of six went to the menu instead of the new-message button. This directly informed the late decision to relabel the default action "Contact Us" - clearer intent for a customer-to-bank channel (see the handoff note below).
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Alternative alerts A/B */}
+              <div className="mt-4 bg-white rounded-2xl border border-ink/8 p-6">
+                <p className="font-sans text-sm font-semibold text-ink mb-2">Alert styling: an A/B the users settled</p>
+                <p className="font-sans text-sm text-ink/60 leading-relaxed max-w-3xl">
+                  The sessions also tested two versions of the Alerts tab - one with a warning-triangle icon on security and fraud alerts, one without. All six participants preferred the version with the icons. Without them, security alerts blended into routine notifications and didn't read as urgent; one participant said the icon-less version "almost looked like the Messages page." The icon variant shipped.
                 </p>
               </div>
             </section>
