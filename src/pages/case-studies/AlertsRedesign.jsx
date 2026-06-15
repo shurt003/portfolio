@@ -434,7 +434,7 @@ export default function AlertsRedesign() {
               One experience. Both extremes.
             </h2>
             <p className="font-sans text-base md:text-lg leading-relaxed max-w-3xl" style={{ color: 'rgba(255,255,255,0.75)' }}>
-              The same create-alert flow is designed to serve a customer with 3 accounts and a business managing 100+ — on every surface. Desktop carries the scale, mobile keeps it light. (As covered in the outcome below, the at-scale version is validated and ready to build, pending a batched API.)
+              The same create-alert flow is designed to serve a customer with 3 accounts and a business managing 100+. On desktop, it scales up for a commercial user and stays just as simple for a personal one. (As covered in the outcome below, the at-scale version is validated and ready to build, pending a batched API.)
             </p>
           </motion.div>
 
@@ -454,16 +454,15 @@ export default function AlertsRedesign() {
 
           <motion.div {...fadeUp} className="rounded-2xl p-6 md:p-8" style={{ backgroundColor: '#fff' }}>
             <div className="flex items-center gap-2 mb-2">
-              <Tag tone="blue">Mobile</Tag><Tag tone="teal">Stays simple</Tag>
+              <Tag tone="blue">Desktop</Tag><Tag tone="teal">Stays simple</Tag>
             </div>
             <h3 className="font-display text-2xl font-bold mb-2" style={{ color: INK }}>The personal user — just a few accounts</h3>
             <p className="font-sans text-sm leading-relaxed mb-6" style={{ color: BODY }}>
-              The identical flow, on a phone, with no learning curve — the same mental model, just scaled down. It shows the unified design never overwhelms a small user.
+              The same desktop experience, seen by someone with three accounts instead of a hundred. No filtering or bulk selection to wade through, just a short list and the same create flow. The unified design never gets heavy for a small user.
             </p>
-            <div className="grid grid-cols-3 gap-4">
-              <ImgSlot name="mobile-1" ratio="9 / 19" caption="Create alert" />
-              <ImgSlot name="mobile-2" ratio="9 / 19" caption="Select accounts" />
-              <ImgSlot name="mobile-3" ratio="9 / 19" caption="Review & apply" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <ImgSlot name="PersonalUserAlerts1" caption="Alert management with three accounts" />
+              <ImgSlot name="PersonalUserAlerts2" caption="The same create flow, selecting from a few accounts" />
             </div>
           </motion.div>
         </div>
