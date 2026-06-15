@@ -169,10 +169,18 @@ const STEPS = [
 ]
 
 const STATS = [
-  ['87.9', 'SUS Score', '“Excellent” · 95% CI 74.9–100'],
+  ['87.9', 'SUS Score', 'Directional, n=6 · “Excellent” range (95% CI 74.9–100)'],
   ['5.6 / 7', 'VisAWI', 'Visual aesthetics rating'],
-  ['100%', 'Task 2 completion', 'Editing an alert within a group'],
-  ['6.2', 'Top SEQ', 'Create a single alert (ease)'],
+  ['79%', 'Avg. task completion', 'Across all four tasks (66.7%–100%)'],
+  ['5.9 / 7', 'Avg. SEQ', 'Single-task ease across the four tasks'],
+]
+
+/* Per-task results from the readout — full breakdown, not just the highlights */
+const TASK_RESULTS = [
+  ['1', 'Create an alert group', '66.7%', '5.7'],
+  ['2', 'Edit one alert within a group', '100%', '5.7'],
+  ['3', 'Create a single alert', '83.3%', '6.2'],
+  ['4', 'Bulk edit a group', '66.7%', '6.0'],
 ]
 
 const TRIAGE = [
@@ -184,8 +192,9 @@ const TRIAGE = [
   ['ACCEPTED', 'Rename “Group Name” to “Alert Group Name”', 'LOW'],
   ['ACCEPTED', 'Make the accounts in the group-edit modal clearly clickable (or clearly not)', 'LOW'],
   ['ACCEPTED', 'Add tooltips to the single edit and delete buttons', 'LOW'],
+  ['ACCEPTED', 'Increase the duration of the toast notification and make it stand out more visually', 'LOW'],
   ['REJECTED', 'Explore other visual treatments for the “Create New Alert” button to make it stand out', 'HIGH'],
-  ['OPEN', 'Allow users to search for group names with the search function', 'MEDIUM'],
+  ['ACCEPTED', 'Allow users to search for group names with the search function', 'MEDIUM'],
 ]
 const STATUS_TONE = { ACCEPTED: 'teal', REJECTED: 'red', OPEN: 'amber' }
 const PRIORITY_TONE = { HIGH: 'red', MEDIUM: 'amber', LOW: 'blue' }
@@ -218,7 +227,7 @@ export default function AlertsRedesign() {
             {[
               ['Role', 'Lead Designer (+ 3 designers)'],
               ['Timeline', '3 months'],
-              ['Team', 'PO, Shared Features · Engineering'],
+              ['Team', 'PO, Shared Features · Engineering · UX Research'],
               ['Platform', 'Desktop-first (responsive)'],
             ].map(([k, v]) => (
               <div key={k}>
@@ -233,7 +242,7 @@ export default function AlertsRedesign() {
       {/* ── 02 OVERVIEW ──────────────────────────────────────────────────── */}
       <section className={`${wrap} pt-24`}>
         <motion.div {...fadeUp}>
-          <SectionLabel>02 — Overview</SectionLabel>
+          <SectionLabel>01 — Overview</SectionLabel>
           <h2 className="font-display font-black leading-tight mb-10" style={{ fontSize: 'clamp(2rem,4.5vw,3.4rem)', color: INK }}>
             Problem, goal, and who it’s for
           </h2>
@@ -286,12 +295,12 @@ export default function AlertsRedesign() {
       <section className="mt-24 py-24" style={{ backgroundColor: ALT_BG }}>
         <div className={wrap}>
           <motion.div {...fadeUp}>
-            <SectionLabel>03 — The Old Experience</SectionLabel>
+            <SectionLabel>02 — The Old Experience</SectionLabel>
             <h2 className="font-display font-black leading-tight mb-5" style={{ fontSize: 'clamp(2rem,4.5vw,3.4rem)', color: INK }}>
               One alert, one account, one at a time
             </h2>
             <p className="font-sans text-base leading-relaxed max-w-3xl mb-12">
-              The legacy “Thrive” experience forced users to set every alert individually, per account. There was no way to apply an alert across multiple accounts, and no bulk management of any kind — so a commercial user with dozens of accounts had to repeat the entire flow for each one.
+              Q2's legacy online banking experience forced users to set every alert individually, per account. There was no way to apply an alert across multiple accounts, and no bulk management of any kind — so a commercial user with dozens of accounts had to repeat the entire flow for each one.
             </p>
           </motion.div>
 
@@ -330,7 +339,7 @@ export default function AlertsRedesign() {
       {/* ── 04 COMPETITIVE RESEARCH ──────────────────────────────────────── */}
       <section className={`${wrap} py-24`}>
         <motion.div {...fadeUp}>
-          <SectionLabel>04 — Competitive Research</SectionLabel>
+          <SectionLabel>03 — Competitive Research</SectionLabel>
           <h2 className="font-display font-black leading-tight mb-5" style={{ fontSize: 'clamp(2rem,4.5vw,3.4rem)', color: INK }}>
             No bank had solved this — so I looked beyond banking
           </h2>
@@ -371,7 +380,7 @@ export default function AlertsRedesign() {
       <section className="py-24" style={{ backgroundColor: NAVY, color: '#fff' }}>
         <div className={wrap}>
           <motion.div {...fadeUp}>
-            <SectionLabel light>05 — Framing Questions</SectionLabel>
+            <SectionLabel light>04 — Framing Questions</SectionLabel>
             <h2 className="font-display font-black leading-tight mb-12" style={{ fontSize: 'clamp(2rem,4.5vw,3.4rem)' }}>
               The central tension
             </h2>
@@ -391,7 +400,7 @@ export default function AlertsRedesign() {
       {/* ── 06 EXPLORATIONS ──────────────────────────────────────────────── */}
       <section className={`${wrap} py-24`}>
         <motion.div {...fadeUp}>
-          <SectionLabel>06 — Explorations</SectionLabel>
+          <SectionLabel>05 — Explorations</SectionLabel>
           <h2 className="font-display font-black leading-tight mb-5" style={{ fontSize: 'clamp(2rem,4.5vw,3.4rem)', color: INK }}>
             Four decisions that shaped the design
           </h2>
@@ -420,12 +429,12 @@ export default function AlertsRedesign() {
       <section className="py-24" style={{ backgroundColor: NAVY, color: '#fff' }}>
         <div className={wrap}>
           <motion.div {...fadeUp} className="mb-16">
-            <SectionLabel light>07 — The Solution</SectionLabel>
+            <SectionLabel light>06 — The Solution</SectionLabel>
             <h2 className="font-display font-black leading-tight mb-5" style={{ fontSize: 'clamp(2.2rem,5vw,4rem)' }}>
               One experience. Both extremes.
             </h2>
             <p className="font-sans text-base md:text-lg leading-relaxed max-w-3xl" style={{ color: 'rgba(255,255,255,0.75)' }}>
-              The same create-alert flow serves a customer with 3 accounts and a business managing 100+ — on every surface. Desktop carries the scale; mobile proves it never gets heavy.
+              The same create-alert flow is designed to serve a customer with 3 accounts and a business managing 100+ — on every surface. Desktop carries the scale, mobile keeps it light. (As covered in the outcome below, the at-scale version is validated and ready to build, pending a batched API.)
             </p>
           </motion.div>
 
@@ -449,7 +458,7 @@ export default function AlertsRedesign() {
             </div>
             <h3 className="font-display text-2xl font-bold mb-2" style={{ color: INK }}>The personal user — just a few accounts</h3>
             <p className="font-sans text-sm leading-relaxed mb-6" style={{ color: BODY }}>
-              The identical flow, on a phone — no learning curve. Same mental model, scaled down. Proof the unified design never overwhelms the small user.
+              The identical flow, on a phone, with no learning curve — the same mental model, just scaled down. It shows the unified design never overwhelms a small user.
             </p>
             <div className="grid grid-cols-3 gap-4">
               <ImgSlot name="mobile-1" ratio="9 / 19" caption="Create alert" />
@@ -463,17 +472,46 @@ export default function AlertsRedesign() {
       {/* ── 08 VALIDATION ────────────────────────────────────────────────── */}
       <section className={`${wrap} py-24`}>
         <motion.div {...fadeUp}>
-          <SectionLabel>08 — Validation</SectionLabel>
+          <SectionLabel>07 — Validation</SectionLabel>
           <h2 className="font-display font-black leading-tight mb-5" style={{ fontSize: 'clamp(2rem,4.5vw,3.4rem)', color: INK }}>
             Testing it with both kinds of users
           </h2>
           <p className="font-sans text-base leading-relaxed max-w-3xl mb-10">
-            I ran remote usability sessions with 6 participants — 2 with fewer than 10 accounts and 4 commercial users with more than 10 — across four tasks: create an alert group, edit one alert within a group, create a single alert, and bulk-edit a group. Measured with SUS, SEQ, task completion, and VisAWI.
+            Our UX Researcher ran remote usability sessions with 6 participants — 2 with fewer than 10 accounts and 4 commercial users with more than 10 — across four tasks: create an alert group, edit one alert within a group, create a single alert, and bulk-edit a group. I observed the sessions and turned the findings into design changes. Measured with SUS, SEQ, task completion, and VisAWI.
           </p>
         </motion.div>
 
         <motion.div {...fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
           {STATS.map(([v, l, s]) => <StatCard key={l} value={v} label={l} sub={s} />)}
+        </motion.div>
+
+        <motion.div {...fadeUp} className="mb-10">
+          <p className="font-mono text-xs tracking-[0.2em] uppercase mb-4" style={{ color: MUTE }}>Per-task results</p>
+          <div className="overflow-hidden rounded-xl" style={{ border: `1px solid ${LINE}` }}>
+            <table className="w-full text-left border-collapse">
+              <thead>
+                <tr style={{ backgroundColor: ALT_BG }}>
+                  <th className="font-mono text-[10px] tracking-[0.16em] uppercase px-5 py-3" style={{ color: MUTE }}>Task</th>
+                  <th className="font-mono text-[10px] tracking-[0.16em] uppercase px-5 py-3" style={{ color: MUTE }}>Completion</th>
+                  <th className="font-mono text-[10px] tracking-[0.16em] uppercase px-5 py-3" style={{ color: MUTE }}>SEQ (ease, 1–7)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {TASK_RESULTS.map(([n, name, comp, seq]) => (
+                  <tr key={n} style={{ borderTop: `1px solid ${LINE}` }}>
+                    <td className="font-sans text-sm px-5 py-4 align-top" style={{ color: INK }}>
+                      <span className="font-semibold">Task {n}</span> — {name}
+                    </td>
+                    <td className="font-sans text-sm font-semibold px-5 py-4 align-top" style={{ color: INK }}>{comp}</td>
+                    <td className="font-sans text-sm px-5 py-4 align-top">{seq}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="font-sans text-xs mt-3 leading-relaxed" style={{ color: MUTE }}>
+            Completion across all four tasks, n=6. The two tasks at 66.7% both stemmed from the same thing — participants starting in “edit” before finding “Create New Alert” — which directly drove the fixes below.
+          </p>
         </motion.div>
 
         <motion.div {...fadeUp} className="mb-16">
@@ -485,7 +523,7 @@ export default function AlertsRedesign() {
             What testing told us to change
           </h3>
           <p className="font-sans text-base leading-relaxed max-w-3xl mb-8">
-            Beyond the scores, sessions surfaced concrete fixes. I triaged each by priority, then accepted or rejected it — 8 of 10 were adopted into the design.
+            Beyond the scores, sessions surfaced concrete fixes. I triaged each by priority, then accepted or rejected it — 10 of 11 were adopted into the design.
           </p>
           <div className="rounded-xl overflow-hidden" style={{ border: `1px solid ${LINE}` }}>
             {TRIAGE.map(([status, item, priority], i) => (
@@ -507,7 +545,7 @@ export default function AlertsRedesign() {
       <section className="py-24" style={{ backgroundColor: ALT_BG }}>
         <div className={wrap}>
           <motion.div {...fadeUp}>
-            <SectionLabel>09 — Outcome, Status & Reflection</SectionLabel>
+            <SectionLabel>08 — Outcome, Status & Reflection</SectionLabel>
             <h2 className="font-display font-black leading-tight mb-12" style={{ fontSize: 'clamp(2rem,4.5vw,3.4rem)', color: INK }}>
               Validated, then paused — and what it taught me
             </h2>
@@ -519,9 +557,9 @@ export default function AlertsRedesign() {
               Usability testing with 6 participants — 2 with fewer than 10 accounts and 4 commercial users with more than 10 — confirmed the unified design worked at both ends of the spectrum. The same flows that scaled to large portfolios stayed easy for small ones.
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <StatCard value="87.9" label="SUS Score" sub="“Excellent” · 95% CI 74.9–100" />
+              <StatCard value="87.9" label="SUS Score" sub="Directional, n=6 · “Excellent” range (95% CI 74.9–100)" />
               <StatCard value="5.6 / 7" label="VisAWI" sub="Visual aesthetics rating" />
-              <StatCard value="100%" label="Task 2 completion" sub="Editing an alert within a group" />
+              <StatCard value="79%" label="Avg. task completion" sub="Across all four tasks (66.7%–100%)" />
               <StatCard value="6" label="Participants" sub="2 personal · 4 commercial" />
             </div>
           </motion.div>
@@ -542,10 +580,10 @@ export default function AlertsRedesign() {
             <SectionLabel>Reflection</SectionLabel>
             <div className="space-y-4 max-w-3xl">
               <p className="font-sans text-base leading-relaxed">
-                The design is validated and ready to build once the API exists. The pause reinforced a lesson I carry forward: pressure-test the data model and infrastructure during exploration, not after.
+                The design is validated and ready to build once the API exists. The pause drove home something I'll carry forward: check the data model and infrastructure during exploration, not after.
               </p>
               <p className="font-sans text-base leading-relaxed">
-                The very capability that made this design valuable — define once, apply to many — carried the deepest backend implications. Involving engineering earlier, at the exploration stage rather than after testing, would have surfaced the constraint sooner and shaped the approach from the start.
+                The thing that made this design valuable — define once, apply to many — was also the thing with the biggest backend implications. Involving engineering earlier, during exploration rather than after testing, would have surfaced the constraint sooner and shaped the approach from the start.
               </p>
             </div>
           </motion.div>
