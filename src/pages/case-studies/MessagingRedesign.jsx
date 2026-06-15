@@ -1003,36 +1003,27 @@ export default function MessagingRedesign() {
                 </p>
               </div>
 
-              {/* Final screens grid: inbox (2 tabs) + message thread */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start mb-5">
-
-                {/* Inbox: Messages + Alerts tabs (takes 2 cols) */}
-                <div className="md:col-span-2 rounded-2xl overflow-hidden border border-ink/10">
+              {/* Final screens: desktop + mobile */}
+              <div className="space-y-4 mb-5">
+                <div className="rounded-2xl overflow-hidden border border-ink/10">
                   <img
-                    src="https://framerusercontent.com/images/N3pHw4bLRjpReT7DP12M1jb5zw.png"
-                    alt="High-fidelity inbox - Messages tab (left) and Alerts tab (right)"
+                    src="/images/SecureMessaging/desktopmessages.png"
+                    alt="Final desktop design: Secure Messaging inbox with the message list and a chat-style thread, plus the Contact Us action"
                     className="w-full h-auto"
                     loading="lazy"
                   />
                 </div>
-
-                {/* Final approved message thread: cropped to rightmost screen only */}
-                <div
-                  className="rounded-2xl overflow-hidden border border-ink/10"
-                  style={{ aspectRatio: '876/1864' }}
-                >
+                <div className="rounded-2xl overflow-hidden border border-ink/10">
                   <img
-                    src="https://framerusercontent.com/images/88YUQoETFOYmEKoNUaZzxipzI.png"
-                    alt="Final approved message thread design"
-                    className="w-full h-full"
-                    style={{ objectFit: 'cover', objectPosition: 'right center' }}
+                    src="/images/SecureMessaging/mobile11.png"
+                    alt="Final mobile design: Messages, Alerts, and Drafts tabs, the compose screen, and message threads"
+                    className="w-full h-auto"
                     loading="lazy"
                   />
                 </div>
-
               </div>
               <p className="font-sans text-xs text-ink/40 leading-relaxed mb-10">
-                Inbox: Messages tab and Alerts tab (left). Tabbed navigation replaces the legacy flat list; unread states use type-weight, not color alone. Message thread: final approved reply flow with chat-style layout and fully discoverable action affordances (right).
+                Final design, desktop (top) and mobile (bottom). Tabbed navigation separates Messages, Alerts, and Drafts; security alerts carry a warning icon so they stand out; unread states use type weight, not color alone; and the primary action reads "Contact Us."
               </p>
 
               <div className="rounded-2xl border border-ink/10 bg-ink/[0.025] px-6 py-5 max-w-3xl">
