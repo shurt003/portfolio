@@ -62,36 +62,6 @@ function MetricCard({ value, label, sub }) {
   )
 }
 
-// ─── Finding Card ─────────────────────────────────────────────────────────────
-function FindingCard({ number, heuristic, failure, severity }) {
-  const severityColor = {
-    Critical: '#E8A0B0',
-    Major: ACCENT,
-    Moderate: '#7B9EC7',
-  }[severity] || ACCENT
-
-  return (
-    <div className="bg-white rounded-2xl border border-ink/8 p-6">
-      <div className="flex items-start justify-between gap-3 mb-4">
-        <div
-          className="w-9 h-9 rounded-full flex items-center justify-center font-display font-bold text-white text-sm flex-shrink-0"
-          style={{ backgroundColor: severityColor }}
-        >
-          {number}
-        </div>
-        <span
-          className="font-sans text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full"
-          style={{ backgroundColor: severityColor + '20', color: severityColor }}
-        >
-          {severity}
-        </span>
-      </div>
-      <p className="font-sans text-[10px] uppercase tracking-widest text-ink/40 mb-1">{heuristic}</p>
-      <p className="font-sans text-sm text-ink/75 leading-relaxed">{failure}</p>
-    </div>
-  )
-}
-
 // ─── Decision Callout ─────────────────────────────────────────────────────────
 function DecisionCallout({ before, after, rationale }) {
   return (
@@ -136,9 +106,9 @@ function SendMessageFlow() {
     { id: 'attach_q',   x: 960,  y: 90,  w: 56,  h: 56, type: 'diamond', label: ['Attach','File?'] },
     { id: 'send',       x: 1120, y: 90,  w: 104, h: 36, type: 'term',    label: 'Send Message' },
     { id: 'attach',     x: 960,  y: 210, w: 104, h: 36, type: 'rect',    label: 'Attach File' },
-    { id: 'back',       x: 820,  y: 210, w: 68,  h: 30, type: 'term',    label: 'Back' },
-    { id: 'draft_q',    x: 200,  y: 210, w: 56,  h: 56, type: 'diamond', label: ['Save','Draft?'] },
-    { id: 'draft_saved',x: 350,  y: 210, w: 100, h: 36, type: 'rect',    label: 'Draft Saved' },
+    { id: 'back',       x: 865,  y: 210, w: 68,  h: 30, type: 'term',    label: 'Cancel' },
+    { id: 'draft_q',    x: 765,  y: 210, w: 56,  h: 56, type: 'diamond', label: ['Save','Draft?'] },
+    { id: 'draft_saved',x: 625,  y: 210, w: 100, h: 36, type: 'rect',    label: 'Draft Saved' },
   ]
   const nMap = Object.fromEntries(nodes.map(n => [n.id, n]))
   function rx(n) { return n.type === 'term' ? n.h / 2 : 6 }
@@ -266,28 +236,28 @@ function SendMessageFlow() {
           {...labelAnim(arrowDelay(6) + 0.2)}
         >No</motion.text>
 
-        {/* Branch: Inbox → Save Draft? */}
+        {/* Branch: Write Message → (Back) → Save Draft? */}
         <motion.line
-          x1={nMap.inbox.x} y1={nMap.inbox.y + nMap.inbox.h / 2}
+          x1={nMap.message.x} y1={nMap.message.y + nMap.message.h / 2}
           x2={nMap.draft_q.x} y2={nMap.draft_q.y - nMap.draft_q.h / 2}
           stroke="#1A1A1A" strokeWidth={1.5} strokeDasharray="4 3" markerEnd="url(#arr-send)"
           {...branchArrowAnim(branchStart + 0.05)}
         />
         <motion.text
-          x={nMap.inbox.x + 14}
-          y={(nMap.inbox.y + nMap.inbox.h / 2 + nMap.draft_q.y - nMap.draft_q.h / 2) / 2}
+          x={(nMap.message.x + nMap.draft_q.x) / 2 - 16}
+          y={(nMap.message.y + nMap.message.h / 2 + nMap.draft_q.y - nMap.draft_q.h / 2) / 2}
           style={edgeLabelStyle} {...labelAnim(branchStart + 0.25)}
-        >Save Draft?</motion.text>
+        >Back</motion.text>
 
-        {/* Branch: Save Draft? → Draft Saved */}
+        {/* Branch: Save Draft? → Draft Saved (points left) */}
         <motion.line
-          x1={nMap.draft_q.x + nMap.draft_q.w / 2} y1={nMap.draft_q.y}
-          x2={nMap.draft_saved.x - nMap.draft_saved.w / 2} y2={nMap.draft_saved.y}
+          x1={nMap.draft_q.x - nMap.draft_q.w / 2} y1={nMap.draft_q.y}
+          x2={nMap.draft_saved.x + nMap.draft_saved.w / 2} y2={nMap.draft_saved.y}
           stroke="#1A1A1A" strokeWidth={1.5} markerEnd="url(#arr-send)"
           {...branchArrowAnim(branchStart + 0.2)}
         />
         <motion.text
-          x={(nMap.draft_q.x + nMap.draft_q.w / 2 + nMap.draft_saved.x - nMap.draft_saved.w / 2) / 2}
+          x={(nMap.draft_q.x - nMap.draft_q.w / 2 + nMap.draft_saved.x + nMap.draft_saved.w / 2) / 2}
           y={nMap.draft_q.y - 10} style={edgeLabelStyle}
           {...labelAnim(branchStart + 0.35)}
         >Yes</motion.text>
@@ -351,10 +321,10 @@ function ReadReplyFlow() {
     { id: 'reply',      x: 635,  y: 90,  w: 104, h: 36, type: 'rect',    label: 'Write Reply' },
     { id: 'attach_q',   x: 790,  y: 90,  w: 56,  h: 56, type: 'diamond', label: ['Attach','File?'] },
     { id: 'send',       x: 950,  y: 90,  w: 104, h: 36, type: 'term',    label: 'Send Message' },
-    { id: 'attach',     x: 790,  y: 210, w: 104, h: 36, type: 'rect',    label: 'Attach File' },
-    { id: 'back',       x: 650,  y: 210, w: 68,  h: 30, type: 'term',    label: 'Back' },
-    { id: 'draft_q',    x: 200,  y: 210, w: 56,  h: 56, type: 'diamond', label: ['Save','Draft?'] },
-    { id: 'draft_saved',x: 350,  y: 210, w: 100, h: 36, type: 'rect',    label: 'Draft Saved' },
+    { id: 'attach',     x: 830,  y: 210, w: 104, h: 36, type: 'rect',    label: 'Attach File' },
+    { id: 'back',       x: 700,  y: 210, w: 68,  h: 30, type: 'term',    label: 'Cancel' },
+    { id: 'draft_q',    x: 600,  y: 210, w: 56,  h: 56, type: 'diamond', label: ['Save','Draft?'] },
+    { id: 'draft_saved',x: 460,  y: 210, w: 100, h: 36, type: 'rect',    label: 'Draft Saved' },
   ]
   const nMap = Object.fromEntries(nodes.map(n => [n.id, n]))
   function rx(n) { return n.type === 'term' ? n.h / 2 : 6 }
@@ -480,28 +450,28 @@ function ReadReplyFlow() {
           {...labelAnim(arrowDelay(5) + 0.2)}
         >No</motion.text>
 
-        {/* Branch: Inbox → Save Draft? */}
+        {/* Branch: Write Reply → (Back) → Save Draft? */}
         <motion.line
-          x1={nMap.inbox.x} y1={nMap.inbox.y + nMap.inbox.h / 2}
+          x1={nMap.reply.x} y1={nMap.reply.y + nMap.reply.h / 2}
           x2={nMap.draft_q.x} y2={nMap.draft_q.y - nMap.draft_q.h / 2}
           stroke="#1A1A1A" strokeWidth={1.5} strokeDasharray="4 3" markerEnd="url(#arr-rr)"
           {...branchArrowAnim(branchStart + 0.05)}
         />
         <motion.text
-          x={nMap.inbox.x + 14}
-          y={(nMap.inbox.y + nMap.inbox.h / 2 + nMap.draft_q.y - nMap.draft_q.h / 2) / 2}
+          x={(nMap.reply.x + nMap.draft_q.x) / 2 - 16}
+          y={(nMap.reply.y + nMap.reply.h / 2 + nMap.draft_q.y - nMap.draft_q.h / 2) / 2}
           style={edgeLabelStyle} {...labelAnim(branchStart + 0.25)}
-        >Save Draft?</motion.text>
+        >Back</motion.text>
 
-        {/* Branch: Save Draft? → Draft Saved */}
+        {/* Branch: Save Draft? → Draft Saved (points left) */}
         <motion.line
-          x1={nMap.draft_q.x + nMap.draft_q.w / 2} y1={nMap.draft_q.y}
-          x2={nMap.draft_saved.x - nMap.draft_saved.w / 2} y2={nMap.draft_saved.y}
+          x1={nMap.draft_q.x - nMap.draft_q.w / 2} y1={nMap.draft_q.y}
+          x2={nMap.draft_saved.x + nMap.draft_saved.w / 2} y2={nMap.draft_saved.y}
           stroke="#1A1A1A" strokeWidth={1.5} markerEnd="url(#arr-rr)"
           {...branchArrowAnim(branchStart + 0.2)}
         />
         <motion.text
-          x={(nMap.draft_q.x + nMap.draft_q.w / 2 + nMap.draft_saved.x - nMap.draft_saved.w / 2) / 2}
+          x={(nMap.draft_q.x - nMap.draft_q.w / 2 + nMap.draft_saved.x + nMap.draft_saved.w / 2) / 2}
           y={nMap.draft_q.y - 10} style={edgeLabelStyle}
           {...labelAnim(branchStart + 0.35)}
         >Yes</motion.text>
@@ -546,74 +516,17 @@ function ReadReplyFlow() {
 }
 
 // ─── Main ────────────────────────────────────────────────────────────────────
-// ─── Research Synthesis Map ───────────────────────────────────────────────────
-function ResearchSynthesisMap() {
-  const themes = [
-    {
-      label: 'Can\'t tell what\'s been read',
-      pct: 1.0,
-      quote: '"I open every message just to check if it\'s new. I can\'t tell from the list."',
-    },
-    {
-      label: 'Can\'t find where to reply',
-      pct: 0.88,
-      quote: '"I scrolled all the way down looking for a reply button. I gave up and called."',
-    },
-    {
-      label: 'Confused by email-style layout',
-      pct: 0.75,
-      quote: '"This feels like old email. I expected it to look like my texts."',
-    },
-    {
-      label: 'Alerts mixed with messages',
-      pct: 0.63,
-      quote: '"I missed a fraud alert because I thought it was a promotional message."',
-    },
-  ]
-  const W = 580, H = 280, PAD = 20, LABW = 188, BARX = LABW + PAD + 16, BARW = W - BARX - PAD - 56
-  return (
-    <div className="rounded-2xl border border-ink/10 bg-white overflow-hidden">
-      <div className="px-6 pt-5 pb-2 border-b border-ink/8" style={{ background: `${ACCENT}10` }}>
-        <p className="font-sans text-[10px] uppercase tracking-widest font-semibold text-ink/55">User Research - Theme Frequency</p>
-        <p className="font-sans text-xs text-ink/40 mt-0.5">Synthesized from moderated sessions with banking customers</p>
-      </div>
-      <svg viewBox={`0 0 ${W} ${H}`} style={{ width: '100%', height: 'auto', display: 'block' }}>
-        {themes.map((t, i) => {
-          const y = PAD + i * 58 + 24
-          const bw = BARW * t.pct
-          return (
-            <g key={i}>
-              <text x={LABW} y={y - 2} textAnchor="end"
-                fontFamily="system-ui,sans-serif" fontSize="11" fontWeight="600" fill="rgba(26,26,26,0.72)">{t.label}</text>
-              <rect x={BARX} y={y - 10} width={BARW} height={16} rx="4" fill="rgba(26,26,26,0.05)" />
-              <rect x={BARX} y={y - 10} width={bw} height={16} rx="4" fill={ACCENT} opacity="0.85" />
-              <text x={BARX + bw + 7} y={y + 2}
-                fontFamily="system-ui,sans-serif" fontSize="10" fontWeight="700" fill={ACCENT}>{Math.round(t.pct * 100)}%</text>
-              <text x={BARX} y={y + 20}
-                fontFamily="system-ui,sans-serif" fontSize="9.5" fontStyle="italic" fill="rgba(26,26,26,0.42)">{t.quote}</text>
-            </g>
-          )
-        })}
-        <text x={BARX} y={H - 8}
-          fontFamily="system-ui,sans-serif" fontSize="8.5" fill="rgba(26,26,26,0.28)">
-          Synthesized from moderated usability sessions · banking customer demographics · Q2 platform
-        </text>
-      </svg>
-    </div>
-  )
-}
-
 // ─── Competitive Analysis Matrix ──────────────────────────────────────────────
 function CompetitiveMatrix() {
   const apps = ['Legacy Q2', 'iMessage', 'Gmail', 'Slack', 'WhatsApp']
   const criteria = [
-    { label: 'Chat-style threading',         vals: [false, true,  true,  true,  true  ] },
+    { label: 'Chat-style threading',         vals: [false, true,  false, true,  true  ] },
     { label: 'Visible read/unread state',    vals: [false, true,  true,  true,  true  ] },
     { label: 'In-thread reply action',       vals: [false, true,  true,  true,  true  ] },
     { label: 'Alert / message separation',   vals: [false, false, true,  true,  false ] },
-    { label: 'Header-anchored compose',      vals: [false, false, true,  true,  false ] },
+    { label: 'Header-anchored compose',      vals: [false, true,  true,  true,  false ] },
     { label: 'Audit trail / compliance',     vals: [true,  false, false, false, false ] },
-    { label: 'Encrypted / secure channel',   vals: [true,  false, false, false, true  ] },
+    { label: 'Encrypted / secure channel',   vals: [true,  true,  false, false, true  ] },
   ]
   const COL = [120, 88, 88, 88, 88, 88]
   const totalW = COL.reduce((a, b) => a + b, 0) + 24
@@ -684,14 +597,14 @@ function KeyDesignDecisions() {
       title: 'Tabbed inbox: Messages / Alerts / Drafts',
       considered: 'Flat unified list, all message types in one view, filtered by date',
       chose: 'Three-tab navigation separating human messages, system alerts, and drafts',
-      why: 'Stakeholder interviews surfaced a compliance requirement that system-generated alerts (fraud notifications, account changes) carry a different legal status than human-initiated messages and must be acknowledged separately. The flat list was also the primary source of the "I missed a fraud alert" failure pattern. Tabs solve both problems, mental model clarity for users, and a defensible separation for audit purposes. The tab pattern also aligned with native platform conventions users already knew from Gmail and Slack.',
+      why: 'A known compliance constraint shaped this: system-generated alerts (fraud notifications, account changes) carry a different legal status than human-initiated messages and must be acknowledged separately. The flat list was also the primary source of the "I missed a fraud alert" failure pattern. Tabs solve both problems, mental model clarity for users, and a defensible separation for audit purposes. The tab pattern also aligned with native platform conventions users already knew from Gmail and Slack.',
     },
     {
       num: '02',
       title: 'Thread-based layout over email inbox metaphor',
       considered: 'Retain email-style inbox: subject line list → full message view',
       chose: 'Chat-style thread layout: message bubbles with persistent context and inline reply',
-      why: 'Competitive analysis against iMessage, WhatsApp, and Slack established that virtually all users have a deeply trained mental model around chat-style threading - texting is universal, not generational. The email-inbox metaphor felt foreign immediately, before any interaction. The heuristic evaluation flagged this as a Critical violation (H2: Match Between System and Real World). Threading also eliminated the hidden-actions problem, in a chat layout, reply and archive affordances have natural spatial homes that require no discovery.',
+      why: 'Competitive analysis against iMessage, WhatsApp, and Slack established that virtually all users have a deeply trained mental model around chat-style threading - texting is universal, not generational. The email-inbox metaphor felt foreign immediately, before any interaction - a clear mismatch between the system and the real-world model users carry. Threading also eliminated the hidden-actions problem, in a chat layout, reply and archive affordances have natural spatial homes that require no discovery.',
     },
     {
       num: '03',
@@ -729,215 +642,6 @@ function KeyDesignDecisions() {
   )
 }
 
-// ─── Before / After Heuristic Baseline ───────────────────────────────────────
-function HeuristicBaseline() {
-  const rows = [
-    { heuristic: 'H1 - Visibility of System Status', legacy: 'Critical', redesign: 'Resolved' },
-    { heuristic: 'H2 - Match: System & Real World',  legacy: 'Critical', redesign: 'Resolved' },
-    { heuristic: 'H3 - Recognition vs. Recall',      legacy: 'Major',    redesign: 'Resolved' },
-    { heuristic: 'H4 - Aesthetic & Minimalist Design',legacy: 'Major',    redesign: 'Resolved' },
-  ]
-  const sevColor = { Critical: '#E8A0B0', Major: ACCENT, Resolved: '#4CAF82' }
-  return (
-    <div className="rounded-2xl border border-ink/10 overflow-hidden bg-white">
-      <div className="grid grid-cols-3 bg-ink/[0.03] border-b border-ink/8">
-        {['Heuristic', 'Legacy State', 'Redesign'].map((h) => (
-          <div key={h} className="px-5 py-3">
-            <p className="font-sans text-[10px] uppercase tracking-widest text-ink/40 font-semibold">{h}</p>
-          </div>
-        ))}
-      </div>
-      {rows.map((r, i) => (
-        <div key={i} className={`grid grid-cols-3 border-b border-ink/6 ${i % 2 === 0 ? '' : 'bg-ink/[0.015]'}`}>
-          <div className="px-5 py-4">
-            <p className="font-sans text-sm text-ink/70">{r.heuristic}</p>
-          </div>
-          <div className="px-5 py-4 flex items-center">
-            <span className="font-sans text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full"
-              style={{ backgroundColor: sevColor[r.legacy] + '22', color: sevColor[r.legacy] }}>
-              {r.legacy}
-            </span>
-          </div>
-          <div className="px-5 py-4 flex items-center">
-            <span className="font-sans text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full"
-              style={{ backgroundColor: sevColor[r.redesign] + '22', color: sevColor[r.redesign] }}>
-              ✓ {r.redesign}
-            </span>
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-}
-
-// ─── Pattern Documentation ────────────────────────────────────────────────────
-function PatternDocumentation() {
-  const patterns = [
-    {
-      name: 'Tabbed Inbox Navigation',
-      usage: 'Any feature area with multiple message or notification types requiring distinct user intent',
-      rule: 'Separate human-initiated messages from system-generated alerts at the navigation level, never in a flat unified list',
-      where: 'Applied to: Secure Messaging. Structural reference for future inbox-style feature areas.',
-      color: ACCENT,
-    },
-    {
-      name: 'Contextual Action Menu (Long-Press)',
-      usage: 'List items where destructive or secondary actions (archive, delete, flag) exist',
-      rule: 'Surface contextual actions via long-press on the item itself, not in a separate action bar or hidden behind a "..." menu that requires discovery',
-      where: 'Applied to: Secure Messaging threads. A defined pattern for any list view where secondary actions exist.',
-      color: '#7B9EC7',
-    },
-    {
-      name: 'Header-Anchored Primary Action',
-      usage: 'List views with a single dominant "create new object" action',
-      rule: 'Anchor the compose/create action to the section header, not as a FAB. FABs create affordance ambiguity in list contexts (bulk action vs. new object)',
-      where: 'Applied to: Secure Messaging compose. Replaces the FAB pattern across list-based create flows.',
-      color: '#4CAF82',
-    },
-  ]
-  return (
-    <div className="space-y-4">
-      {patterns.map((p, i) => (
-        <div key={i} className="bg-white rounded-2xl border border-ink/8 overflow-hidden">
-          <div className="px-6 py-4 flex items-center gap-3" style={{ borderLeft: `4px solid ${p.color}` }}>
-            <div>
-              <p className="font-sans text-[10px] uppercase tracking-widest text-ink/40 mb-0.5">Pattern {i + 1}</p>
-              <p className="font-display text-base font-bold text-ink">{p.name}</p>
-            </div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-ink/6 border-t border-ink/6">
-            <div className="px-5 py-4">
-              <p className="font-sans text-[10px] uppercase tracking-widest text-ink/38 mb-2">When to use</p>
-              <p className="font-sans text-sm text-ink/62 leading-relaxed">{p.usage}</p>
-            </div>
-            <div className="px-5 py-4">
-              <p className="font-sans text-[10px] uppercase tracking-widest text-ink/38 mb-2">Design rule</p>
-              <p className="font-sans text-sm text-ink/62 leading-relaxed">{p.rule}</p>
-            </div>
-            <div className="px-5 py-4">
-              <p className="font-sans text-[10px] uppercase tracking-widest mb-2" style={{ color: p.color }}>Adopted in</p>
-              <p className="font-sans text-sm text-ink/62 leading-relaxed">{p.where}</p>
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-  )
-}
-
-// ─── Alert Detail Screen mockup ──────────────────────────────────────────────
-function AlertDetailScreen() {
-  const blue  = '#1565C0'
-  const dark  = '#1A1A1A'
-  const gray  = '#8E8E93'
-  const div   = '#E5E5EA'
-  const aBg   = '#FFF8F2'
-  const aStr  = '#C85000'
-  const nrBg  = '#F2F2F7'
-
-  return (
-    <svg viewBox="0 0 390 830" xmlns="http://www.w3.org/2000/svg" style={{ background: 'white', display: 'block', width: '100%', height: '100%' }}>
-      <rect width="390" height="830" fill="white"/>
-
-      {/* ── Status Bar ──────────────────────────────────────────────── */}
-      <text x="22" y="26" fontFamily="system-ui,-apple-system,sans-serif" fontSize="15" fontWeight="600" fill={dark}>9:41</text>
-      <rect x="155" y="9" width="80" height="24" rx="12" fill={dark}/>
-      <rect x="318" y="21" width="3" height="6"  rx="1" fill={dark}/>
-      <rect x="323" y="19" width="3" height="8"  rx="1" fill={dark}/>
-      <rect x="328" y="16" width="3" height="11" rx="1" fill={dark}/>
-      <rect x="333" y="14" width="3" height="13" rx="1" fill={dark}/>
-      <circle cx="350" cy="27" r="2" fill={dark}/>
-      <path d="M345.5 23.5 Q350 19 354.5 23.5" stroke={dark} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-      <path d="M342 20.5 Q350 14 358 20.5"     stroke={dark} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-      <rect x="363" y="16" width="22" height="12" rx="3" stroke={dark} strokeWidth="1.5" fill="none"/>
-      <rect x="386" y="19.5" width="2.5" height="5" rx="1.25" fill={dark}/>
-      <rect x="364.5" y="17.5" width="16" height="9" rx="1.5" fill={dark}/>
-
-      {/* ── Back Navigation ─────────────────────────────────────────── */}
-      <path d="M15 57 L10 63 L15 69" stroke={blue} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-      <text x="23" y="67" fontFamily="system-ui,-apple-system,sans-serif" fontSize="16" fill={blue}>Back to Inbox</text>
-
-      {/* ── Title ───────────────────────────────────────────────────── */}
-      <text x="16" y="107" fontFamily="system-ui,-apple-system,sans-serif" fontSize="34" fontWeight="700" fill={dark}>Alert</text>
-
-      {/* ── Subject + Trash ─────────────────────────────────────────── */}
-      <text x="16" y="136" fontFamily="system-ui,-apple-system,sans-serif" fontSize="16" fontWeight="600" fill={dark}>Security Alert: Password Changed</text>
-      <line x1="362" y1="123" x2="375" y2="123" stroke={gray} strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M364 123 L364.5 135 Q364.5 137 366.5 137 L370.5 137 Q372.5 137 372.5 135 L373 123" stroke={gray} strokeWidth="1.5" fill="none" strokeLinejoin="round"/>
-      <path d="M366 121 L366 119 Q366 118 367 118 L370 118 Q371 118 371 119 L371 121" stroke={gray} strokeWidth="1.5" fill="none"/>
-
-      {/* ── Date ────────────────────────────────────────────────────── */}
-      <text x="16" y="156" fontFamily="system-ui,-apple-system,sans-serif" fontSize="13" fill={gray}>Created 1/25/2024</text>
-
-      {/* ── Divider 1 ───────────────────────────────────────────────── */}
-      <line x1="0" y1="170" x2="390" y2="170" stroke={div} strokeWidth="1"/>
-
-      {/* ── Alert Source Header ─────────────────────────────────────── */}
-      <path d="M30 213 L38 197 L46 213 Z" fill={aBg} stroke={aStr} strokeWidth="1.5" strokeLinejoin="round"/>
-      <line x1="38" y1="203" x2="38" y2="208" stroke={aStr} strokeWidth="1.5" strokeLinecap="round"/>
-      <circle cx="38" cy="211" r="1" fill={aStr}/>
-      <text x="56" y="203" fontFamily="system-ui,-apple-system,sans-serif" fontSize="14" fontWeight="600" fill={dark}>Security Alerts: Do Not Reply</text>
-      <text x="56" y="219" fontFamily="system-ui,-apple-system,sans-serif" fontSize="13" fill={gray}>Automated Notification · 1/25/2024</text>
-
-      {/* ── Divider 2 ───────────────────────────────────────────────── */}
-      <line x1="16" y1="235" x2="374" y2="235" stroke={div} strokeWidth="0.5"/>
-
-      {/* ── Alert Body ──────────────────────────────────────────────── */}
-      <text fontFamily="system-ui,-apple-system,sans-serif" fontSize="15" fill={dark}>
-        <tspan x="16" y="263">Your account password was successfully</tspan>
-        <tspan x="16" dy="24">changed on Jan 25, 2024 at 9:41 AM.</tspan>
-        <tspan x="16" dy="40">If you made this change, no further</tspan>
-        <tspan x="16" dy="24">action is required.</tspan>
-        <tspan x="16" dy="40">If you did not make this change, contact</tspan>
-        <tspan x="16" dy="24">your bank immediately by calling the</tspan>
-        <tspan x="16" dy="24">number on the back of your card, or</tspan>
-        <tspan x="16" dy="24">by sending a message from your inbox.</tspan>
-        <tspan x="16" dy="40">For your security, we will never ask for</tspan>
-        <tspan x="16" dy="24">your password or PIN via this channel.</tspan>
-      </text>
-
-      {/* ── No-Reply Notice ─────────────────────────────────────────── */}
-      <rect x="16" y="632" width="358" height="58" rx="10" fill={nrBg}/>
-      <circle cx="36" cy="661" r="9" fill={gray} opacity="0.2"/>
-      <text x="36" y="666" textAnchor="middle" fontFamily="system-ui,-apple-system,sans-serif" fontSize="12" fontWeight="700" fill={gray}>i</text>
-      <text fontFamily="system-ui,-apple-system,sans-serif" fontSize="12" fill={gray}>
-        <tspan x="52" y="655">This is an automated notification.</tspan>
-        <tspan x="52" dy="17">You cannot reply to this alert.</tspan>
-      </text>
-
-      {/* ── Bottom Navigation ───────────────────────────────────────── */}
-      <line x1="0" y1="760" x2="390" y2="760" stroke={div} strokeWidth="1"/>
-      <rect x="0" y="760" width="390" height="70" fill="white"/>
-
-      {/* HOME x=39 */}
-      <path d="M31 799 L39 791 L47 799 L47 806 L43 806 L43 799.5 L35 799.5 L35 806 L31 806 Z" stroke={gray} strokeWidth="1.5" fill="none" strokeLinejoin="round"/>
-      <text x="39" y="821" textAnchor="middle" fontFamily="system-ui,-apple-system,sans-serif" fontSize="10" fill={gray}>HOME</text>
-
-      {/* TRANSFER x=117 */}
-      <path d="M111 793 L117 787 L123 793" stroke={gray} strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-      <line x1="117" y1="787" x2="117" y2="801" stroke={gray} strokeWidth="1.5" strokeLinecap="round"/>
-      <path d="M111 802 L117 808 L123 802" stroke={gray} strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-      <text x="117" y="821" textAnchor="middle" fontFamily="system-ui,-apple-system,sans-serif" fontSize="10" fill={gray}>TRANSFER</text>
-
-      {/* DEPOSIT CHECK x=195 */}
-      <rect x="187" y="789" width="16" height="12" rx="2" stroke={gray} strokeWidth="1.5" fill="none"/>
-      <path d="M190 795 L193 799 L200 792" stroke={gray} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
-      <text x="195" y="813" textAnchor="middle" fontFamily="system-ui,-apple-system,sans-serif" fontSize="9.5" fill={gray}>DEPOSIT</text>
-      <text x="195" y="823" textAnchor="middle" fontFamily="system-ui,-apple-system,sans-serif" fontSize="9.5" fill={gray}>CHECK</text>
-
-      {/* INBOX x=273, active blue */}
-      <rect x="265" y="789" width="16" height="12" rx="2" stroke={blue} strokeWidth="1.5" fill="none"/>
-      <path d="M265 795 L273 801 L281 795" stroke={blue} strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-      <text x="273" y="821" textAnchor="middle" fontFamily="system-ui,-apple-system,sans-serif" fontSize="10" fontWeight="600" fill={blue}>INBOX</text>
-
-      {/* MENU x=351 */}
-      <line x1="344" y1="792" x2="358" y2="792" stroke={gray} strokeWidth="1.5" strokeLinecap="round"/>
-      <line x1="344" y1="797" x2="358" y2="797" stroke={gray} strokeWidth="1.5" strokeLinecap="round"/>
-      <line x1="344" y1="802" x2="358" y2="802" stroke={gray} strokeWidth="1.5" strokeLinecap="round"/>
-      <text x="351" y="821" textAnchor="middle" fontFamily="system-ui,-apple-system,sans-serif" fontSize="10" fill={gray}>MENU</text>
-    </svg>
-  )
-}
 
 export default function MessagingRedesign() {
   usePageMeta(
@@ -1003,7 +707,7 @@ export default function MessagingRedesign() {
             className="font-sans text-lg leading-relaxed max-w-xl"
             style={{ color: 'rgba(245,240,232,0.65)' }}
           >
-            Redesigning the primary trust channel in Q2's mobile banking platform, improving usability and visual quality across 20M+ users as part of a platform-wide modernization initiative.
+            Redesigning the primary trust channel in Q2's mobile banking platform, improving usability and visual quality on a platform serving 20M+ users as part of a platform-wide modernization initiative.
           </motion.p>
         </div>
       </section>
@@ -1014,12 +718,11 @@ export default function MessagingRedesign() {
       {/* ── TL;DR ────────────────────────────────────────────────────────── */}
       <CaseTLDR
         colors={{ text: '#1C2322', dim: 'rgba(28,35,34,0.6)', accent: '#8A6D1A', surface: '#FFFFFF', rule: 'rgba(28,35,34,0.1)' }}
-        summary={`Secure Messaging is a bank's primary trust surface, and it was the last high-traffic screen still on a decade-old, email-style paradigm. I led the research and redesign to chat-style threading with compliance-safe alert separation and accessible unread states, then shipped to 20M+ users and validated at a 92.9 SUS, the top 4% of scores.`}
+        summary={`Secure Messaging is a bank's primary trust surface, and it was one of the last screens still on a decade-old, email-style paradigm. I led the redesign to chat-style threading with compliance-safe alert separation and accessible unread states, grounded in competitive analysis and validated with banking customers, then shipped it on a platform serving 20M+ users with a directional 92.9 SUS from formative testing.`}
         stats={[
-          { value: '92.9', label: 'SUS score: excellent, top 4%' },
-          { value: '0', label: 'Task failures across 10 scenarios' },
-          { value: '20M+', label: 'Banking users on the shipped surface' },
-          { value: '3', label: 'Patterns documented into the system' },
+          { value: '92.9', label: 'SUS: excellent range (directional, n=6)' },
+          { value: '0', label: 'Task failures (formative test, n=6)' },
+          { value: '20M+', label: 'Platform reach (Q2 total banking users)' },
         ]}
       />
 
@@ -1029,10 +732,10 @@ export default function MessagingRedesign() {
           <FadeIn>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
               {[
-                { label: 'Role', value: 'Lead Product Designer - sole designer on the feature' },
-                { label: 'Scope', value: 'Heuristic evaluation, IA, UX, UI, prototyping, dev handoff' },
+                { label: 'Role', value: 'Lead Product Designer - sole designer on the feature; partnered with a UX Researcher who moderated the usability study' },
+                { label: 'Scope', value: 'Competitive analysis, IA, UX, UI, prototyping, dev handoff' },
                 { label: 'Platform', value: 'iOS & Android (mobile-first, responsive web parity)' },
-                { label: 'Outcome', value: 'SUS 92.9 · VisAWI 6.1/7 · Shipped to 20M+ users' },
+                { label: 'Outcome', value: 'SUS 92.9 · VisAWI 6.1/7 (directional, n=6) · Shipped on a platform serving 20M+ users' },
               ].map((item) => (
                 <div key={item.label}>
                   <p className="font-sans text-xs tracking-widest uppercase text-ink/40 mb-2">{item.label}</p>
@@ -1059,7 +762,7 @@ export default function MessagingRedesign() {
                   In financial services, secure messaging sits at the intersection of customer support, compliance, and trust. It's where users escalate concerns, dispute transactions, and seek guidance on sensitive account matters. Done poorly, it erodes confidence in the institution. Done well, it becomes a competitive differentiator.
                 </p>
                 <p>
-                  Q2's platform was undergoing a large-scale modernization, moving from a legacy component library to a cohesive, modern design system. Secure Messaging was one of the last high-traffic surfaces still running on the old paradigm, creating visible inconsistency for the 20M+ users who encountered it regularly. This redesign was both a usability imperative and a design system alignment exercise.
+                  Q2's platform was undergoing a large-scale modernization, moving from a legacy component library to a cohesive, modern design system. Secure Messaging was one of the last surfaces still running on the old paradigm, creating visible inconsistency on a platform serving 20M+ users. This redesign was both a usability imperative and a design system alignment exercise.
                 </p>
               </div>
 
@@ -1111,16 +814,16 @@ export default function MessagingRedesign() {
                       body: 'Virtually every user expects chat-style threading. Texting is universal. The email-inbox paradigm felt archaic and created immediate orientation confusion regardless of age.',
                     },
                     {
-                      label: 'Hidden message actions',
-                      body: 'Reply, archive, and delete were not discoverable from the thread view. Users could not complete core tasks without guidance.',
+                      label: 'Inbox and compose share one screen',
+                      body: 'The message list and new-message creation lived on the same screen by default. The compose form was always present, so there was no dedicated "New Message" action and no clean inbox to scan or triage. Reading and composing were never separated.',
                     },
                     {
-                      label: 'Broken visual hierarchy',
-                      body: 'Flat typography and uniform spacing made scanning impossible. Unread states were visually indistinguishable at a glance.',
+                      label: 'Confusing labels and controls',
+                      body: 'The screen was labeled "Conversations" rather than the expected "Inbox," and a "Delete multiple" control sat above the list with no clear purpose or context. Unread messages were hard to distinguish from read ones at a glance.',
                     },
                     {
                       label: 'Platform design debt',
-                      body: 'Inconsistent with every other modernized surface in the app, compounding distrust and increasing perceived complexity.',
+                      body: 'Inconsistent with every other modernized surface in the app. When a screen looks this dated, users assume the technology behind it is just as old, undermining confidence in an otherwise modern platform.',
                     },
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-4 bg-white rounded-xl border border-ink/8 p-5">
@@ -1144,21 +847,16 @@ export default function MessagingRedesign() {
           {/* ── 03 Research Approach ──────────────────────────────────────── */}
           <CollapsibleSection
             sectionLabel="03 - Research Approach"
-            title="Multi-method research to triangulate failure modes before prescribing solutions"
+            title="Grounding the redesign in competitor patterns and the existing flows"
           >
             <div className="font-sans text-base text-ink/70 leading-relaxed space-y-4 max-w-3xl mb-10">
               <p>
-                Rather than relying on intuition or jumping to redesign, I ran a structured discovery sprint using four complementary methods. The goal was to identify whether observed usability failures were isolated interaction issues or symptomatic of deeper information architecture and mental model problems.
+                Rather than jumping straight to redesign, I started with two inputs: a competitive analysis of the messaging apps customers already use every day, and a task analysis of the legacy flows to see exactly where the experience broke down. Together they showed whether the problems were isolated interaction issues or symptoms of a deeper information-architecture and mental-model mismatch.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
               {[
-                {
-                  method: 'Heuristic Evaluation',
-                  framework: "Nielsen's 10 Usability Heuristics",
-                  finding: 'Identified 4 distinct violation clusters, with visibility of system status and match between system and real world as the highest-severity failures.',
-                },
                 {
                   method: 'Competitive Analysis',
                   framework: 'iMessage, Gmail, Slack, WhatsApp',
@@ -1167,12 +865,7 @@ export default function MessagingRedesign() {
                 {
                   method: 'Task Analysis',
                   framework: 'Two primary task flows mapped',
-                  finding: "Revealed that Send Message required 6 discrete steps, each with a potential exit point. The flow's complexity wasn't just a UI problem; it was structural.",
-                },
-                {
-                  method: 'Stakeholder Interviews',
-                  framework: 'Product, Engineering, CX teams',
-                  finding: 'Surfaced compliance and accessibility constraints that would shape the design solution, including WCAG 2.1 AA requirements and audit trail obligations.',
+                  finding: "Mapping the Send Message flow showed it took 6 discrete steps, each with a potential exit point. The flow's complexity wasn't just a UI problem; it was structural.",
                 },
               ].map((item, i) => (
                 <div key={i} className="bg-white rounded-2xl border border-ink/8 p-6">
@@ -1187,13 +880,6 @@ export default function MessagingRedesign() {
                   <p className="font-sans text-sm text-ink/70 leading-relaxed">{item.finding}</p>
                 </div>
               ))}
-            </div>
-
-            {/* User voice synthesis */}
-            <div className="mb-10">
-              <p className="font-sans text-xs tracking-widest uppercase text-ink/40 mb-1">User Feedback - Moderated Sessions</p>
-              <p className="font-sans text-sm text-ink/55 mb-5">Theme frequency from banking customer sessions, with representative verbatims</p>
-              <ResearchSynthesisMap />
             </div>
 
             {/* Competitive matrix */}
@@ -1255,45 +941,9 @@ export default function MessagingRedesign() {
             </p>
           </CollapsibleSection>
 
-          {/* ── 05 Key Findings ───────────────────────────────────────────── */}
+          {/* ── 05 Design Exploration ─────────────────────────────────────── */}
           <CollapsibleSection
-            sectionLabel="05 - Heuristic Findings"
-            title="Four violation clusters, two of them critical"
-          >
-            <p className="font-sans text-base text-ink/60 leading-relaxed max-w-3xl mb-8">
-              The heuristic evaluation surfaced failure modes across four distinct UX principles. Rather than treating these as a list of isolated bugs, I used them as design constraints, each violation mapped to a concrete design requirement in the brief.
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <FindingCard
-                number="H1"
-                heuristic="Visibility of System Status"
-                failure="No read/unread differentiation at the inbox level. Users had no way to triage message priority without opening each thread individually."
-                severity="Critical"
-              />
-              <FindingCard
-                number="H2"
-                heuristic="Match Between System & Real World"
-                failure="The email-inbox metaphor conflicted with user mental models shaped by modern messaging apps. Thread-based navigation felt foreign and unmemorable."
-                severity="Critical"
-              />
-              <FindingCard
-                number="H3"
-                heuristic="Recognition Rather Than Recall"
-                failure="Reply, delete, and archive actions were hidden behind menus or unavailable from the thread view, requiring users to remember navigation paths they couldn't predict."
-                severity="Major"
-              />
-              <FindingCard
-                number="H4"
-                heuristic="Aesthetic & Minimalist Design"
-                failure="Visual density and lack of hierarchy made the inbox feel chaotic at scale. No clear separation between system alerts and human-initiated messages."
-                severity="Major"
-              />
-            </div>
-          </CollapsibleSection>
-
-          {/* ── 06 Design Exploration ─────────────────────────────────────── */}
-          <CollapsibleSection
-            sectionLabel="06 - Design Exploration"
+            sectionLabel="05 - Design Exploration"
             title="Two lo-fi directions, one high-stakes decision"
           >
             <p className="font-sans text-base text-ink/60 leading-relaxed max-w-3xl mb-8">
@@ -1310,13 +960,13 @@ export default function MessagingRedesign() {
             </div>
 
             <p className="font-sans text-xs text-ink/40 mb-8 leading-relaxed">
-              Top row: Direction A - floating action button (FAB) for compose. Bottom row: Direction B - header-anchored "New Message" button. Both directions tested against 4 selection and bulk-action states.
+              Top row: Direction A - header-anchored "New Message" button. Bottom row: Direction B - floating action button (FAB) for compose. Both directions tested against 4 selection and bulk-action states.
             </p>
 
             <DecisionCallout
               before="Floating Action Button (FAB) for compose"
               after="Header-anchored 'New Message' button"
-              rationale="In list contexts, FABs create ambiguity about whether the action applies to selected items or initiates a new object. Users consistently misread the FAB as 'bulk action' rather than 'compose'. Anchoring the action to the header establishes clear spatial ownership over the compose intent, consistent with native platform conventions (iOS Mail, Gmail)."
+              rationale="A FAB would have collided with Glia, a third-party support extension some of our financial institutions deploy that already occupies the screen with its own floating action button. Adding a second FAB for compose would crowd the same corner and create competing floating affordances. Anchoring compose to the header sidesteps the conflict entirely and gives the action a clear, fixed home, consistent with native platform conventions (iOS Mail, Gmail)."
             />
           </CollapsibleSection>
 
@@ -1334,27 +984,27 @@ export default function MessagingRedesign() {
           {/* ── 07 Final Design ───────────────────────────────────────────── */}
           <FadeIn>
             <section>
-              <SectionLabel>07 - High-Fidelity Design</SectionLabel>
+              <SectionLabel>06 - High-Fidelity Design</SectionLabel>
               <h2 className="font-display text-3xl md:text-4xl font-bold text-ink mb-3 leading-tight">
                 Final screens: systematic, accessible, platform-aligned
               </h2>
               <p className="font-sans text-base text-ink/60 leading-relaxed max-w-3xl mb-8">
-                The final design addressed all four heuristic violations while meeting Q2's platform design system tokens, WCAG 2.1 AA accessibility requirements, and existing engineering constraints. Key decisions: tabbed navigation to separate Messages, Alerts, and Drafts (eliminating the alert/message conflation in the legacy UI); bold unread indicators anchored to type weight, not color alone (accessibility); and a persistent header-anchored compose button.
+                The final design resolved the core usability failures while meeting Q2's platform design system tokens, WCAG 2.1 AA accessibility requirements, and existing engineering constraints. Key decisions: tabbed navigation to separate Messages, Alerts, and Drafts (eliminating the alert/message conflation in the legacy UI); bold unread indicators anchored to type weight, not color alone (accessibility); and a persistent header-anchored compose button.
               </p>
 
               {/* Compliance constraint callout */}
               <div className="rounded-2xl border border-ink/10 bg-ink/[0.025] px-6 py-5 mb-10 max-w-3xl">
                 <p className="font-sans text-xs uppercase tracking-widest text-ink/40 mb-3">How compliance shaped the architecture</p>
                 <p className="font-sans text-sm text-ink/65 leading-relaxed mb-3">
-                  Stakeholder interviews with product, engineering, and compliance stakeholders surfaced a constraint that wasn't in the original brief: in financial services, system-generated alerts (fraud notifications, account changes, security notices) carry a different legal status than human-initiated messages. Institutions need to be able to demonstrate that alerts were surfaced to users in a way that's distinct and auditable. A flat unified inbox, where a fraud notice and a support message live in the same date-sorted list, makes that defensibility impossible to guarantee.
+                  A compliance constraint shaped the architecture from the start: in financial services, system-generated alerts (fraud notifications, account changes, security notices) carry a different legal status than human-initiated messages. Institutions need to be able to demonstrate that alerts were surfaced to users in a way that's distinct and auditable. A flat unified inbox, where a fraud notice and a support message live in the same date-sorted list, makes that defensibility impossible to guarantee.
                 </p>
                 <p className="font-sans text-sm text-ink/65 leading-relaxed">
                   Tabs solved both problems simultaneously. The primary UX failure from research (users missing fraud alerts in a noisy flat list) and the compliance requirement (provable, auditable alert separation) had the same answer. That convergence made the tab decision easy to defend internally, it wasn't a design preference, it was the only architecture that satisfied both constraints at once.
                 </p>
               </div>
 
-              {/* Final screens grid: inbox (2 tabs) + message thread + alert detail */}
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-start mb-5">
+              {/* Final screens grid: inbox (2 tabs) + message thread */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-start mb-5">
 
                 {/* Inbox: Messages + Alerts tabs (takes 2 cols) */}
                 <div className="md:col-span-2 rounded-2xl overflow-hidden border border-ink/10">
@@ -1380,17 +1030,9 @@ export default function MessagingRedesign() {
                   />
                 </div>
 
-                {/* Alert detail screen: read-only, no reply affordance */}
-                <div
-                  className="rounded-2xl overflow-hidden border border-ink/10"
-                  style={{ aspectRatio: '390/830' }}
-                >
-                  <AlertDetailScreen />
-                </div>
-
               </div>
               <p className="font-sans text-xs text-ink/40 leading-relaxed mb-10">
-                Inbox: Messages tab and Alerts tab (left). Tabbed navigation replaces the legacy flat list; unread states use type-weight, not color alone. Message thread: final approved reply flow with chat-style layout and fully discoverable action affordances (center). Alert detail: read-only view with no reply affordance, clearly differentiated from conversational messages (right).
+                Inbox: Messages tab and Alerts tab (left). Tabbed navigation replaces the legacy flat list; unread states use type-weight, not color alone. Message thread: final approved reply flow with chat-style layout and fully discoverable action affordances (right).
               </p>
 
               <div className="rounded-2xl border border-ink/10 bg-ink/[0.025] px-6 py-5 max-w-3xl">
@@ -1405,20 +1047,13 @@ export default function MessagingRedesign() {
           {/* ── 08 Validation ─────────────────────────────────────────────── */}
           <FadeIn>
             <section>
-              <SectionLabel>08 - Usability Validation</SectionLabel>
+              <SectionLabel>07 - Usability Validation</SectionLabel>
               <h2 className="font-display text-3xl md:text-4xl font-bold text-ink mb-3 leading-tight">
                 Moderated prototype testing against a structured 10-task protocol
               </h2>
               <p className="font-sans text-base text-ink/60 leading-relaxed max-w-3xl mb-8">
-                Before engineering handoff, I ran moderated usability sessions with <strong className="text-ink/80">6 banking customers</strong> using a Figma prototype, recruited from Q2's existing customer base, all active users of online banking with no prior exposure to the redesigned interface. Six participants is Q2's standard sample for formative usability studies, consistent with Nielsen Norman Group's research showing that 5 participants surface approximately 85% of critical usability issues. Sessions used a think-aloud protocol, covering composing, reading, replying, searching, deleting, and managing alerts across 10 structured task scenarios. SUS and VisAWI were captured as directional benchmarks at the close of each session.
+                Before engineering handoff, our UX Researcher moderated usability sessions with <strong className="text-ink/80">6 banking customers</strong> using a Figma prototype I built, recruited from Q2's existing customer base, all active users of online banking with no prior exposure to the redesigned interface. I observed every session and synthesized the findings into design changes. Six participants is Q2's standard sample for formative usability studies, consistent with Nielsen Norman Group's research showing that 5 participants surface approximately 85% of critical usability issues. Sessions used a think-aloud protocol, covering reading, replying, searching, deleting, managing alerts, and navigating to compose and drafts across 10 structured task scenarios. SUS and VisAWI were captured as directional benchmarks at the close of each session.
               </p>
-
-              {/* Heuristic baseline before/after */}
-              <div className="mb-10">
-                <p className="font-sans text-xs tracking-widest uppercase text-ink/40 mb-1">Heuristic Violation Status - Before & After</p>
-                <p className="font-sans text-sm text-ink/55 mb-5">All four violations identified in the discovery sprint were resolved in the final design</p>
-                <HeuristicBaseline />
-              </div>
 
               {/* Test doc: landscape (2904×1628) */}
               <div className="rounded-2xl overflow-hidden border border-ink/10 mb-10">
@@ -1435,7 +1070,7 @@ export default function MessagingRedesign() {
                 <MetricCard
                   value="92.9"
                   label="SUS Score"
-                  sub="System Usability Scale - 'Excellent' rating, top 4% of scores benchmarked against industry data"
+                  sub="System Usability Scale - 'Excellent' range against industry benchmarks. Directional at n=6 (formative sample), not a powered estimate."
                 />
                 <MetricCard
                   value="6.1/7"
@@ -1450,7 +1085,7 @@ export default function MessagingRedesign() {
               >
                 <p className="font-sans text-xs uppercase tracking-widest text-ink/40 mb-3">Validation Outcome</p>
                 <p className="font-display text-xl font-bold text-ink leading-snug mb-3">
-                  All 10 tasks completed without facilitator intervention. Zero task failures across all sessions.
+                  Across all six sessions, every task was completed without facilitator intervention - zero task failures in the formative round.
                 </p>
                 <p className="font-sans text-sm text-ink/60 leading-relaxed max-w-2xl">
                   The SUS score of 92.9 placed the redesign in the "Excellent" category, well above the 68-point industry average and the 80-point threshold commonly considered "good." The VisAWI score confirmed that visual improvements mapped directly to perceived credibility and trustworthiness, meaningful signals in a financial services context. The intention is to supplement this with a longitudinal follow-up study post-launch to validate whether the mental model holds for low-frequency users over time.
@@ -1461,7 +1096,7 @@ export default function MessagingRedesign() {
 
           {/* ── 09 Dev Handoff ────────────────────────────────────────────── */}
           <CollapsibleSection
-            sectionLabel="09 - Engineering Handoff"
+            sectionLabel="08 - Engineering Handoff"
             title="Spec documentation built for implementation speed and design fidelity"
           >
             <p className="font-sans text-base text-ink/60 leading-relaxed max-w-3xl mb-8">
@@ -1483,19 +1118,26 @@ export default function MessagingRedesign() {
             <p className="font-sans text-xs text-ink/40 mt-3 leading-relaxed">
               Scroll to view full spec document. Covers component anatomy (top) and spacing system (below) across all inbox and message-thread states.
             </p>
+
+            <div className="rounded-2xl border border-ink/10 bg-ink/[0.025] px-6 py-5 max-w-3xl mt-6">
+              <p className="font-sans text-xs uppercase tracking-widest text-ink/40 mb-2">A late copy decision</p>
+              <p className="font-sans text-sm text-ink/65 leading-relaxed">
+                Through design, the primary action read "New Message" (visible in the earlier wireframes). Shortly before handoff, the product owner and I changed the default label to "Contact Us" - for a customer-to-bank channel, it states the intent more plainly than a generic compose verb. The label is customer-configurable; "Contact Us" is simply the out-of-box default, which is why the shipped spec above shows it.
+              </p>
+            </div>
           </CollapsibleSection>
 
           {/* ── 10 Outcomes ───────────────────────────────────────────────── */}
           <FadeIn>
             <section>
-              <SectionLabel>10 - Outcomes & Systems Impact</SectionLabel>
+              <SectionLabel>09 - Outcomes & Systems Impact</SectionLabel>
               <h2 className="font-display text-3xl md:text-4xl font-bold text-ink mb-6 leading-tight">
-                Shipped. Scored. Used by millions.
+                Shipped, scored, and aligned to the platform.
               </h2>
 
               <div className="font-sans text-base text-ink/70 leading-relaxed space-y-4 max-w-3xl mb-10">
                 <p>
-                  The shipped redesign replaced a surface that had gone largely untouched for over a decade, bringing the primary trust channel for 20M+ active banking users in line with the rest of Q2's modernized platform. Design took three months. Engineering delivery took five - development was balanced against a full product roadmap, the standard reality of enterprise SaaS.
+                  The shipped redesign replaced a surface that had gone largely untouched for over a decade, bringing the primary trust channel in line with the rest of Q2's modernized platform, which serves 20M+ banking users. Design took three months. Engineering delivery took five - development was balanced against a full product roadmap, the standard reality of enterprise SaaS.
                 </p>
                 <p>
                   The patterns established here - tabbed separation of alerts from messages, chat-style threading, and header-anchored compose - set a structural reference for how inbox-style surfaces in the platform should behave going forward.
@@ -1507,12 +1149,12 @@ export default function MessagingRedesign() {
                   {
                     label: 'Scale',
                     value: '20M+',
-                    detail: 'Active banking users across Q2\'s client network reached by the shipped redesign',
+                    detail: 'Total banking users across Q2\'s client network; the redesign ships on this platform',
                   },
                   {
-                    label: 'SUS Percentile',
-                    value: 'Top 4%',
-                    detail: 'SUS score of 92.9 benchmarked against industry-standard usability data sets',
+                    label: 'SUS Benchmark',
+                    value: 'Excellent',
+                    detail: 'Directional 92.9 SUS (n=6) sits in the excellent range against industry data sets; formative, not a powered estimate',
                   },
                   {
                     label: 'Dev Cycle',
@@ -1527,27 +1169,20 @@ export default function MessagingRedesign() {
                   </div>
                 ))}
               </div>
-
-              {/* Pattern documentation */}
-              <p className="font-sans text-xs tracking-widest uppercase text-ink/40 mb-1">Pattern Documentation</p>
-              <p className="font-sans text-sm text-ink/55 mb-6 max-w-3xl">
-                The three patterns extracted from this redesign and formally documented in Q2's design system, including when to use them, the design rule, and which feature areas adopted them.
-              </p>
-              <PatternDocumentation />
             </section>
           </FadeIn>
 
           {/* ── 11 Reflection ─────────────────────────────────────────────── */}
           <FadeIn>
             <section>
-              <SectionLabel>11 - Reflection</SectionLabel>
+              <SectionLabel>10 - Reflection</SectionLabel>
               <h2 className="font-display text-3xl md:text-4xl font-bold text-ink mb-6 leading-tight">
                 What I'd pressure-test more rigorously next time
               </h2>
 
               <div className="font-sans text-base text-ink/70 leading-relaxed space-y-4 max-w-3xl mb-8">
                 <p>
-                  The research sprint was productive, but it was primarily expert-evaluation-led. I'd want to front-load more generative user research earlier, particularly around how banking customers mentally model "secure" communication versus generic messaging. The compliance constraints that surfaced late in stakeholder interviews should have been inputs to the research brief, not constraints discovered mid-design.
+                  My pre-design research leaned heavily on competitive analysis and my own read of the flows. I'd want to front-load more generative user research earlier, particularly around how banking customers mentally model "secure" communication versus generic messaging, rather than relying on the validation round to confirm direction after the fact.
                 </p>
                 <p>
                   I'd also push harder on longitudinal validation. A single-session prototype test can tell you whether a design is navigable. It can't tell you whether the new mental model is durable over time, especially for infrequent users who might interact with Secure Messaging only once or twice a year.
