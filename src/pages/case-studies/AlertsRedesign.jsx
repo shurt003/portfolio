@@ -159,7 +159,7 @@ const STEPS = [
   {
     step: 'Step 3', title: 'A unified “Create New Alert” entry point',
     body: 'One clear, guided flow to create an alert and apply it to any number of accounts — replacing the scattered, per-type entry points of the old experience.',
-    imgs: [['alert-management', 'Alert Management dashboard']],
+    imgs: [['updatedimage', 'Alert Management dashboard']],
   },
   {
     step: 'Step 4', title: 'Group Alerts vs. Individual Alerts',
