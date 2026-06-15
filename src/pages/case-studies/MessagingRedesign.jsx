@@ -604,7 +604,7 @@ function KeyDesignDecisions() {
       title: 'Thread-based layout over email inbox metaphor',
       considered: 'Retain email-style inbox: subject line list → full message view',
       chose: 'Chat-style thread layout: message bubbles with persistent context and inline reply',
-      why: 'Competitive analysis against iMessage, WhatsApp, and Slack established that virtually all users have a deeply trained mental model around chat-style threading - texting is universal, not generational. The email-inbox metaphor felt foreign immediately, before any interaction - a clear mismatch between the system and the real-world model users carry. Threading also eliminated the hidden-actions problem, in a chat layout, reply and archive affordances have natural spatial homes that require no discovery.',
+      why: 'Competitive analysis against iMessage, WhatsApp, and Slack established that virtually all users have a deeply trained mental model around chat-style threading. Texting is universal, not generational. The email-inbox metaphor felt foreign immediately, before any interaction, a clear mismatch between the system and the real-world model users carry. Threading also removed the hidden-actions problem: in a chat layout, reply and archive affordances have natural spatial homes that require no discovery.',
     },
     {
       num: '03',
@@ -732,7 +732,7 @@ export default function MessagingRedesign() {
           <FadeIn>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
               {[
-                { label: 'Role', value: 'Lead Product Designer - sole designer on the feature; partnered with a UX Researcher who moderated the usability study' },
+                { label: 'Role', value: 'Lead Product Designer, sole designer on the feature; partnered with a UX Researcher who moderated the usability study' },
                 { label: 'Scope', value: 'Competitive analysis, IA, UX, UI, prototyping, dev handoff' },
                 { label: 'Platform', value: 'iOS & Android (mobile-first, responsive web parity)' },
                 { label: 'Outcome', value: 'SUS 92.9 · VisAWI 6.1/7 (directional, n=6) · Shipped on a platform serving 20M+ users' },
@@ -960,7 +960,7 @@ export default function MessagingRedesign() {
             </div>
 
             <p className="font-sans text-xs text-ink/40 mb-8 leading-relaxed">
-              Top row: Direction A - header-anchored "New Message" button. Bottom row: Direction B - floating action button (FAB) for compose. Both directions tested against 4 selection and bulk-action states.
+              Top row: Direction A, the header-anchored "New Message" button. Bottom row: Direction B, a floating action button (FAB) for compose. Both directions tested against 4 selection and bulk-action states.
             </p>
 
             <DecisionCallout
@@ -1070,16 +1070,16 @@ export default function MessagingRedesign() {
                 <MetricCard
                   value="92.9"
                   label="SUS Score"
-                  sub="System Usability Scale - 92.92 average, 'Excellent' range (>80.3). 95% CI 81.6–100. Directional at n=6, not a powered estimate."
+                  sub="System Usability Scale. 92.92 average, 'Excellent' range (above 80.3). 95% CI 81.6 to 100. Directional at n=6, not a powered estimate."
                 />
                 <MetricCard
                   value="6.1/7"
                   label="VisAWI Score"
-                  sub="Visual Aesthetics of Websites Inventory - 6.1 average (95% CI 5.6–6.7), above Q2's internal threshold of 6."
+                  sub="Visual Aesthetics of Websites Inventory. 6.1 average (95% CI 5.6 to 6.7), above Q2's internal threshold of 6."
                 />
               </div>
 
-              {/* Per-task results — full breakdown from the readout */}
+              {/* Per-task results, full breakdown from the readout */}
               <div className="mb-10">
                 <p className="font-sans text-xs tracking-widest uppercase text-ink/40 mb-1">Per-task results</p>
                 <p className="font-sans text-sm text-ink/55 mb-4">Completion and single-ease (SEQ) across all 10 tasks, n=6</p>
@@ -1089,21 +1089,21 @@ export default function MessagingRedesign() {
                       <tr className="bg-ink/[0.03]">
                         <th className="font-sans text-[10px] uppercase tracking-widest text-ink/40 px-5 py-3">Task</th>
                         <th className="font-sans text-[10px] uppercase tracking-widest text-ink/40 px-5 py-3">Completion</th>
-                        <th className="font-sans text-[10px] uppercase tracking-widest text-ink/40 px-5 py-3">SEQ (1–7)</th>
+                        <th className="font-sans text-[10px] uppercase tracking-widest text-ink/40 px-5 py-3">SEQ (out of 7)</th>
                       </tr>
                     </thead>
                     <tbody>
                       {[
-                        ['1 — Go to inbox', '100%', '6.7'],
-                        ['2 — View the message', '100%', '6.8'],
-                        ['3 — Reply with an attachment', '100%', '7.0'],
-                        ['4 — Search for a message', '100%', '6.8'],
-                        ['5 — Delete the message', '100%', '6.8'],
-                        ['6 — View alerts (find the Alerts tab)', '66.7%', '5.2'],
-                        ['7 — Delete all alerts', '100%', '6.7'],
-                        ['8 — Delete a few messages', '100%', '6.3'],
-                        ['9 — Contact support (new-message button)', '66.7%', '5.5'],
-                        ['10 — Find drafts', '100%', '6.5'],
+                        ['1. Go to inbox', '100%', '6.7'],
+                        ['2. View the message', '100%', '6.8'],
+                        ['3. Reply with an attachment', '100%', '7.0'],
+                        ['4. Search for a message', '100%', '6.8'],
+                        ['5. Delete the message', '100%', '6.8'],
+                        ['6. View alerts (find the Alerts tab)', '66.7%', '5.2'],
+                        ['7. Delete all alerts', '100%', '6.7'],
+                        ['8. Delete a few messages', '100%', '6.3'],
+                        ['9. Contact support (new-message button)', '66.7%', '5.5'],
+                        ['10. Find drafts', '100%', '6.5'],
                       ].map(([t, c, s], i) => {
                         const miss = c !== '100%'
                         return (
@@ -1118,7 +1118,7 @@ export default function MessagingRedesign() {
                   </table>
                 </div>
                 <p className="font-sans text-xs text-ink/40 mt-3 leading-relaxed">
-                  8 of 10 tasks reached 100% completion. The two that didn't were both findability tasks — locating the Alerts tab and the new-message button.
+                  8 of 10 tasks reached 100% completion. The two exceptions were navigation tasks: finding the Alerts tab and the new-message button.
                 </p>
               </div>
 
@@ -1128,7 +1128,7 @@ export default function MessagingRedesign() {
               >
                 <p className="font-sans text-xs uppercase tracking-widest text-ink/40 mb-3">Validation Outcome</p>
                 <p className="font-display text-xl font-bold text-ink leading-snug mb-3">
-                  Eight of the ten tasks hit 100% completion with no assistance. The two that fell to 66.7% were both findability tasks — locating the Alerts tab and the new-message button.
+                  Eight of the ten tasks hit 100% completion with no assistance. The two that fell to 66.7% were both findability tasks: locating the Alerts tab and the new-message button.
                 </p>
                 <p className="font-sans text-sm text-ink/60 leading-relaxed max-w-2xl">
                   The SUS score of 92.9 placed the redesign in the "Excellent" category, well above the 68-point industry average and the 80-point threshold commonly considered "good." The VisAWI score confirmed that visual improvements mapped directly to perceived credibility and trustworthiness, meaningful signals in a financial services context. The intention is to supplement this with a longitudinal follow-up study post-launch to validate whether the mental model holds for low-frequency users over time.
@@ -1142,13 +1142,13 @@ export default function MessagingRedesign() {
                   <div className="bg-white rounded-2xl border border-ink/8 p-6">
                     <p className="font-sans text-sm font-semibold text-ink mb-2">Alerts were buried</p>
                     <p className="font-sans text-sm text-ink/60 leading-relaxed">
-                      Two of six participants opened the global menu before finding the Alerts tab, and several said they expected alerts to surface on the home screen rather than inside the inbox - a signal that high-importance alerts may need more prominent placement.
+                      Two of six participants opened the global menu before finding the Alerts tab, and several said they expected alerts to surface on the home screen rather than inside the inbox. A signal that high-importance alerts may need more prominent placement.
                     </p>
                   </div>
                   <div className="bg-white rounded-2xl border border-ink/8 p-6">
                     <p className="font-sans text-sm font-semibold text-ink mb-2">"New Message" was hard to find</p>
                     <p className="font-sans text-sm text-ink/60 leading-relaxed">
-                      When asked to contact support, two of six went to the menu instead of the new-message button. This directly informed the late decision to relabel the default action "Contact Us" - clearer intent for a customer-to-bank channel (see the handoff note below).
+                      When asked to contact support, two of six went to the menu instead of the new-message button. This directly informed the late decision to relabel the default action "Contact Us," clearer intent for a customer-to-bank channel (see the handoff note below).
                     </p>
                   </div>
                 </div>
@@ -1158,7 +1158,7 @@ export default function MessagingRedesign() {
               <div className="mt-4 bg-white rounded-2xl border border-ink/8 p-6">
                 <p className="font-sans text-sm font-semibold text-ink mb-2">Alert styling: an A/B the users settled</p>
                 <p className="font-sans text-sm text-ink/60 leading-relaxed max-w-3xl">
-                  The sessions also tested two versions of the Alerts tab - one with a warning-triangle icon on security and fraud alerts, one without. All six participants preferred the version with the icons. Without them, security alerts blended into routine notifications and didn't read as urgent; one participant said the icon-less version "almost looked like the Messages page." The icon variant shipped.
+                  The sessions also tested two versions of the Alerts tab: one with a warning-triangle icon on security and fraud alerts, one without. All six participants preferred the version with the icons. Without them, security alerts blended into routine notifications and didn't read as urgent, and one participant said the icon-less version "almost looked like the Messages page." The icon variant shipped.
                 </p>
               </div>
             </section>
@@ -1192,7 +1192,7 @@ export default function MessagingRedesign() {
             <div className="rounded-2xl border border-ink/10 bg-ink/[0.025] px-6 py-5 max-w-3xl mt-6">
               <p className="font-sans text-xs uppercase tracking-widest text-ink/40 mb-2">A late copy decision</p>
               <p className="font-sans text-sm text-ink/65 leading-relaxed">
-                Through design, the primary action read "New Message" (visible in the earlier wireframes). Shortly before handoff, the product owner and I changed the default label to "Contact Us" - for a customer-to-bank channel, it states the intent more plainly than a generic compose verb. The label is customer-configurable; "Contact Us" is simply the out-of-box default, which is why the shipped spec above shows it.
+                Through design, the primary action read "New Message" (visible in the earlier wireframes). Shortly before handoff, the product owner and I changed the default label to "Contact Us." For a customer-to-bank channel, it states the intent more plainly than a generic compose verb. The label is customer-configurable, and "Contact Us" is simply the out-of-box default, which is why the shipped spec above shows it.
               </p>
             </div>
           </CollapsibleSection>
@@ -1207,10 +1207,10 @@ export default function MessagingRedesign() {
 
               <div className="font-sans text-base text-ink/70 leading-relaxed space-y-4 max-w-3xl mb-10">
                 <p>
-                  The shipped redesign replaced a surface that had gone largely untouched for over a decade, bringing this screen in line with the rest of Q2's modernized platform, which serves 20M+ banking users. Design took three months. Engineering delivery took five - development was balanced against a full product roadmap, the standard reality of enterprise SaaS.
+                  The shipped redesign replaced a surface that had gone largely untouched for over a decade, bringing this screen in line with the rest of Q2's modernized platform, which serves 20M+ banking users. Design took three months. Engineering delivery took five, with development balanced against a full product roadmap, the standard reality of enterprise SaaS.
                 </p>
                 <p>
-                  The patterns established here - tabbed separation of alerts from messages, chat-style threading, and header-anchored compose - set a structural reference for how inbox-style surfaces in the platform should behave going forward.
+                  The patterns established here (tabbed separation of alerts from messages, chat-style threading, and header-anchored compose) set a structural reference for how inbox-style surfaces in the platform should behave going forward.
                 </p>
               </div>
 
