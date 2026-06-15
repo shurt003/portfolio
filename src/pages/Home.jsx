@@ -112,7 +112,7 @@ const PROJECTS = [
   {
     id: 'messaging',
     title: 'Secure Messaging',
-    subtitle: 'End-to-end research and redesign of a security-critical messaging feature for 20M+ users.',
+    subtitle: 'Research-informed redesign of a security-critical messaging feature on a 20M+ user platform.',
     href: '/messaging-redesign',
     image: '/images/SecureMessaging/securemessagingbgheroimage.webp',
   },
