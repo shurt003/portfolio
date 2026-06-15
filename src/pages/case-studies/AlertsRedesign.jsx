@@ -447,7 +447,7 @@ export default function AlertsRedesign() {
               Filter the portfolio, select many accounts at once, and apply one alert across all of them. Bulk power without repetition — the problem no bank had solved.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <ImgSlot name="alert-management" caption="Alert Management — group & individual alerts" />
+              <ImgSlot name="updatedimage" caption="Alert Management — group & individual alerts" />
               <ImgSlot name="create-select-accounts" caption="Bulk account selection" />
             </div>
           </motion.div>
