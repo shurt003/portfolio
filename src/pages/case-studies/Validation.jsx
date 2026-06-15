@@ -457,7 +457,7 @@ export default function Validation() {
             className="font-sans text-lg leading-relaxed max-w-xl"
             style={{ color: 'rgba(250,247,242,0.78)' }}
           >
-            Made the research case for inline validation in 2024. Two years later, nine Tecton form components shipped and inline became the platform's new standard for form work. Here's how the same evidence finally moved through institutional inertia.
+            Made the research case for inline validation in 2024. Two years later, nine Tecton form components shipped and inline became the platform's new standard for form work. Here's how the same evidence finally got it across the line.
           </motion.p>
         </div>
       </section>
@@ -533,7 +533,7 @@ export default function Validation() {
                     Should Q2 move from Top of Form to Inline Validation, and what do users actually prefer?
                   </p>
                   <p className="font-sans text-sm leading-relaxed" style={{ color: DIM }}>
-                    Answering this required two parallel tracks: synthesizing academic research and industry precedent to build the theoretical case, then running a moderated usability study with real banking customers to validate it with behavioral data.
+                    Answering this took two parallel tracks: pulling together academic research and industry precedent to build the case on paper, then running a moderated usability study with real banking customers to back it up with how people actually behaved.
                   </p>
                 </div>
                 <div
@@ -542,7 +542,7 @@ export default function Validation() {
                 >
                   <p className="font-sans text-xs uppercase tracking-widest mb-4" style={{ color: ERROR }}>The business stakes</p>
                   <p className="font-sans text-sm leading-relaxed" style={{ color: DIM }}>
-                    Q2 operates in a competitive enterprise SaaS market where UI quality directly influences deal outcomes. Prospective financial institutions evaluate multiple platforms before signing. An outdated UI doesn't just frustrate users. It signals to buyers that the technology behind it might also be behind. In sales demos, prospects consistently heard from competitors that Q2's UI looked dated, feedback that reached us through sales and marketing. Top of Form Validation wasn't the only contributor, but to me it was one of the most glaring, and most fixable, examples of that legacy feel.
+                    Q2 operates in a competitive enterprise SaaS market where UI quality directly influences deal outcomes. Prospective financial institutions evaluate multiple platforms before signing. An outdated UI doesn't just frustrate users, it signals to buyers that the technology behind it might be behind too. In sales demos, prospects consistently heard from competitors that Q2's UI looked dated, feedback that reached us through sales and marketing. Top of Form Validation wasn't the only contributor, but to me it was one of the most glaring, and most fixable, examples of that legacy feel.
                   </p>
                 </div>
               </div>
@@ -554,10 +554,10 @@ export default function Validation() {
             <SectionLabel>02: Three independent sources, one consistent answer</SectionLabel>
             <Rule />
             <h2 className="font-display text-3xl md:text-4xl font-bold leading-tight mb-4" style={{ color: TEXT }}>
-              Before the study, the theoretical case was already solid
+              Before the study, the case was already strong
             </h2>
             <p className="font-sans text-base leading-relaxed max-w-3xl mb-12" style={{ color: DIM }}>
-              Desk research, academic literature, Nielsen Norman Group principles, and a competitive audit of major design systems converged on the same finding before a single user was ever tested.
+              Desk research, academic literature, Nielsen Norman Group principles, and a competitive audit of major design systems all pointed to the same answer before a single user was ever tested.
             </p>
 
             <div className="rounded-2xl overflow-hidden border mb-6" style={{ borderColor: RULE }}>
@@ -586,7 +586,7 @@ export default function Validation() {
               <PrincipleCard
                 number="03"
                 title="Industry standard"
-                body="Every major design system, Carbon, Material, Fluent, Spectrum, Bootstrap, Atlassian, Salesforce, uses inline validation as the default error pattern. Settled practice."
+                body="Every major design system, Carbon, Material, Fluent, Spectrum, Bootstrap, Atlassian, Salesforce, uses inline validation as the default error pattern. It's settled practice at this point."
               />
             </div>
 
@@ -636,7 +636,7 @@ export default function Validation() {
             </div>
             <p className="font-sans text-xs mb-12 leading-relaxed max-w-3xl" style={{ color: DIMMER }}>
               <span className="font-semibold" style={{ color: TEXT }}>What this animation shows: </span>
-              with top-of-form validation, attention pings between the summary banner and each field, read the error, scroll to find the field, fix it, scroll back to the summary, repeat. With inline validation, attention flows linearly from one field to the next. The cost isn't aesthetic; it's where the user has to look.
+              with top-of-form validation, attention pings between the summary banner and each field, read the error, scroll to find the field, fix it, scroll back to the summary, repeat. With inline validation, attention flows linearly from one field to the next. It's not about looks, it's about where the user has to look.
             </p>
 
             {/* Desktop screenshots side by side */}
@@ -687,7 +687,7 @@ export default function Validation() {
               Six participants, two tasks, moderated remote sessions
             </h2>
             <p className="font-sans text-base leading-relaxed max-w-3xl mb-12" style={{ color: DIM }}>
-              With the theoretical case established, the study put both patterns in front of real banking customers using a think-aloud protocol over Zoom, capturing not just what they could do, but what they thought and felt while doing it.
+              With that case established, the study put both patterns in front of real banking customers using a think-aloud protocol over Zoom, capturing what they could do and how they felt while doing it.
             </p>
 
             {/* Decision callouts, make the methodology choices explicit */}
@@ -700,7 +700,7 @@ export default function Validation() {
                   'In-person lab study with 8 participants',
                 ]}
                 chose="6 participants, moderated remote (think-aloud)"
-                rationale="The goal wasn't statistical significance. It was directional confidence and rich behavioral data. Six is the standard qualitative sample for comparative usability work, and Nielsen Norman Group research suggests five participants surface ~85% of usability issues. Moderated think-aloud captures the *why* behind behavior, which an unmoderated study can't."
+                rationale="The goal wasn't statistical significance, it was directional confidence and a clear read on how people actually behaved. Six is the standard qualitative sample for comparative usability work, and Nielsen Norman Group research suggests five participants surface ~85% of usability issues. Moderated think-aloud shows you why people do what they do, which an unmoderated study can't."
               />
               <DecisionCallout
                 question="Which form length should we test against?"
@@ -742,7 +742,7 @@ export default function Validation() {
             <SectionLabel>05: Users called the inline version "less anxiety-inducing"</SectionLabel>
             <Rule />
             <h2 className="font-display text-3xl md:text-4xl font-bold leading-tight mb-4" style={{ color: TEXT }}>
-              The research held. Users agreed.
+              The research held up, and users agreed.
             </h2>
             <p className="font-sans text-base leading-relaxed max-w-3xl mb-12" style={{ color: DIM }}>
               Participants successfully cleared all errors in both variants, across Q2 select, Q2 input, and Q2 textarea components. Task completion was equivalent on both forms, which is meaningful context, not a null result. The Funds Transfer form is one of the shortest in the platform, the least punishing test for top-of-form, and even there users found inline less stressful and clearer. On the longer Online Banking Enrollment form, where top-of-form's cognitive cost is highest, the preference for inline was clearest of all. That users found inline more comfortable even where the legacy pattern should perform best is the finding, not the completion rate.
@@ -821,7 +821,7 @@ export default function Validation() {
             <SectionLabel>07: Adopt inline. Formalize it under UUX Next.</SectionLabel>
             <Rule />
             <h2 className="font-display text-3xl md:text-4xl font-bold leading-tight mb-4" style={{ color: TEXT }}>
-              Three independent sources lined up. The recommendation followed.
+              Three independent sources lined up, and the recommendation followed.
             </h2>
             <p className="font-sans text-base leading-relaxed max-w-3xl mb-12" style={{ color: DIM }}>
               Academic evidence, industry precedent, and direct participant preference all aligned. The recommendations were to adopt inline validation as the platform standard, add a confirmation page to the Funds Transfer flow, and clarify the transfer-date copy. The key next step: carry inline validation into UUX Next for formal design system documentation.
@@ -857,7 +857,7 @@ export default function Validation() {
             <SectionLabel>08: Right research, wrong moment, and the question that reopened the file</SectionLabel>
             <Rule />
             <h2 className="font-display text-3xl md:text-4xl font-bold leading-tight mb-4" style={{ color: TEXT }}>
-              The research was done. The case was made. Nobody moved.
+              The research was done and the case was made, but nobody moved.
             </h2>
             <p className="font-sans text-base leading-relaxed max-w-3xl mb-12" style={{ color: DIM }}>
               After the recommendation was presented, the project was added to UUX Next, Q2's initiative for addressing platform-wide UI work incrementally. In theory, that meant it would get a sprint. In practice, it joined a backlog of credible work competing for sprint capacity, with no dedicated owner pushing it forward.
@@ -868,10 +868,10 @@ export default function Validation() {
                 <p>
                   I reached out to a senior designer who had worked at Q2 for years. The feedback was direct:{' '}
                   <span className="font-semibold" style={{ color: TEXT }}>"Don't bother. This is just the way we do it here."</span>{' '}
-                  It wasn't dismissive. It was accurate institutional knowledge. A senior developer I spoke with separately confirmed Q2 had actually used inline validation before switching to the current top-of-form pattern. Nobody could explain why it was removed. The reason had been lost to institutional memory. Nobody was actively opposed to the change. Nobody was actively for it either.
+                  It wasn't dismissive, it was just how things worked there. A senior developer I spoke with separately confirmed Q2 had actually used inline validation before switching to the current top-of-form pattern. Nobody could explain why it was removed, the reason had just been lost over time. Nobody was against the change, but nobody was pushing for it either.
                 </p>
                 <p>
-                  I had a full plate of assigned work, the Secure Messaging redesign, Consumer Dashboard, and component library contributions were all actively in flight, and was still relatively new to the organization. Forcing a platform-wide pattern change without active sponsorship, against an institutional default nobody could explain, wasn't the right battle to pick. I filed it as important-but-not-urgent and moved on.
+                  I had a full plate of assigned work, the Secure Messaging redesign, Consumer Dashboard, and component library contributions were all actively in flight, and was still relatively new to the organization. Forcing a platform-wide pattern change without active sponsorship, against a default nobody could even explain, wasn't the right battle to pick. I filed it as important-but-not-urgent and moved on.
                 </p>
               </div>
               <div className="space-y-5 font-sans text-base leading-relaxed" style={{ color: DIM }}>
@@ -1034,7 +1034,7 @@ export default function Validation() {
             </div>
             <p className="font-sans text-xs mb-16 leading-relaxed max-w-3xl" style={{ color: DIMMER }}>
               <span className="font-semibold" style={{ color: TEXT }}>What this animation shows: </span>
-              left, an error message appears beneath Field A and pushes Field B down 16px, the user's cursor or finger position is now aimed at the wrong field. Right, the same error appears in space already reserved, Field B doesn't move, the user's intent stays valid. The reserved slot is what prevents a usability regression masquerading as a usability win.
+              left, an error message appears beneath Field A and pushes Field B down 16px, the user's cursor or finger position is now aimed at the wrong field. Right, the same error appears in space already reserved, Field B doesn't move, the user's intent stays valid. The reserved slot is what keeps a usability win from quietly creating a new problem.
             </p>
 
             {/* Spacing recommendation */}
@@ -1119,7 +1119,7 @@ export default function Validation() {
                     A date picker, a drag-and-drop file uploader, a checkbox group, and a textarea have almost nothing in common structurally. What they share now is a single 16px reserved slot at the bottom of each, and the same inline error message dropping into it when validation fires.
                   </p>
                   <p>
-                    That consistency is the design systems argument made visible. The{' '}
+                    That consistency is what a design system is for. The{' '}
                     <code className="font-mono text-sm px-1.5 py-0.5 rounded" style={{ backgroundColor: SURFACE, color: ACCENT }}>showAsInline=true</code>{' '}
                     prop works identically across all nine components because the mechanism doesn't change regardless of what's above it. No custom engineering per component. No inconsistent edge cases.
                   </p>
@@ -1195,7 +1195,7 @@ export default function Validation() {
             <SectionLabel>10: What I'd do differently</SectionLabel>
             <Rule />
             <h2 className="font-display text-3xl md:text-4xl font-bold leading-tight mb-6" style={{ color: TEXT }}>
-              Research as a lever for system-level change
+              Being right wasn't enough on its own
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
               <div className="space-y-4 font-sans text-base leading-relaxed" style={{ color: DIM }}>
@@ -1203,15 +1203,15 @@ export default function Validation() {
                   The hardest part wasn't the research. It was being right and knowing the timing wasn't there. The evidence was solid, the recommendation was clear, and the correct move was still to file it and move on. That required a kind of patience that's uncomfortable when you're confident in the work. But pushing a platform-wide pattern change without active sponsorship, in an organization I was still relatively new to, would have been the wrong move regardless of how strong the case was.
                 </p>
                 <p>
-                  What surprised me most was the institutional archaeology. Q2 had used inline validation before, and someone had removed it. Nobody knew why. The absence of the pattern wasn't opposition. It was drift. The research didn't have to overcome disagreement. It had to outlast inertia.
+                  What surprised me most was the history of it. Q2 had used inline validation before, someone had removed it, and nobody knew why. It wasn't that people were against the pattern, it had just drifted away. The research didn't have to win an argument, it had to wait for the right moment.
                 </p>
               </div>
               <div className="space-y-4 font-sans text-base leading-relaxed" style={{ color: DIM }}>
                 <p>
-                  The gap between the 2024 recommendation and the 2026 implementation clarified something about the relationship between research quality and organizational readiness. The study was well-designed, the findings were directionally clear, the recommendation was sound, and none of that was sufficient on its own. What moved this forward wasn't new evidence. It was the same evidence, different conditions. Building developer relationships and organizational track record earlier would have compressed that gap, not because the research was insufficient, but because the change required more than research.
+                  The gap between the 2024 recommendation and the 2026 implementation clarified something about the relationship between research quality and organizational readiness. The study was well-designed, the findings were directionally clear, the recommendation was sound, and none of that was sufficient on its own. What moved it forward wasn't new evidence, it was the same evidence under different conditions. Building developer relationships and a track record earlier would have closed that gap sooner, since the change needed more than good research.
                 </p>
                 <p>
-                  If I were to run the study again, I'd push to instrument the post-launch state from day one: error rates by field, form abandonment after failed submission, support ticket volume. Q2 had no instrumentation on form abandonment after failed submission at the time of the study. I've flagged this as a follow-up measurement to establish the pre/post baseline, pairing the usability case with a business case that speaks the language of engineering prioritization.
+                  If I were to run the study again, I'd push to instrument the post-launch state from day one: error rates by field, form abandonment after failed submission, support ticket volume. Q2 had no instrumentation on form abandonment after failed submission at the time of the study. I've flagged this as a follow-up measurement to establish the pre/post baseline, pairing the usability case with a business case that makes it easier for engineering to prioritize.
                 </p>
               </div>
             </div>
