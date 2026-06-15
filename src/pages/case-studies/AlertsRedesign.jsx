@@ -557,15 +557,9 @@ export default function AlertsRedesign() {
 
           <motion.div {...fadeUp} className="mb-12">
             <SectionLabel>Validated through testing</SectionLabel>
-            <p className="font-sans text-base leading-relaxed max-w-3xl mb-8">
-              Usability testing with 6 participants — 2 with fewer than 10 accounts and 4 commercial users with more than 10 — confirmed the unified design worked at both ends of the spectrum. The same flows that scaled to large portfolios stayed easy for small ones.
+            <p className="font-sans text-base leading-relaxed max-w-3xl">
+              Usability testing with 6 participants — 2 with fewer than 10 accounts and 4 commercial users with more than 10 — confirmed the unified design worked at both ends of the spectrum. The same flows that scaled to large portfolios stayed easy for small ones. (Full scores and the per-task breakdown are in the Validation section above.)
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <StatCard value="87.9" label="SUS Score" sub="Directional, n=6 · “Excellent” range (95% CI 74.9–100)" />
-              <StatCard value="5.6 / 7" label="VisAWI" sub="Visual aesthetics rating" />
-              <StatCard value="79%" label="Avg. task completion" sub="Across all four tasks (66.7%–100%)" />
-              <StatCard value="6" label="Participants" sub="2 personal · 4 commercial" />
-            </div>
           </motion.div>
 
           <motion.div {...fadeUp} className="mb-12">
