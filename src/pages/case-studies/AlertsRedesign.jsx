@@ -164,7 +164,7 @@ const STEPS = [
   {
     step: 'Step 4', title: 'Group Alerts vs. Individual Alerts',
     body: 'After collaborating with other designers, surfacing Group and Individual alerts as distinct sections proved more discoverable than hiding the choice behind a dropdown.',
-    imgs: [['alert-management', 'Group & individual alerts, in one view']],
+    imgs: [['updatedimage', 'Group & individual alerts, in one view']],
   },
 ]
 
