@@ -611,7 +611,7 @@ function KeyDesignDecisions() {
       title: 'Type-weight unread differentiation (not color alone)',
       considered: 'Color-only unread indicator, colored dot or colored row background',
       chose: 'Bold type weight for unread messages + secondary color indicator',
-      why: 'WCAG 2.1 AA requires that information conveyed by color also be conveyed by another means. Color-only unread states fail for roughly 8% of users with color vision deficiency. Type-weight differentiation is both accessible and perceptually faster, weight contrast registers preattentively, before conscious reading begins. This also avoided adding visual noise to an already information-dense list view.',
+      why: 'WCAG 2.1 AA requires that information conveyed by color also be conveyed by another means. Color-only unread states fail for roughly 8% of users with color vision deficiency. Type-weight differentiation is accessible and faster to scan, the eye picks up weight contrast before you consciously read anything. It also avoided adding visual noise to an already busy list view.',
     },
   ]
   return (
@@ -646,7 +646,7 @@ function KeyDesignDecisions() {
 export default function MessagingRedesign() {
   usePageMeta(
     'Secure Messaging Redesign by Stephen Hurt',
-    "Redesigning a bank's primary trust surface for 20M+ users: chat-style threading, compliance-safe alert separation, and accessible unread states, validated at a 92.9 SUS."
+    "Redesigning a bank's main secure messaging channel for 20M+ users: chat-style threading, compliance-safe alert separation, and accessible unread states, validated at a 92.9 SUS."
   )
   const { scrollY } = useScroll()
   const bgY = useTransform(scrollY, [0, 800], ['0%', '-18%'])
@@ -718,7 +718,7 @@ export default function MessagingRedesign() {
       {/* ── TL;DR ────────────────────────────────────────────────────────── */}
       <CaseTLDR
         colors={{ text: '#1C2322', dim: 'rgba(28,35,34,0.6)', accent: '#8A6D1A', surface: '#FFFFFF', rule: 'rgba(28,35,34,0.1)' }}
-        summary={`Secure Messaging is a bank's primary trust surface, and it was one of the last screens still on a decade-old, email-style paradigm. I led the redesign to chat-style threading with compliance-safe alert separation and accessible unread states, grounded in competitive analysis and validated with banking customers, then shipped it on a platform serving 20M+ users with a directional 92.9 SUS from formative testing.`}
+        summary={`Secure Messaging is one of the highest-trust channels between a bank and its customers, and it was one of the last screens still on a decade-old, email-style paradigm. I led the redesign to chat-style threading with compliance-safe alert separation and accessible unread states, grounded in competitive analysis and validated with banking customers, then shipped it on a platform serving 20M+ users with a directional 92.9 SUS from formative testing.`}
         stats={[
           { value: '92.9', label: 'SUS: excellent range (directional, n=6)' },
           { value: '0', label: 'Task failures (formative test, n=6)' },
@@ -755,14 +755,14 @@ export default function MessagingRedesign() {
             <section>
               <SectionLabel>01 - Strategic Context</SectionLabel>
               <h2 className="font-display text-3xl md:text-4xl font-bold text-ink mb-6 leading-tight">
-                Secure Messaging isn't just a feature, it's the primary trust surface between a bank and its customers.
+                Secure Messaging is the main channel between a bank and its customers, and a lot of trust rides on it.
               </h2>
               <div className="font-sans text-base text-ink/70 leading-relaxed space-y-4 max-w-3xl">
                 <p>
-                  In financial services, secure messaging sits at the intersection of customer support, compliance, and trust. It's where users escalate concerns, dispute transactions, and seek guidance on sensitive account matters. Done poorly, it erodes confidence in the institution. Done well, it becomes a competitive differentiator.
+                  In financial services, secure messaging is wrapped up in customer support, compliance, and trust all at once. It's where users raise concerns, dispute transactions, and ask for help on sensitive account matters. Done poorly, it chips away at customer confidence. Done well, it's something a bank can actually compete on.
                 </p>
                 <p>
-                  Q2's platform was undergoing a large-scale modernization, moving from a legacy component library to a cohesive, modern design system. Secure Messaging was one of the last surfaces still running on the old paradigm, creating visible inconsistency on a platform serving 20M+ users. This redesign was both a usability imperative and a design system alignment exercise.
+                  Q2's platform was undergoing a large-scale modernization, moving from a legacy component library to a cohesive, modern design system. Secure Messaging was one of the last surfaces still running on the old paradigm, creating visible inconsistency on a platform serving 20M+ users. This redesign was about fixing the usability and bringing the screen in line with the new design system.
                 </p>
               </div>
 
@@ -772,10 +772,10 @@ export default function MessagingRedesign() {
               >
                 <p className="font-sans text-xs uppercase tracking-widest text-ink/40 mb-3">Scope & Intent</p>
                 <p className="font-display text-lg font-bold text-ink leading-snug mb-3">
-                  The goal wasn't to reinvent messaging. It was to close the gap between what users already expect and what Q2 was delivering.
+                  The goal wasn't to reinvent messaging, it was to close the gap between what users already expect and what Q2 was giving them.
                 </p>
                 <p className="font-sans text-sm text-ink/60 leading-relaxed">
-                  Users arrive at banking apps already shaped by iMessage, WhatsApp, and Gmail. Reinventing those conventions would have introduced friction, not reduced it. The right call on a trust-critical surface is to meet established mental models, not challenge them. This project was about eliminating the delta between user expectations and platform reality.
+                  Users arrive at banking apps already shaped by iMessage, WhatsApp, and Gmail. Reinventing those conventions would have added friction, not removed it. On a screen this sensitive, the right call is to meet the expectations people already have, not fight them. The whole project was about closing the gap between what users expected and what the app actually did.
                 </p>
               </div>
             </section>
@@ -806,12 +806,12 @@ export default function MessagingRedesign() {
                 {/* Problem annotations */}
                 <div className="flex-1 space-y-4">
                   <p className="font-sans text-base text-ink/70 leading-relaxed mb-6">
-                    The legacy UI suffered from a cluster of interconnected usability failures. None were catastrophic in isolation, but together, they produced an experience that felt dated, unpredictable, and out of step with the platform users had come to expect.
+                    The legacy UI had a handful of usability problems that fed into each other. None were dealbreakers on their own, but together they made the experience feel dated and out of step with the rest of the platform.
                   </p>
                   {[
                     {
                       label: 'Inbox metaphor mismatch',
-                      body: 'Virtually every user expects chat-style threading. Texting is universal. The email-inbox paradigm felt archaic and created immediate orientation confusion regardless of age.',
+                      body: 'Almost everyone expects chat-style threading now, since texting is universal. The old email-inbox layout felt dated and threw people off right away, regardless of age.',
                     },
                     {
                       label: 'Inbox and compose share one screen',
@@ -865,7 +865,7 @@ export default function MessagingRedesign() {
                 {
                   method: 'Task Analysis',
                   framework: 'Two primary task flows mapped',
-                  finding: "Mapping the Send Message flow showed it took 6 discrete steps, each with a potential exit point. The flow's complexity wasn't just a UI problem; it was structural.",
+                  finding: "Mapping the Send Message flow showed it took 6 steps, each a place someone could drop off. The complexity wasn't just a UI problem, it was baked into the structure.",
                 },
               ].map((item, i) => (
                 <div key={i} className="bg-white rounded-2xl border border-ink/8 p-6">
@@ -896,7 +896,7 @@ export default function MessagingRedesign() {
                 {[
                   {
                     app: 'iMessage',
-                    lesson: 'Chat-style threading isn\'t a preference. It\'s a trained behavior. Every user arrives already knowing how to read and reply in a bubble layout. Any deviation from this incurs onboarding cost on a surface where trust is the entire point.',
+                    lesson: 'Chat-style threading isn\'t a preference, it\'s a habit people already have. Everyone arrives knowing how to read and reply in a bubble layout, so anything different just makes them work harder on a screen where trust is everything.',
                   },
                   {
                     app: 'Gmail',
@@ -926,7 +926,7 @@ export default function MessagingRedesign() {
             title="Mapping the critical paths before touching the UI"
           >
             <p className="font-sans text-base text-ink/60 leading-relaxed max-w-3xl mb-8">
-              I documented the two primary task flows in full, Send Message and Read/Reply, to expose where friction accumulated and where users were likely to abandon. The Send Message flow contained two decision branches (Save Draft, Attach File) that the legacy UI failed to communicate clearly, contributing to high error rates in testing.
+              I mapped the two main task flows, Send Message and Read/Reply, to find where things got in the way and where people were likely to give up. The Send Message flow had two decision branches (Save Draft, Attach File) that the legacy UI didn't communicate clearly, which led to a lot of mistakes in testing.
             </p>
             <div className="space-y-3">
               <div className="rounded-2xl border border-ink/10 bg-white px-4 pt-5 pb-4">
@@ -947,7 +947,7 @@ export default function MessagingRedesign() {
             title="Two lo-fi directions, one high-stakes decision"
           >
             <p className="font-sans text-base text-ink/60 leading-relaxed max-w-3xl mb-8">
-              Rather than exploring stylistic variations in wireframes, the lo-fi phase focused on a single structural question: where does the Compose action live? This determined everything downstream, information hierarchy, navigation model, and the mental model for new-message intent.
+              Rather than exploring stylistic variations in wireframes, the lo-fi phase focused on a single structural question: where does the Compose action live? That one choice drove everything after it, the hierarchy, the navigation, and how people understood where to start a new message.
             </p>
 
             <div className="rounded-2xl overflow-hidden border border-ink/10 mb-8">
@@ -973,10 +973,10 @@ export default function MessagingRedesign() {
           {/* ── 06b Key Design Decisions ──────────────────────────────────── */}
           <CollapsibleSection
             sectionLabel="Key Design Decisions"
-            title="Three decisions that shaped everything downstream"
+            title="Three decisions that shaped the rest of the design"
           >
             <p className="font-sans text-base text-ink/60 leading-relaxed max-w-3xl mb-10">
-              The lo-fi exploration answered the compose placement question. But three other structural decisions, each with real tradeoffs, determined whether the redesign would be a cosmetic refresh or a durable product improvement.
+              The lo-fi exploration answered the compose placement question. But three other structural decisions, each with real tradeoffs, determined whether this would be a surface-level refresh or a real improvement.
             </p>
             <KeyDesignDecisions />
           </CollapsibleSection>
@@ -986,7 +986,7 @@ export default function MessagingRedesign() {
             <section>
               <SectionLabel>06 - High-Fidelity Design</SectionLabel>
               <h2 className="font-display text-3xl md:text-4xl font-bold text-ink mb-3 leading-tight">
-                Final screens: systematic, accessible, platform-aligned
+                The final screens
               </h2>
               <p className="font-sans text-base text-ink/60 leading-relaxed max-w-3xl mb-8">
                 The final design resolved the core usability failures while meeting Q2's platform design system tokens, WCAG 2.1 AA accessibility requirements, and existing engineering constraints. Key decisions: tabbed navigation to separate Messages, Alerts, and Drafts (eliminating the alert/message conflation in the legacy UI); bold unread indicators anchored to type weight, not color alone (accessibility); and a persistent header-anchored compose button.
@@ -999,7 +999,7 @@ export default function MessagingRedesign() {
                   A compliance constraint shaped the architecture from the start: in financial services, system-generated alerts (fraud notifications, account changes, security notices) carry a different legal status than human-initiated messages. Institutions need to be able to demonstrate that alerts were surfaced to users in a way that's distinct and auditable. A flat unified inbox, where a fraud notice and a support message live in the same date-sorted list, makes that defensibility impossible to guarantee.
                 </p>
                 <p className="font-sans text-sm text-ink/65 leading-relaxed">
-                  Tabs solved both problems simultaneously. The primary UX failure from research (users missing fraud alerts in a noisy flat list) and the compliance requirement (provable, auditable alert separation) had the same answer. That convergence made the tab decision easy to defend internally, it wasn't a design preference, it was the only architecture that satisfied both constraints at once.
+                  Tabs solved both problems at once. The main UX failure from research (users missing fraud alerts in a noisy flat list) and the compliance requirement (provable, auditable alert separation) had the same answer. Because both pointed the same way, the tab decision was easy to defend internally, it wasn't a design preference, it was the only structure that handled both at once.
                 </p>
               </div>
 
@@ -1038,7 +1038,7 @@ export default function MessagingRedesign() {
               <div className="rounded-2xl border border-ink/10 bg-ink/[0.025] px-6 py-5 max-w-3xl">
                 <p className="font-sans text-xs uppercase tracking-widest text-ink/40 mb-2">A note on visual styling</p>
                 <p className="font-sans text-sm text-ink/65 leading-relaxed">
-                  Q2's platform is fully white-labeled: every financial institution that ships on it applies their own brand tokens, colors, and typography on top of the base system. What you're seeing here is the intentionally neutral out-of-box state. The design work lives in the interaction model, the information architecture, and the component system, not the surface palette. A community bank in Montana and a credit union in California will each make this look like their own product.
+                  Q2's platform is fully white-labeled: every financial institution that ships on it applies their own brand tokens, colors, and typography on top of the base system. What you're seeing here is the intentionally neutral out-of-box state. The real design work is in how it behaves, how it's organized, and the components underneath, not the colors on top. A community bank in Montana and a credit union in California will each make this look like their own product.
                 </p>
               </div>
             </section>
@@ -1132,12 +1132,12 @@ export default function MessagingRedesign() {
             <section>
               <SectionLabel>09 - Outcomes & Systems Impact</SectionLabel>
               <h2 className="font-display text-3xl md:text-4xl font-bold text-ink mb-6 leading-tight">
-                Shipped, scored, and aligned to the platform.
+                Shipped, and brought in line with the rest of the platform.
               </h2>
 
               <div className="font-sans text-base text-ink/70 leading-relaxed space-y-4 max-w-3xl mb-10">
                 <p>
-                  The shipped redesign replaced a surface that had gone largely untouched for over a decade, bringing the primary trust channel in line with the rest of Q2's modernized platform, which serves 20M+ banking users. Design took three months. Engineering delivery took five - development was balanced against a full product roadmap, the standard reality of enterprise SaaS.
+                  The shipped redesign replaced a surface that had gone largely untouched for over a decade, bringing this screen in line with the rest of Q2's modernized platform, which serves 20M+ banking users. Design took three months. Engineering delivery took five - development was balanced against a full product roadmap, the standard reality of enterprise SaaS.
                 </p>
                 <p>
                   The patterns established here - tabbed separation of alerts from messages, chat-style threading, and header-anchored compose - set a structural reference for how inbox-style surfaces in the platform should behave going forward.
@@ -1177,7 +1177,7 @@ export default function MessagingRedesign() {
             <section>
               <SectionLabel>10 - Reflection</SectionLabel>
               <h2 className="font-display text-3xl md:text-4xl font-bold text-ink mb-6 leading-tight">
-                What I'd pressure-test more rigorously next time
+                What I'd dig into more next time
               </h2>
 
               <div className="font-sans text-base text-ink/70 leading-relaxed space-y-4 max-w-3xl mb-8">
