@@ -378,51 +378,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Approach ─────────────────────────────────────────────────── */}
-      <section className="px-6 md:px-14 lg:px-20 py-20 md:py-32">
-        <div className="max-w-[1400px] mx-auto">
-          <FadeUp>
-            <p className="font-sans text-xs uppercase tracking-[0.25em] mb-3" style={{ color: DIM }}>
-              How I work
-            </p>
-            <h2
-              className="font-display font-black tracking-tight mb-16"
-              style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', color: INK, lineHeight: 1.1 }}
-            >
-              Evidence first, always
-            </h2>
-          </FadeUp>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-            {[
-              {
-                num: '01',
-                title: 'Research',
-                desc: 'Heuristic evaluations, task analysis, competitive audits, moderated testing. All before a single screen is drawn.',
-              },
-              {
-                num: '02',
-                title: 'Design',
-                desc: 'Systematic thinking and hands-on craft. Components, patterns, and interactions that scale across enterprise products.',
-              },
-              {
-                num: '03',
-                title: 'Validate',
-                desc: 'SUS scoring, think-aloud protocols, usability testing. The data tells us whether we got it right.',
-              },
-            ].map((step, i) => (
-              <FadeUp key={step.num} delay={i * 0.1}>
-                <div className="pt-6" style={{ borderTop: `2px solid ${INK}` }}>
-                  <p className="font-display text-sm font-bold mb-3" style={{ color: BLUE }}>{step.num}</p>
-                  <h3 className="font-display text-2xl font-bold mb-3" style={{ color: INK }}>{step.title}</h3>
-                  <p className="font-sans text-base leading-relaxed" style={{ color: DIM }}>{step.desc}</p>
-                </div>
-              </FadeUp>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── Motion Lab teaser ────────────────────────────────────────── */}
       <section className="px-6 md:px-14 lg:px-20 pb-20 md:pb-32">
         <FadeUp>
