@@ -331,7 +331,7 @@ export default function AlertsRedesign() {
           </motion.div>
 
           <motion.div {...fadeUp}>
-            <ImgSlot name="old-terminology-evidence" ratio="16 / 7" caption="Old type-picker dropdown + the long “Online Transaction” list (the confusing terminology in context)" />
+            <ImgSlot name="issues" ratio="38 / 8" caption="The legacy alert forms in context: the “Online Transaction” type-picker (full of commercial-treasury options), the “History Alert,” and the “Account Alert” with its preset Frequency." />
           </motion.div>
         </div>
       </section>
