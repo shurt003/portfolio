@@ -10,7 +10,7 @@ const projects = [
     title: 'Secure Messaging Redesign',
     subtitle: 'Modernizing a Legacy Enterprise UI',
     tags: ['UX Research', 'Redesign', 'Q2'],
-    impact: '92.9 SUS score, affecting 20M+ users',
+    impact: '92.9 SUS score, shipped on a 20M+ user platform',
     accent: '#E8C547',
     year: '2024',
     image: '/images/SecureMessaging/securemessagingbgheroimage.webp',
