@@ -14,6 +14,7 @@ import MagicSignal from './pages/case-studies/MagicSignal'
 import Validation from './pages/case-studies/Validation'
 import Interstitial from './pages/case-studies/Interstitial'
 import AlertsRedesign from './pages/case-studies/AlertsRedesign'
+import DesignSystem from './pages/case-studies/DesignSystem'
 import CaseStudyGate from './components/CaseStudyGate'
 
 // Footer height as a CSS custom property so the spacer and footer stay in sync
@@ -52,6 +53,7 @@ function AppContent() {
             <Route path="/validation" element={<Validation />} />
             <Route path="/interstitial" element={<Interstitial />} />
             <Route path="/alerts-redesign" element={<AlertsRedesign />} />
+            <Route path="/design-system" element={<DesignSystem />} />
           </Route>
         </Routes>
       </div>
