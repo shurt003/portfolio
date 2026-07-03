@@ -15,6 +15,7 @@ import Validation from './pages/case-studies/Validation'
 import Interstitial from './pages/case-studies/Interstitial'
 import AlertsRedesign from './pages/case-studies/AlertsRedesign'
 import DesignSystem from './pages/case-studies/DesignSystem'
+import EnhancedMoneyHub from './pages/case-studies/EnhancedMoneyHub'
 import CaseStudyGate from './components/CaseStudyGate'
 
 // Footer height as a CSS custom property so the spacer and footer stay in sync
@@ -54,6 +55,7 @@ function AppContent() {
             <Route path="/interstitial" element={<Interstitial />} />
             <Route path="/alerts-redesign" element={<AlertsRedesign />} />
             <Route path="/design-system" element={<DesignSystem />} />
+            <Route path="/enhanced-money-hub" element={<EnhancedMoneyHub />} />
           </Route>
         </Routes>
       </div>
