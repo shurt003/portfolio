@@ -98,7 +98,7 @@ const PROJECTS = [
     title: 'Q2 Clarity',
     subtitle: 'A vendor widget became a bank-owned money hub: pitched from outside the team, in beta with three FIs 2.5 months later.',
     href: '/q2-clarity',
-    image: '/images/Q2Clarity/newdesign/Page · Overview.png',
+    image: '/images/Q2Clarity/Designs_july17/overview-desktop.png',
   },
   {
     id: 'brand-identity-tokens',
