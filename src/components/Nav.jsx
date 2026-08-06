@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useNavTheme } from '../contexts/NavTheme'
 
 const links = [
-  { label: 'Work', href: '/projects' },
+  { label: 'Work', href: '/work' },
   { label: 'Motion Lab', href: '/motion-lab' },
   { label: 'About', href: '/about' },
   { label: 'Contact', href: '/contact' },
@@ -62,8 +62,8 @@ export default function Nav() {
       >
         {/* Logo */}
         <Link to="/" className="group flex items-center gap-2">
-          <div className={`w-9 h-9 rounded-full flex items-center justify-center transition-colors duration-300 ${isDark ? 'bg-cream' : 'bg-ink'}`}>
-            <span className={`font-display text-sm font-bold leading-none transition-colors duration-300 ${isDark ? 'text-ink' : 'text-cream'}`}>SH</span>
+          <div className="w-9 h-9 rounded-full flex items-center justify-center bg-cream">
+            <span className="font-display text-sm font-bold leading-none text-ink">SH</span>
           </div>
         </Link>
 

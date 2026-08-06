@@ -298,6 +298,7 @@ function InterstitialThumb({ accent }) {
 export default function ProjectThumb({ href, accent }) {
   const thumbs = {
     '/design-system':         DesignSystemThumb,
+    '/brand-identity-tokens': DesignSystemThumb,
     '/messaging-redesign':    MessagingThumb,
     '/magic-signal':          MagicSignalThumb,
     '/validation':            ValidationDiagram,

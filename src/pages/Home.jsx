@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
 import { useNavTheme } from '../contexts/NavTheme'
 import RivePiece from '../components/RivePiece'
-import ProjectThumb from '../components/ProjectThumbs'
 
 const HeroRings = lazy(() => import('../components/HeroRings'))
 
@@ -12,7 +11,7 @@ const BG   = '#F5F0E8'
 const INK  = '#1C2322'
 const BLUE = '#2B59C3'
 const DARK = '#0D0F14'
-const DIM  = 'rgba(28,35,34,0.6)'
+const DIM  = 'rgba(28,35,34,0.68)'   // ≥4.5:1 on BG cream (0.6 measured 4.1:1, failed AA)
 
 /* ── FadeUp ──────────────────────────────────────────────────────────── */
 function FadeUp({ children, delay = 0, className = '' }) {
@@ -43,101 +42,6 @@ function Stat({ value, label }) {
     </div>
   )
 }
-
-/* ── ProjectCard ─────────────────────────────────────────────────────── */
-function ProjectCard({ project, index }) {
-  const [hovered, setHovered] = useState(false)
-  return (
-    <FadeUp delay={index * 0.08}>
-      <Link
-        to={project.href}
-        className="group block"
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-      >
-        <div className="relative rounded-2xl overflow-hidden mb-5 transition-transform duration-700 ease-out group-hover:scale-[1.04]" style={{ aspectRatio: '16/10' }}>
-          {project.image
-            ? <img src={project.image} alt={project.title} className="w-full h-full object-cover" loading="lazy" />
-            : <ProjectThumb href={project.href} accent={project.accent} />
-          }
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
-        </div>
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <h3
-              className="font-display text-xl md:text-2xl font-bold mb-1"
-              style={{ color: INK }}
-            >
-              {project.title}
-            </h3>
-            <p className="font-sans text-sm md:text-base leading-relaxed max-w-md" style={{ color: DIM }}>
-              {project.subtitle}
-            </p>
-          </div>
-          <motion.div
-            className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center mt-1"
-            style={{ backgroundColor: INK }}
-            animate={{ scale: hovered ? 1.1 : 1 }}
-            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <span style={{ position: 'relative', width: 14, height: 14, overflow: 'hidden', display: 'inline-block', flexShrink: 0 }}>
-              {/* Arrow 1 — exits toward top-right on hover */}
-              <motion.svg
-                width="14" height="14" viewBox="0 0 14 14" fill="none"
-                style={{ position: 'absolute', top: 0, left: 0 }}
-                animate={hovered ? { x: 17, y: -17 } : { x: 0, y: 0 }}
-                transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <path d="M1 13L13 1M13 1H3M13 1V11" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </motion.svg>
-              {/* Arrow 2 — enters from bottom-left on hover */}
-              <motion.svg
-                width="14" height="14" viewBox="0 0 14 14" fill="none"
-                style={{ position: 'absolute', top: 0, left: 0 }}
-                animate={hovered ? { x: 0, y: 0 } : { x: -17, y: 17 }}
-                transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <path d="M1 13L13 1M13 1H3M13 1V11" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </motion.svg>
-            </span>
-          </motion.div>
-        </div>
-      </Link>
-    </FadeUp>
-  )
-}
-
-/* ── Projects data ───────────────────────────────────────────────────── */
-const PROJECTS = [
-  {
-    id: 'messaging',
-    title: 'Secure Messaging',
-    subtitle: 'Research-informed redesign of a security-critical messaging feature on a 20M+ user platform.',
-    href: '/messaging-redesign',
-    image: '/images/SecureMessaging/securemessagingbgheroimage.webp',
-  },
-  {
-    id: 'interstitial',
-    title: 'Interstitial',
-    subtitle: 'A forgotten loading screen became a branded moment, and an $8M deal.',
-    href: '/interstitial',
-    image: '/images/Interstitial/interstitial-home-thumbnail.png',
-  },
-  {
-    id: 'validation',
-    title: 'Form Validation',
-    subtitle: 'Research-driven case for moving Q2\'s platform to inline validation.',
-    href: '/validation',
-    accent: '#7B9EC7',
-  },
-  {
-    id: 'magic-signal',
-    title: 'MagicSignal',
-    subtitle: 'A product I designed, built, and shipped solo to iOS and Android.',
-    href: '/magic-signal',
-    image: '/images/magicSignal/ms-home-thumbnail.png',
-  },
-]
 
 /* ── Main ────────────────────────────────────────────────────────────── */
 export default function Home() {
@@ -175,9 +79,10 @@ export default function Home() {
           </div>
         )}
 
-        <div className="relative z-10 w-full max-w-4xl mx-auto flex flex-col items-center">
+        {/* max-w-5xl: the h1 at its 6rem clamp cap is ~920px wide; 4xl (896px) forced a wrap on wide screens */}
+        <div className="relative z-10 w-full max-w-5xl mx-auto flex flex-col items-center">
           <motion.p
-            className="font-sans text-xs uppercase tracking-[0.25em] mb-7"
+            className="font-sans text-sm uppercase tracking-[0.25em] mb-7"
             style={{ color: DIM }}
             initial={{ opacity: 0 }}
             animate={heroInView ? { opacity: 1 } : {}}
@@ -186,21 +91,36 @@ export default function Home() {
             Stephen Hurt, Product Designer
           </motion.p>
 
-          <motion.h1
+          <h1
             className="font-display font-black tracking-tight mb-8"
             style={{
               fontSize: 'clamp(2.8rem, 6.5vw, 6rem)',
               lineHeight: 1.04,
               color: INK,
             }}
-            initial={{ opacity: 0, y: 30 }}
-            animate={heroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            Designing products{' '}
-            <span style={{ color: BLUE }}>22 million</span>{' '}
-            people trust
-          </motion.h1>
+            {[
+              <>Designing what</>,
+              <><span style={{ color: BLUE, whiteSpace: 'nowrap' }}>22 million</span> people tap</>,
+            ].map((line, i) => (
+              /* Masked line reveal: the wrapper clips, the inner line rises.
+                 Padding + negative margin keep descenders out of the clip. */
+              <span
+                key={i}
+                className="block overflow-hidden"
+                style={{ paddingBottom: '0.12em', marginBottom: '-0.12em' }}
+              >
+                <motion.span
+                  className="block"
+                  initial={{ y: '112%' }}
+                  animate={heroInView ? { y: '0%' } : {}}
+                  transition={{ duration: 1.0, delay: 0.15 + i * 0.1, ease: [0.19, 1, 0.22, 1] }}
+                >
+                  {line}
+                </motion.span>
+              </span>
+            ))}
+          </h1>
 
           <motion.p
             className="font-sans text-lg md:text-xl leading-relaxed max-w-xl mb-12"
@@ -209,19 +129,25 @@ export default function Home() {
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
           >
-            I'm a product and interaction designer at Q2. Before UX, I spent ten years in motion design, learning to control where attention goes.
+            I'm a product and interaction designer at Q2. Before UX, I spent ten years in motion design.
           </motion.p>
 
-          <motion.div
-            className="flex gap-12 md:gap-16"
-            initial={{ opacity: 0, y: 20 }}
-            animate={heroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <Stat value="22M" label="Users impacted" />
-            <Stat value="500+" label="Financial institutions" />
-            <Stat value="12yr" label="Design career" />
-          </motion.div>
+          <div className="flex gap-12 md:gap-16">
+            {[
+              ['$8M', 'Deal won by one screen'],
+              ['500+', 'Financial institutions'],
+              ['12yr', 'Design career'],
+            ].map(([value, label], i) => (
+              <motion.div
+                key={value}
+                initial={{ opacity: 0, y: 20 }}
+                animate={heroInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.8, delay: 0.5 + i * 0.05, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <Stat value={value} label={label} />
+              </motion.div>
+            ))}
+          </div>
         </div>
 
         {/* ── Scroll indicator ─────────────────────────────────────── */}
@@ -274,7 +200,7 @@ export default function Home() {
 
               {/* Text */}
               <div className="lg:col-span-3 px-8 md:px-14 py-12 md:py-16 flex flex-col justify-center">
-                <p className="font-sans text-xs uppercase tracking-[0.25em] mb-5" style={{ color: 'rgba(255,255,255,0.4)' }}>
+                <p className="font-sans text-xs uppercase tracking-[0.25em] mb-5" style={{ color: 'rgba(255,255,255,0.55)' }}>
                   About
                 </p>
                 <h2
@@ -287,7 +213,7 @@ export default function Home() {
                   </span>
                 </h2>
                 <p className="font-sans text-base leading-relaxed max-w-lg mb-8" style={{ color: 'rgba(255,255,255,0.55)' }}>
-                  At Q2, I work across the full product lifecycle, from research and design to testing and implementation, on banking software used by 22 million people across 500+ financial institutions.
+                  At Q2, my work runs from product features to the component system that every product on the platform is built from — banking software used by 22 million people across 500+ financial institutions.
                 </p>
                 <div>
                   <Link
@@ -326,60 +252,8 @@ export default function Home() {
         </FadeUp>
       </section>
 
-      {/* ── Selected Work ────────────────────────────────────────────── */}
-      <section className="px-6 md:px-14 lg:px-20 py-20 md:py-32">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="flex items-end justify-between mb-16">
-            <FadeUp>
-              <p className="font-sans text-xs uppercase tracking-[0.25em] mb-3" style={{ color: DIM }}>
-                Selected work
-              </p>
-              <h2
-                className="font-display font-black tracking-tight"
-                style={{ fontSize: 'clamp(2.5rem, 5vw, 4rem)', color: INK, lineHeight: 1.1 }}
-              >
-                Case studies
-              </h2>
-            </FadeUp>
-            <FadeUp delay={0.1}>
-              <Link
-                to="/projects"
-                className="hidden md:inline-flex items-center gap-2 font-sans text-sm font-medium px-6 py-3 rounded-full border transition-colors duration-200 hover:bg-[rgba(28,35,34,0.04)]"
-                style={{ borderColor: 'rgba(28,35,34,0.2)', color: INK }}
-              >
-                View all
-                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                  <path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </Link>
-            </FadeUp>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-16">
-            {PROJECTS.map((project, i) => (
-              <div key={project.id} style={{ marginTop: i % 2 === 1 ? '4rem' : '0' }}>
-                <ProjectCard project={project} index={i} />
-              </div>
-            ))}
-          </div>
-
-          <div className="md:hidden mt-12 text-center">
-            <Link
-              to="/projects"
-              className="inline-flex items-center gap-2 font-sans text-sm font-medium px-6 py-3 rounded-full border transition-colors duration-200"
-              style={{ borderColor: 'rgba(28,35,34,0.2)', color: INK }}
-            >
-              View all work
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <path d="M1 11L11 1M11 1H3M11 1V9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </Link>
-          </div>
-        </div>
-      </section>
-
       {/* ── Motion Lab teaser ────────────────────────────────────────── */}
-      <section className="px-6 md:px-14 lg:px-20 pb-20 md:pb-32">
+      <section className="px-6 md:px-14 lg:px-20 pt-20 md:pt-32 pb-20 md:pb-32">
         <FadeUp>
           <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div>

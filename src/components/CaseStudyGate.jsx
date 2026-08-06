@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Outlet, Link } from 'react-router-dom'
+import { Outlet, Link, useLocation } from 'react-router-dom'
 import { useNavTheme } from '../contexts/NavTheme'
 
 /* ──────────────────────────────────────────────────────────────────────────
@@ -17,6 +17,12 @@ const STORAGE_KEY = 'caseStudyAccess'
 
 export default function CaseStudyGate() {
   const { setIsDark } = useNavTheme()
+  const { pathname } = useLocation()
+  // The /work index lists several case studies; individual studies are singular.
+  const isIndex = pathname === '/work'
+  const heading = isIndex ? 'These case studies are private' : 'This case study is private'
+  const viewText = isIndex ? 'them' : 'it'
+  const buttonLabel = isIndex ? 'View case studies' : 'View case study'
   const [authed, setAuthed] = useState(() => sessionStorage.getItem(STORAGE_KEY) === '1')
   const [value, setValue] = useState('')
   const [error, setError] = useState(false)
@@ -51,10 +57,10 @@ export default function CaseStudyGate() {
           className="font-display font-black tracking-tight mb-3"
           style={{ fontSize: 'clamp(1.9rem, 4vw, 2.6rem)', color: '#1C2322', lineHeight: 1.12 }}
         >
-          This case study is private
+          {heading}
         </h1>
         <p className="font-sans text-base leading-relaxed mb-8" style={{ color: 'rgba(28,35,34,0.6)' }}>
-          Enter the password to view it. Need access?{' '}
+          Enter the password to view {viewText}. Need access?{' '}
           <Link to="/contact" style={{ color: '#2B59C3' }}>Get in touch</Link>.
         </p>
 
@@ -79,7 +85,7 @@ export default function CaseStudyGate() {
             className="w-full px-5 py-3.5 rounded-full font-sans text-sm font-medium transition-opacity hover:opacity-90"
             style={{ backgroundColor: '#1C2322', color: '#fff' }}
           >
-            View case study
+            {buttonLabel}
           </button>
           {error && (
             <p className="font-sans text-sm mt-1" style={{ color: '#D9488E' }}>
