@@ -239,7 +239,7 @@ function GateCompare() {
   return (
     <div className="rounded-2xl p-7 md:p-9" style={{ backgroundColor: CARD, border: `1px solid ${LINE}` }}>
       <div className="flex flex-wrap gap-2 mb-8">
-        {[['naive', 'The obvious build'], ['gated', 'The gated build (shipped)']].map(([key, label]) => {
+        {[['naive', 'The obvious build'], ['gated', 'The gated build (shipped to beta)']].map(([key, label]) => {
           const active = mode === key
           return (
             <button
@@ -682,12 +682,12 @@ export default function Q2Clarity() {
       {/* ── TL;DR ── */}
       <CaseTLDR
         colors={{ text: INK, dim: DIM, accent: ACCENT, surface: CARD, rule: LINE }}
-        summary="Members saw the vendor's own embedded widget where their bank's money tools should be, fronting a grey 'Uncategorized' wedge that taught them to stop looking. I wrote the argument before designing a screen: own the experience, keep the vendor as the data engine, gate AI to categorizing the messy tail and narrating insights. The proposal won over a team I wasn't on. We designed and built it together, and it's in beta with three financial institutions."
+        summary="Members saw the vendor's own embedded widget where their bank's money tools should be, fronting a grey 'Uncategorized' wedge that taught them to stop looking. I wrote the argument before designing a screen: own the experience, keep the vendor as the data engine, gate AI to categorizing the messy tail and narrating insights. The proposal won over a team I wasn't on, and we shipped the themed hub to beta with three financial institutions. The AI layer didn't survive the beta: account holders barely used it, and it wasn't worth the extra engineering surface to keep, so we cut it."
         stats={[
           { value: '2.5 mo', label: 'From idea to beta release' },
           { value: '3', label: 'Financial institutions in beta' },
           { value: '8', label: 'Tabs unified into one hub, from a single widget' },
-          { value: '2–3¢', label: 'AI cost per active user, per month' },
+          { value: 'Cut', label: 'AI narration and enrichment, removed after beta' },
         ]}
       />
 
@@ -792,8 +792,7 @@ export default function Q2Clarity() {
             <p className="font-sans text-base leading-relaxed max-w-3xl mb-10">
               The vendor stays the data engine for aggregation and categorization. From the adapter forward, everything is Q2's:
               a deterministic math core with AI gated to the hard cases of categorization and the narration of insights.
-              The build rule the whole product follows: deterministic first, AI last. Never hand a model a job a lookup
-              can do.
+              The build rule behind it: deterministic first, AI last. Never hand a model a job a lookup can do.
             </p>
           </motion.div>
 
@@ -835,10 +834,10 @@ export default function Q2Clarity() {
         <motion.div {...fadeUp} className="rounded-2xl p-7" style={{ backgroundColor: 'rgba(21,122,74,0.06)', border: '1px solid rgba(21,122,74,0.25)' }}>
           <p className="font-mono text-[11px] tracking-[0.18em] uppercase mb-3" style={{ color: GREEN }}>Built to clear governance</p>
           <p className="font-sans text-sm leading-relaxed max-w-3xl" style={{ color: DIM }}>
-            The model never sees PII or raw transactions, only post-vendor aggregates: a cleansed merchant string, a dollar
-            amount, a category total. It runs on already-approved infrastructure (AWS Bedrock with approved Claude models,
-            US data residency, no training on our data) and goes through the standard AI Center of Excellence review. We
-            designed it to make that review easy, not to route around it.
+            The model never saw PII or raw transactions, only post-vendor aggregates: a cleansed merchant string, a dollar
+            amount, a category total. It ran on already-approved infrastructure (AWS Bedrock with approved Claude models,
+            US data residency, no training on our data) and cleared the standard AI Center of Excellence review before it
+            ever touched a real account. We designed it to make that review easy, not to route around it.
           </p>
         </motion.div>
       </section>
@@ -1061,24 +1060,50 @@ export default function Q2Clarity() {
           </p>
         </motion.div>
 
-        <motion.div {...fadeUp} className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <motion.div {...fadeUp} className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           <Stat value="2.5 mo" label="idea to beta release" color={ACCENT} />
           <Stat value="3"      label="financial institutions in beta" color={ACCENT} />
           <Stat value="6"      label="people: two designers, a PO, three engineers" />
           <Stat value="0"      label="critical issues at engineering handoff" />
         </motion.div>
+      </section>
 
+      {/* ── 09B THE CUT ── */}
+      <motion.section {...fadeUp} style={{ backgroundColor: INK }}>
+        <div className={`${wrap} py-16 md:py-20`}>
+          <p className="font-mono text-[11px] tracking-[0.18em] uppercase mb-6" style={{ color: '#8B85F4' }}>
+            After the beta
+          </p>
+          <p className="font-display font-black leading-tight max-w-4xl mb-6" style={{ fontSize: 'clamp(1.7rem, 3.8vw, 2.8rem)', color: '#fff' }}>
+            We cut the AI layer entirely.
+          </p>
+          <p className="font-sans text-base leading-relaxed max-w-3xl mb-4" style={{ color: L_DIM }}>
+            The financial institutions running Clarity asked their own account holders what they thought of it, and the
+            AI barely came up. Most people didn't have a strong opinion on the recategorization or the narrated insights
+            either way. What they noticed was the hub itself: a real page instead of a buried modal, tabs that worked on
+            a phone for the first time. AI had become a second engineering surface, one more thing to monitor and explain
+            to a risk team, for a feature most account holders never mentioned. So we killed it. Clarity kept shipping on
+            the deterministic core alone: no enrichment calls, no narration calls. The AI line in the cost model went
+            from two to three cents a user to zero.
+          </p>
+          <p className="font-sans text-base leading-relaxed max-w-3xl" style={{ color: L_DIM }}>
+            None of the cost work went to waste. Pricing the feature in pennies before it existed is what made killing
+            it later a shrug instead of a fight over sunk engineering time.
+          </p>
+        </div>
+      </motion.section>
+
+      <section className={`${wrap} py-20`}>
         <motion.div {...fadeUp} className="mb-16">
-          <p className="font-display text-xl font-bold mb-2" style={{ color: INK }}>What the beta has to prove</p>
+          <p className="font-display text-xl font-bold mb-2" style={{ color: INK }}>What the beta had to prove</p>
           <p className="font-sans text-sm leading-relaxed max-w-3xl mb-8" style={{ color: DIM }}>
-            Two questions, and the first one is blunt: do members actually use it? Every earlier round ran on constructed
-            personas, so the beta is where real behavior gets its vote.
+            Three questions, and the first one is blunt: do members actually use it? Every earlier round ran on
+            constructed personas, so the beta is where real behavior gets its vote.
           </p>
           <div style={{ borderLeft: `3px solid ${ACCENT}` }} className="pl-6 md:pl-8 max-w-3xl space-y-5">
             {[
               ['Do people come back?', 'Return visits to the hub without a push notification driving them. A money tool people open twice and abandon is the category\'s defining failure, and the reason the old widget went unused.'],
-              ['Do insights turn into action?', 'Every nudge is instrumented: seen, dismissed, or acted on. The significance threshold that gates AI narration gets tuned on this rate, so usage data directly shapes how often the product speaks.'],
-              ['Do the category fixes stick?', 'When a member says "remember this," the uncategorized share of their spending should fall month over month. If the pile grows back, the enrichment layer isn\'t doing its job.'],
+              ['Did the AI layer earn its keep?', 'Answered, and not the way the pitch expected: no. Account holders barely mentioned the recategorization or the narration when their institutions asked, and it remained a second engineering surface someone had to maintain. We cut it.'],
               ['Does real research confirm the simulated panel?', 'Five live member sessions during beta, re-running the panel\'s highest-severity findings against actual people.'],
             ].map(([q, a]) => (
               <div key={q}>
@@ -1090,10 +1115,11 @@ export default function Q2Clarity() {
         </motion.div>
 
         <motion.div {...fadeUp}>
-          <p className="font-display text-xl font-bold mb-2" style={{ color: INK }}>And the bars the AI layer must clear</p>
+          <p className="font-display text-xl font-bold mb-2" style={{ color: INK }}>The bars the AI layer never got the chance to fail</p>
           <p className="font-sans text-sm leading-relaxed max-w-3xl mb-8" style={{ color: DIM }}>
-            The enrichment layer only graduates if it clears thresholds we froze before seeing any results. The themed
-            experience ships either way; the AI has to earn its place.
+            These were the go/no-go thresholds, frozen before the model ever touched a real transaction so nobody could
+            move them after seeing results. They turned out not to be the question that decided this feature's fate.
+            Account holders answered a simpler one first.
           </p>
           <div className="overflow-x-auto rounded-xl" style={{ border: `1px solid ${LINE}` }}>
             <table className="w-full text-left border-collapse" style={{ backgroundColor: CARD }}>
@@ -1122,8 +1148,8 @@ export default function Q2Clarity() {
             </table>
           </div>
           <p className="font-sans text-xs leading-relaxed mt-4" style={{ color: MUTE }}>
-            Thresholds and sample design were locked before the model ran. If quality is weak, the enrichment layer
-            doesn't ship, and members keep exactly what they have today.
+            The quality bars were never what killed this feature. The math core and the hub kept shipping exactly as
+            designed once the AI layer came out, proof it was additive from day one and never load-bearing.
           </p>
         </motion.div>
       </section>
@@ -1134,11 +1160,12 @@ export default function Q2Clarity() {
           <motion.div {...fadeUp}>
             <SectionHead num="10" label="Reflection" title="What I'd carry forward" light />
           </motion.div>
-          <motion.div {...fadeUp} className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-14">
+          <motion.div {...fadeUp} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-14">
             {[
               ['The memo did the persuading', 'Writing the argument before the screens is why this exists. A proposal a product owner could interrogate earned more trust than a polished prototype would have, because it showed the thinking was checkable.'],
               ['Simulated research is a loan', 'The constructed panel bought speed and honesty about severity, and it still owes real sessions. Beta is where that debt gets paid; next time I would budget for live participants a round earlier.'],
               ['Scope the fight, not just the feature', 'Splitting "own the experience" from "replace the data" is the reason there was no build-versus-buy war and no eighteen-month rewrite. Deciding which argument not to have was the highest-leverage design decision on the project.'],
+              ['A cheap bet is easy to kill', 'Pricing the AI layer in pennies before it existed is the reason cutting it later cost nothing. It never touched the math core or the hub, so removing it was a config change, not a rewrite. Next time I would put the smallest slice in front of real users even earlier.'],
             ].map(([t, b], i) => (
               <div key={t} className="pt-6" style={{ borderTop: '1px solid rgba(255,255,255,0.28)' }}>
                 <p className="font-mono text-[11px] tracking-[0.18em] mb-4" style={{ color: '#8B85F4' }}>0{i + 1}</p>
