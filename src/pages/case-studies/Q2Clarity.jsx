@@ -148,7 +148,7 @@ function PhoneSlot({ note, file, src, kind = 'IMG', label, onOpen }) {
 /* ── §01 · Before carousel: the buried overpanel, two frames at a time ── */
 const BEFORE_SHOTS = [
   { src: `${IMG}/q2dashboard.png`,                              label: 'The dashboard · Q2-owned UI',   note: 'The Spending tile is the only doorway in' },
-  { src: `${IMG}/previousdesign/Previous-Spending 1.png`,       label: 'The overpanel · Spending',      note: 'MX\'s UI from here on: its own donut, its own pink button' },
+  { src: `${IMG}/previousdesign/Previous-Spending 1.png`,       label: 'The overpanel · Spending',      note: 'The vendor\'s UI from here on: its own donut, its own pink button' },
   { src: `${IMG}/previousdesign/Previous-Budget 1.png`,         label: 'The overpanel · Budget',        note: 'An empty state most members never discovered' },
   { src: `${IMG}/previousdesign/Previous-Trends 1.png`,         label: 'The overpanel · Trends',        note: 'Twelve months of history, one click from invisible' },
   { src: `${IMG}/previousdesign/Previous-CashFlow 1.png`,       label: 'The overpanel · Cash Flow',     note: 'A projection tool hidden behind a chart' },
@@ -657,8 +657,8 @@ export default function Q2Clarity() {
             the pitch traveled from my desk to a beta three banks are running.
           </p>
           <p className="font-sans text-base leading-relaxed max-w-2xl mb-14" style={{ color: L_DIM }}>
-            Q2's platform served personal finance through MX's embedded UI: capable data, foreign-feeling experience, and
-            an uncategorized pile members had to sort themselves. I pitched rebuilding the experience on the data MX
+            Q2's platform served personal finance through our data vendor's embedded UI: capable data, foreign-feeling experience, and
+            an uncategorized pile members had to sort themselves. I pitched rebuilding the experience on the data the vendor
             already serves, with AI reserved for the two jobs only language can do. The accounts team took it on with me,
             and it went from idea to beta release in two and a half months.
           </p>
@@ -682,7 +682,7 @@ export default function Q2Clarity() {
       {/* ── TL;DR ── */}
       <CaseTLDR
         colors={{ text: INK, dim: DIM, accent: ACCENT, surface: CARD, rule: LINE }}
-        summary="Members saw MX's own embedded widget where their bank's money tools should be, fronting a grey 'Uncategorized' wedge that taught them to stop looking. I wrote the argument before designing a screen: own the experience, keep MX as the data engine, gate AI to categorizing the messy tail and narrating insights. The proposal won over a team I wasn't on. We designed and built it together, and it's in beta with three financial institutions."
+        summary="Members saw the vendor's own embedded widget where their bank's money tools should be, fronting a grey 'Uncategorized' wedge that taught them to stop looking. I wrote the argument before designing a screen: own the experience, keep the vendor as the data engine, gate AI to categorizing the messy tail and narrating insights. The proposal won over a team I wasn't on. We designed and built it together, and it's in beta with three financial institutions."
         stats={[
           { value: '2.5 mo', label: 'From idea to beta release' },
           { value: '3', label: 'Financial institutions in beta' },
@@ -704,7 +704,7 @@ export default function Q2Clarity() {
               in a modal where a dedicated page belonged.
             </p>
             <p>
-              Inside the overpanel, everything is rendered by MX, our data vendor. None of it uses Q2's components or
+              Inside the overpanel, everything is rendered by our data vendor. None of it uses Q2's components or
               variables, so even the spending donut inside the panel doesn't match the Q2-built donut on the tile that
               opened it. The "looks foreign" complaint from financial institutions was never a CSS problem; the UI was
               genuinely someone else's.
@@ -739,10 +739,10 @@ export default function Q2Clarity() {
             The gap is the experience, not the data.
           </p>
           <p className="font-sans text-base leading-relaxed max-w-3xl" style={{ color: L_DIM }}>
-            MX already aggregates every account and categorizes the bulk of transactions, over an API we already receive.
+            Our data vendor already aggregates every account and categorizes the bulk of transactions, over an API we already receive.
             What was missing sat above the data: an experience each institution could theme as its own, and insight in
             plain language instead of raw numbers — the job we wanted AI to do. So the plan kept the two decisions apart: render our own themed
-            views on the data MX serves, and never reopen the data layer. Deciding that early avoided a build-versus-buy
+            views on the data the vendor serves, and never reopen the data layer. Deciding that early avoided a build-versus-buy
             fight and kept the project small enough to ship in a quarter.
           </p>
         </div>
@@ -768,7 +768,7 @@ export default function Q2Clarity() {
 
         <motion.div {...fadeUp} style={{ borderLeft: `3px solid ${ACCENT}` }} className="pl-6 md:pl-9 max-w-3xl">
           {[
-            ['01', 'Establish ground truth', 'Confirmed via platform docs how the pipeline actually works: the dashboard tile is ours; the overpanel is MX\'s embedded UI on data we already receive.'],
+            ['01', 'Establish ground truth', 'Confirmed via platform docs how the pipeline actually works: the dashboard tile is ours; the overpanel is the vendor\'s embedded UI on data we already receive.'],
             ['02', 'Separate the two decisions', 'Owning the UI is the sure thing; the AI enrichment layer is additive and has to earn its way in. Either ships without the other.'],
             ['03', 'Price it before anyone asks', 'Worked the AI cost bottom-up to 2–3¢ per active user per month, including the 68¢ failure mode we were avoiding.'],
             ['04', 'Set the quality bars first', 'Go/no-go thresholds for the enrichment layer, frozen before any results existed. No moving goalposts.'],
@@ -790,7 +790,7 @@ export default function Q2Clarity() {
           <motion.div {...fadeUp}>
             <SectionHead num="04" label="The architecture" title="Six steps, ours end to end. AI touches two." />
             <p className="font-sans text-base leading-relaxed max-w-3xl mb-10">
-              MX stays the data engine for aggregation and categorization. From the adapter forward, everything is Q2's:
+              The vendor stays the data engine for aggregation and categorization. From the adapter forward, everything is Q2's:
               a deterministic math core with AI gated to the hard cases of categorization and the narration of insights.
               The build rule the whole product follows: deterministic first, AI last. Never hand a model a job a lookup
               can do.
@@ -835,7 +835,7 @@ export default function Q2Clarity() {
         <motion.div {...fadeUp} className="rounded-2xl p-7" style={{ backgroundColor: 'rgba(21,122,74,0.06)', border: '1px solid rgba(21,122,74,0.25)' }}>
           <p className="font-mono text-[11px] tracking-[0.18em] uppercase mb-3" style={{ color: GREEN }}>Built to clear governance</p>
           <p className="font-sans text-sm leading-relaxed max-w-3xl" style={{ color: DIM }}>
-            The model never sees PII or raw transactions, only post-MX aggregates: a cleansed merchant string, a dollar
+            The model never sees PII or raw transactions, only post-vendor aggregates: a cleansed merchant string, a dollar
             amount, a category total. It runs on already-approved infrastructure (AWS Bedrock with approved Claude models,
             US data residency, no training on our data) and goes through the standard AI Center of Excellence review. We
             designed it to make that review easy, not to route around it.
