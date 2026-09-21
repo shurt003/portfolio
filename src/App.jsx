@@ -1,3 +1,4 @@
+import { lazy, Suspense } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { MotionConfig } from 'framer-motion'
 import { NavThemeProvider } from './contexts/NavTheme'
@@ -5,19 +6,26 @@ import Nav from './components/Nav'
 import Footer from './components/Footer'
 import ScrollToTop from './components/ScrollToTop'
 import Home from './pages/Home'
-import Work from './pages/Work'
 import About from './pages/About'
 import Contact from './pages/Contact'
 import MotionLab from './pages/MotionLab'
-import MessagingRedesign from './pages/case-studies/MessagingRedesign'
-import MagicSignal from './pages/case-studies/MagicSignal'
-import Validation from './pages/case-studies/Validation'
-import Interstitial from './pages/case-studies/Interstitial'
-import AlertsRedesign from './pages/case-studies/AlertsRedesign'
-import DesignSystem from './pages/case-studies/DesignSystem'
-import Q2Clarity from './pages/case-studies/Q2Clarity'
-import BrandIdentityTokens from './pages/case-studies/BrandIdentityTokens'
 import CaseStudyGate from './components/CaseStudyGate'
+
+/* Everything behind the gate is loaded on demand rather than bundled into the
+   entry chunk. Two reasons: an anonymous visitor to the homepage no longer
+   downloads the full text of every case study, and the gated content ends up in
+   its own files, which is what makes blocking it at the edge possible. */
+const Work                  = lazy(() => import('./pages/Work'))
+const MessagingRedesign     = lazy(() => import('./pages/case-studies/MessagingRedesign'))
+const MagicSignal           = lazy(() => import('./pages/case-studies/MagicSignal'))
+const Validation            = lazy(() => import('./pages/case-studies/Validation'))
+const Interstitial          = lazy(() => import('./pages/case-studies/Interstitial'))
+const AlertsRedesign        = lazy(() => import('./pages/case-studies/AlertsRedesign'))
+const DesignSystem          = lazy(() => import('./pages/case-studies/DesignSystem'))
+const Q2Clarity             = lazy(() => import('./pages/case-studies/Q2Clarity'))
+const Q2CodeAgents          = lazy(() => import('./pages/case-studies/Q2CodeAgents'))
+const BrandIdentityTokensV2 = lazy(() => import('./pages/case-studies/BrandIdentityTokensV2'))
+const BrandIdentityTokens   = lazy(() => import('./pages/case-studies/BrandIdentityTokens'))
 
 // Footer height as a CSS custom property so the spacer and footer stay in sync
 const FOOTER_CSS = `
@@ -42,6 +50,10 @@ function AppContent() {
       {/* Content sits above the fixed footer via z-10 + solid bg */}
       <div className="relative z-10 bg-[#F5F0E8]">
         <Nav />
+        {/* Only the lazy routes below suspend; the public pages render immediately
+            and never hit this fallback. Cream matches the page ground so a slow
+            chunk fetch reads as a pause rather than a white flash. */}
+        <Suspense fallback={<div style={{ minHeight: '100vh', backgroundColor: '#F5F0E8' }} />}>
         <Routes>
           <Route path="/" element={<Home />} />
           {/* Projects page retired: old links land on the Work page */}
@@ -59,11 +71,14 @@ function AppContent() {
             <Route path="/alerts-redesign" element={<AlertsRedesign />} />
             <Route path="/design-system" element={<DesignSystem />} />
             <Route path="/q2-clarity" element={<Q2Clarity />} />
+            <Route path="/q2code-agents" element={<Q2CodeAgents />} />
+            <Route path="/brand-identity-tokens-v2" element={<BrandIdentityTokensV2 />} />
             {/* thrive Money page retired in favor of Q2 Clarity: old links land on the new study */}
             <Route path="/enhanced-money-hub" element={<Navigate to="/q2-clarity" replace />} />
             <Route path="/brand-identity-tokens" element={<BrandIdentityTokens />} />
           </Route>
         </Routes>
+        </Suspense>
       </div>
 
       <div style={{ height: 'var(--footer-h)' }} />

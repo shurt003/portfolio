@@ -3,17 +3,21 @@ import { Outlet, Link, useLocation } from 'react-router-dom'
 import { useNavTheme } from '../contexts/NavTheme'
 
 /* ──────────────────────────────────────────────────────────────────────────
- * Cosmetic password gate for the case-study pages.
+ * Password gate for the case-study pages.
  *
- * ⚠️  This is NOT real security. It keeps casual visitors out, but the page
- *     content still ships in the JS bundle and can be recovered by anyone
- *     technical. Do not rely on it for NDA / confidential work.
+ * The check happens server-side. Submitting posts to /api/login, which compares
+ * against CASE_STUDY_PASSWORD (set in Vercel, not VITE_-prefixed, so it never
+ * enters this bundle) and returns a signed httpOnly cookie. Edge middleware
+ * refuses the case study chunks and screenshots without that cookie, so this
+ * component is the door rather than the lock: faking the flag below gets you an
+ * empty page, not the content.
  *
- * 🔑  TO SET THE PASSWORD: change the string below (or set the env var
- *     VITE_CASE_STUDY_PASSWORD in a .env file / your host's settings).
+ * In `vite dev` there is no middleware and no function, so the gate falls back
+ * to a local check to keep the normal workflow. That branch is compiled out of
+ * production builds.
  * ────────────────────────────────────────────────────────────────────────── */
-const PASSWORD = import.meta.env.VITE_CASE_STUDY_PASSWORD || 'make-it-pop'
 const STORAGE_KEY = 'caseStudyAccess'
+const DEV_PASSWORD = 'make-it-pop'
 
 export default function CaseStudyGate() {
   const { setIsDark } = useNavTheme()
@@ -26,6 +30,8 @@ export default function CaseStudyGate() {
   const [authed, setAuthed] = useState(() => sessionStorage.getItem(STORAGE_KEY) === '1')
   const [value, setValue] = useState('')
   const [error, setError] = useState(false)
+  const [message, setMessage] = useState('')
+  const [pending, setPending] = useState(false)
 
   // Keep the nav in its light state while the (cream) gate is showing.
   useEffect(() => {
@@ -34,13 +40,43 @@ export default function CaseStudyGate() {
 
   if (authed) return <Outlet />
 
-  const submit = (e) => {
+  const unlock = () => {
+    sessionStorage.setItem(STORAGE_KEY, '1')
+    setAuthed(true)
+  }
+
+  const fail = (text) => {
+    setError(true)
+    setMessage(text)
+    setPending(false)
+  }
+
+  const submit = async (e) => {
     e.preventDefault()
-    if (value === PASSWORD) {
-      sessionStorage.setItem(STORAGE_KEY, '1')
-      setAuthed(true)
-    } else {
-      setError(true)
+    if (pending) return
+
+    if (import.meta.env.DEV) {
+      if (value === DEV_PASSWORD) unlock()
+      else fail('Incorrect password, try again.')
+      return
+    }
+
+    setPending(true)
+    setError(false)
+    try {
+      const res = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password: value }),
+      })
+      if (res.ok) {
+        unlock()
+        return
+      }
+      if (res.status === 503) fail('The gate is not configured yet. Get in touch and I will sort it out.')
+      else fail('Incorrect password, try again.')
+    } catch {
+      fail('Could not reach the server. Check your connection and try again.')
     }
   }
 
@@ -71,7 +107,7 @@ export default function CaseStudyGate() {
             autoComplete="off"
             aria-label="Password"
             value={value}
-            onChange={(e) => { setValue(e.target.value); setError(false) }}
+            onChange={(e) => { setValue(e.target.value); setError(false); setMessage('') }}
             placeholder="Password"
             className="w-full px-5 py-3.5 rounded-full font-sans text-base outline-none border-2 transition-colors"
             style={{
@@ -82,14 +118,15 @@ export default function CaseStudyGate() {
           />
           <button
             type="submit"
+            disabled={pending}
             className="w-full px-5 py-3.5 rounded-full font-sans text-sm font-medium transition-opacity hover:opacity-90"
-            style={{ backgroundColor: '#1C2322', color: '#fff' }}
+            style={{ backgroundColor: '#1C2322', color: '#fff', opacity: pending ? 0.6 : 1, cursor: pending ? 'default' : 'pointer' }}
           >
-            {buttonLabel}
+            {pending ? 'Checking…' : buttonLabel}
           </button>
-          {error && (
-            <p className="font-sans text-sm mt-1" style={{ color: '#D9488E' }}>
-              Incorrect password — try again.
+          {error && message && (
+            <p className="font-sans text-sm mt-1" role="alert" style={{ color: '#D9488E' }}>
+              {message}
             </p>
           )}
         </form>

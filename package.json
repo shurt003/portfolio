@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "verify:gate": "node scripts/verify-gate.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^9.122.0",
@@ -16,6 +17,7 @@
     "@rive-app/react-canvas": "^4.28.6",
     "@rive-app/webgl2": "^2.26.3",
     "@vercel/analytics": "^2.0.1",
+    "@vercel/functions": "^3.9.8",
     "framer-motion": "^11.0.0",
     "postprocessing": "^6.39.1",
     "react": "^18.3.1",
