@@ -1184,10 +1184,10 @@ export default function Q2Clarity() {
       {/* ── NEXT PROJECT ── */}
       <section className={`${wrap} py-20`}>
         <div style={{ borderTop: `1px solid ${LINE}` }} className="pt-12">
-          <Link to="/brand-identity-tokens" className="group inline-block">
+          <Link to="/q2code-agents" className="group inline-block">
             <p className="font-sans text-sm mb-2" style={{ color: MUTE }}>Next project</p>
             <h3 className="font-display font-black leading-none transition-opacity duration-300 group-hover:opacity-60" style={{ fontSize: 'clamp(2rem,5vw,4rem)', color: INK }}>
-              Brand Identity Tokens
+              Q2Code Agents
             </h3>
           </Link>
         </div>

@@ -132,6 +132,98 @@ function DesignSystemThumb({ accent }) {
   )
 }
 
+function BrandIdentityTokensV2Thumb({ accent }) {
+  // Three knobs on the left generating a five-step spread on the right.
+  const sliders = [
+    { y: 62,  knob: 0.34 },
+    { y: 110, knob: 0.62 },
+    { y: 158, knob: 0.46 },
+  ]
+  const spread = [
+    { rx: 1,  o: 0.22 },
+    { rx: 3,  o: 0.36 },
+    { rx: 7,  o: 0.52 },
+    { rx: 12, o: 0.74 },
+    { rx: 18, o: 1 },
+  ]
+  return (
+    <svg viewBox="0 0 360 220" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%', display: 'block' }}>
+      {/* Knobs */}
+      {sliders.map((s) => (
+        <g key={s.y}>
+          <rect x="24" y={s.y - 2} width="116" height="4" rx="2" fill={accent} opacity="0.2" />
+          <rect x="24" y={s.y - 2} width={116 * s.knob} height="4" rx="2" fill={accent} opacity="0.55" />
+          <circle cx={24 + 116 * s.knob} cy={s.y} r="8" fill={accent} />
+          <circle cx={24 + 116 * s.knob} cy={s.y} r="8" stroke="white" strokeWidth="1.5" opacity="0.5" />
+        </g>
+      ))}
+
+      {/* Generation arrow */}
+      <line x1="156" y1="110" x2="180" y2="110" stroke={accent} strokeWidth="2" opacity="0.45" />
+      <path d="M 174 104 L 182 110 L 174 116" stroke={accent} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.45" fill="none" />
+
+      {/* Generated spread: same shape, five corner values */}
+      {spread.map((s, i) => (
+        <rect
+          key={i}
+          x={196 + i * 31}
+          y="82"
+          width="25"
+          height="56"
+          rx={s.rx}
+          fill={accent}
+          opacity={s.o}
+        />
+      ))}
+    </svg>
+  )
+}
+
+function Q2CodeAgentsThumb({ accent }) {
+  const nodes = [
+    { x: 20,  fill: 0.10, stroke: 0.32 },
+    { x: 106, fill: 0.24, stroke: 0.65 },
+    { x: 192, fill: 0.10, stroke: 0.32 },
+  ]
+  return (
+    <svg viewBox="0 0 360 220" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%', display: 'block' }}>
+      {/* System / agent nodes */}
+      {nodes.map((n, i) => (
+        <g key={n.x}>
+          <rect x={n.x} y="70" width="64" height="60" rx="10" fill={accent} opacity={n.fill} />
+          <rect x={n.x} y="70" width="64" height="60" rx="10" stroke={accent} strokeWidth="1.5" opacity={n.stroke} />
+          {i === 1 ? (
+            <>
+              {/* agent spark */}
+              <circle cx={n.x + 32} cy="94" r="7" fill={accent} opacity="0.85" />
+              <path d={`M ${n.x + 20} 112 h 24`} stroke={accent} strokeWidth="3" strokeLinecap="round" opacity="0.4" />
+            </>
+          ) : (
+            <>
+              <rect x={n.x + 14} y="86" width="36" height="6" rx="3" fill={accent} opacity="0.4" />
+              <rect x={n.x + 14} y="98" width="24" height="6" rx="3" fill={accent} opacity="0.24" />
+              <rect x={n.x + 14} y="110" width="30" height="6" rx="3" fill={accent} opacity="0.24" />
+            </>
+          )}
+        </g>
+      ))}
+      {/* Arrows between nodes */}
+      {[84, 170].map((x) => (
+        <g key={x}>
+          <line x1={x} y1="100" x2={x + 20} y2="100" stroke={accent} strokeWidth="2" opacity="0.4" />
+          <path d={`M ${x + 14} 94 L ${x + 22} 100 L ${x + 14} 106`} stroke={accent} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.4" fill="none" />
+        </g>
+      ))}
+      <line x1="256" y1="100" x2="276" y2="100" stroke={accent} strokeWidth="2" opacity="0.55" />
+      <path d="M 270 94 L 278 100 L 270 106" stroke={accent} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" opacity="0.55" fill="none" />
+      {/* Human review gate — solid, distinct from the system/agent nodes */}
+      <rect x="284" y="62" width="56" height="76" rx="12" fill={accent} />
+      <path d="M 300 100 L 310 110 L 324 90" stroke="white" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+      <rect x="296" y="120" width="32" height="6" rx="3" fill="white" opacity="0.5" />
+    </svg>
+  )
+}
+
 function ClaudeCodeThumb({ accent }) {
   return (
     <svg viewBox="0 0 360 220" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%', display: 'block' }}>
@@ -303,6 +395,8 @@ export default function ProjectThumb({ href, accent }) {
     '/magic-signal':          MagicSignalThumb,
     '/validation':            ValidationDiagram,
     '/interstitial':          InterstitialThumb,
+    '/q2code-agents':         Q2CodeAgentsThumb,
+    '/brand-identity-tokens-v2': BrandIdentityTokensV2Thumb,
   }
   const Thumb = thumbs[href]
   return Thumb ? <Thumb accent={accent} /> : null

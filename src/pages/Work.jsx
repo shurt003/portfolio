@@ -94,6 +94,20 @@ function ProjectRow({ project, index }) {
 /* ── Projects data ───────────────────────────────────────────────────── */
 const PROJECTS = [
   {
+    id: 'q2code-agents',
+    title: 'Q2Code Agents',
+    subtitle: 'Redesigning the Q2 Developer Portal around a supervised fleet of AI agents, a live orchestration pipeline, and a proof-of-work review gate. In active engineering build.',
+    href: '/q2code-agents',
+    accent: '#6F4C9F',
+  },
+  {
+    id: 'brand-identity-tokens-v2',
+    title: 'Brand Identity Tokens v2',
+    subtitle: 'Eighteen controls that let someone change how a 900-variable platform feels without being an expert in it.',
+    href: '/brand-identity-tokens-v2',
+    accent: '#0E6E63',
+  },
+  {
     id: 'q2-clarity',
     title: 'Q2 Clarity',
     subtitle: 'A vendor widget became a bank-owned money hub: pitched from outside the team, in beta with three FIs 2.5 months later.',
