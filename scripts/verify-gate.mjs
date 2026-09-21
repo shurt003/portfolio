@@ -61,6 +61,7 @@ console.log('\nPath rules')
   for (const p of shouldBePublic) check(`public: ${p}`, isPublicPath(p) === true)
   for (const p of shouldBeGated) check(`gated:  ${p}`, isPublicPath(p) === false)
   check('a brand new image folder is gated by default', isPublicPath('/images/SomeFutureStudy/shot.png') === false)
+  check('gated:  /videos/magicSignal/rec-01.mp4', isPublicPath('/videos/magicSignal/rec-01.mp4') === false)
 }
 
 /* ── 3. Build output ── */
@@ -124,9 +125,14 @@ if (base) {
     check(`gated chunk refused without a cookie`, code === 401, `got ${code}`)
   }
 
-  for (const p of ['/images/Q2Clarity/Designs_july17/overview-desktop.png', '/images/EnhancedMoneyHub/SpendingDesktop.png']) {
+  for (const p of [
+    '/images/Q2Clarity/Designs_july17/overview-desktop.png',
+    '/images/EnhancedMoneyHub/SpendingDesktop.png',
+    '/videos/magicSignal/ob-01.mp4',
+    '/videos/magicSignal/rec-01.mp4',
+  ]) {
     const code = await status(p)
-    check(`gated image refused: ${p}`, code === 401, `got ${code}`)
+    check(`private asset refused: ${p}`, code === 401, `got ${code}`)
   }
 
   for (const p of ['/images/profile/StephenImage.webp', '/images/magicSignal/magicSignalHero.webp']) {

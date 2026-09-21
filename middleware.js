@@ -12,7 +12,7 @@ import { COOKIE_NAME, readCookie, verifySession } from './lib/session.js'
    Middleware runs before the filesystem handler and before the CDN cache, so a
    401 here beats both the static file and the SPA rewrite. */
 export const config = {
-  matcher: ['/assets/gated/:path*', '/images/:path*'],
+  matcher: ['/assets/gated/:path*', '/images/:path*', '/videos/:path*'],
 }
 
 /* Images are deny-by-default: a new case study's screenshots are protected the
@@ -33,6 +33,9 @@ const PUBLIC_IMAGE_FILES = new Set([
   '/images/magicSignal/magicSignalHero.webp',
 ])
 
+/* Videos are screen recordings that only ever appear inside case studies, so the
+   whole prefix is private with no exceptions. Public pages use Rive files under
+   /rive/, which is a different prefix and deliberately not matched. */
 export function isPublicPath(pathname) {
   if (!pathname.startsWith('/images/')) return false
   if (PUBLIC_IMAGE_FILES.has(pathname)) return true
@@ -40,8 +43,8 @@ export function isPublicPath(pathname) {
 }
 
 function denied(pathname) {
-  const body = pathname.startsWith('/images/')
-    ? 'This image is part of a private case study.'
+  const body = pathname.startsWith('/images/') || pathname.startsWith('/videos/')
+    ? 'This is part of a private case study.'
     : 'This content is private.'
   return new Response(body, {
     status: 401,
