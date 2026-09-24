@@ -20,25 +20,6 @@ function DashboardThumb({ accent }) {
   )
 }
 
-function MessagingThumb({ accent }) {
-  return (
-    <svg viewBox="0 0 360 220" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%', display: 'block' }}>
-      {/* Primary bubble */}
-      <rect x="28" y="32" width="212" height="82" rx="24" fill={accent} opacity="0.88" />
-      {/* Tail */}
-      <path d="M 52 114 L 34 142 L 80 114 Z" fill={accent} opacity="0.88" />
-      {/* Text line hints */}
-      <rect x="52" y="59" width="110" height="8" rx="4" fill="white" opacity="0.5" />
-      <rect x="52" y="78" width="76" height="8"  rx="4" fill="white" opacity="0.32" />
-      {/* Reply bubble — offset right */}
-      <rect x="120" y="148" width="212" height="54" rx="20" fill={accent} opacity="0.34" />
-      <rect x="144" y="167" width="94"  height="7" rx="3.5" fill={accent} opacity="0.62" />
-      <rect x="144" y="183" width="58"  height="7" rx="3.5" fill={accent} opacity="0.4" />
-    </svg>
-  )
-}
-
-
 function MagicSignalThumb({ accent }) {
   return (
     <svg viewBox="0 0 360 220" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%', display: 'block' }}>
@@ -262,139 +243,10 @@ function ClaudeCodeThumb({ accent }) {
   )
 }
 
-function ValidationDiagram() {
-  const LX = 16, LW = 153, RX = 187, RW = 157, FH = 16
-  const leftFields  = [44, 64, 84, 104, 124, 144]
-  const leftErrors  = new Set([64, 104, 144])
-  const rightFields = [22, 42, 68, 88, 114, 134]
-  const rightErrors = new Set([42, 88])
-
-  return (
-    <svg viewBox="0 0 360 220" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%', display: 'block' }}>
-      <rect width="360" height="220" fill="rgba(8,12,24,0.94)"/>
-
-      {/* Labels */}
-      <text x={LX} y="14" fill="rgba(255,255,255,0.6)" fontSize="7.5" fontWeight="700" letterSpacing="0.8" fontFamily="system-ui,sans-serif">TOP OF FORM</text>
-      <text x={RX} y="14" fill="rgba(255,255,255,0.6)" fontSize="7.5" fontWeight="700" letterSpacing="0.8" fontFamily="system-ui,sans-serif">INLINE</text>
-
-      {/* Vertical divider */}
-      <line x1="176" y1="8" x2="176" y2="196" stroke="rgba(255,255,255,0.08)" strokeWidth="1"/>
-
-      {/* Left error banner */}
-      <rect x={LX} y="22" width={LW} height="15" rx="2.5" fill="rgba(180,40,40,0.13)" stroke="rgba(180,40,40,0.28)" strokeWidth="1"/>
-      <rect x={LX+6} y="26.5" width="78" height="3" rx="1.5" fill="rgba(180,40,40,0.6)"/>
-      <rect x={LX+6} y="31.5" width="54" height="3" rx="1.5" fill="rgba(180,40,40,0.38)"/>
-
-      {/* Left fields */}
-      {leftFields.map(y => (
-        <rect key={y} x={LX} y={y} width={LW} height={FH} rx="2.5"
-          fill={leftErrors.has(y) ? 'rgba(180,40,40,0.08)' : 'rgba(255,255,255,0.04)'}
-          stroke={leftErrors.has(y) ? 'rgba(180,40,40,0.75)' : 'rgba(255,255,255,0.18)'}
-          strokeWidth="1.5"
-        />
-      ))}
-
-      {/* Right fields + inline error bars */}
-      {rightFields.map(y => (
-        <g key={y}>
-          <rect x={RX} y={y} width={RW} height={FH} rx="2.5"
-            fill={rightErrors.has(y) ? 'rgba(180,40,40,0.08)' : 'rgba(255,255,255,0.04)'}
-            stroke={rightErrors.has(y) ? 'rgba(180,40,40,0.75)' : 'rgba(255,255,255,0.18)'}
-            strokeWidth="1.5"
-          />
-          {rightErrors.has(y) && <rect x={RX} y={y + FH + 3} width="84" height="3.5" rx="1.5" fill="rgba(180,40,40,0.55)"/>}
-        </g>
-      ))}
-
-      {/* Horizontal rules */}
-      <line x1={LX} y1="168" x2="172" y2="168" stroke="rgba(255,255,255,0.08)" strokeWidth="1"/>
-      <line x1={RX} y1="168" x2="346" y2="168" stroke="rgba(255,255,255,0.08)" strokeWidth="1"/>
-
-      {/* Left ✕ icons + labels — fully inlined, no sub-components */}
-      <circle cx="23" cy="180" r="6.5" fill="rgba(180,40,40,0.22)" stroke="rgba(180,40,40,0.65)" strokeWidth="1.2"/>
-      <line x1="20" y1="177" x2="26" y2="183" stroke="rgba(180,40,40,0.85)" strokeWidth="1.3" strokeLinecap="round"/>
-      <line x1="26" y1="177" x2="20" y2="183" stroke="rgba(180,40,40,0.85)" strokeWidth="1.3" strokeLinecap="round"/>
-      <text x="34" y="184" fill="rgba(255,255,255,0.8)" fontSize="8.5" fontFamily="system-ui,sans-serif">Longer time to correct errors</text>
-
-      <circle cx="23" cy="196" r="6.5" fill="rgba(180,40,40,0.22)" stroke="rgba(180,40,40,0.65)" strokeWidth="1.2"/>
-      <line x1="20" y1="193" x2="26" y2="199" stroke="rgba(180,40,40,0.85)" strokeWidth="1.3" strokeLinecap="round"/>
-      <line x1="26" y1="193" x2="20" y2="199" stroke="rgba(180,40,40,0.85)" strokeWidth="1.3" strokeLinecap="round"/>
-      <text x="34" y="200" fill="rgba(255,255,255,0.8)" fontSize="8.5" fontFamily="system-ui,sans-serif">Longer time to correct errors</text>
-
-      {/* Right ✓ icons + labels — fully inlined */}
-      <circle cx="194" cy="180" r="6.5" fill="rgba(60,160,80,0.22)" stroke="rgba(60,160,80,0.65)" strokeWidth="1.2"/>
-      <path d="M190.5 180 L193.5 183 L198.5 176.5" stroke="rgba(60,160,80,0.9)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-      <text x="205" y="184" fill="rgba(255,255,255,0.8)" fontSize="8.5" fontFamily="system-ui,sans-serif">Low cognitive load on memory</text>
-
-      <circle cx="194" cy="196" r="6.5" fill="rgba(60,160,80,0.22)" stroke="rgba(60,160,80,0.65)" strokeWidth="1.2"/>
-      <path d="M190.5 196 L193.5 199 L198.5 192.5" stroke="rgba(60,160,80,0.9)" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
-      <text x="205" y="200" fill="rgba(255,255,255,0.8)" fontSize="8.5" fontFamily="system-ui,sans-serif">Shorter time to correct errors</text>
-    </svg>
-  )
-}
-
-function ValidationThumb({ accent }) {
-  return (
-    <svg viewBox="0 0 360 220" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%', display: 'block' }}>
-      {/* Form card */}
-      <rect x="60" y="16" width="240" height="190" rx="14" fill={accent} opacity="0.08" />
-      <rect x="60" y="16" width="240" height="190" rx="14" stroke={accent} strokeWidth="1.5" opacity="0.2" />
-      {/* Label */}
-      <rect x="80" y="36" width="58" height="7" rx="3.5" fill={accent} opacity="0.35" />
-      {/* Field 1 — success */}
-      <rect x="80" y="50" width="200" height="30" rx="8" fill={accent} opacity="0.1" />
-      <rect x="80" y="50" width="200" height="30" rx="8" stroke={accent} strokeWidth="1.5" opacity="0.6" />
-      <rect x="92" y="62" width="82" height="7" rx="3.5" fill={accent} opacity="0.42" />
-      <circle cx="265" cy="65" r="9" fill={accent} opacity="0.85" />
-      <path d="M261 65 L264 68.5 L270 60.5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      {/* Label 2 */}
-      <rect x="80" y="94" width="44" height="7" rx="3.5" fill={accent} opacity="0.35" />
-      {/* Field 2 — error */}
-      <rect x="80" y="108" width="200" height="30" rx="8" fill={accent} opacity="0.05" />
-      <rect x="80" y="108" width="200" height="30" rx="8" stroke={accent} strokeWidth="1.5" opacity="0.3" />
-      <rect x="92" y="120" width="55" height="7" rx="3.5" fill={accent} opacity="0.18" />
-      <circle cx="265" cy="123" r="9" fill={accent} opacity="0.4" />
-      <line x1="261.5" y1="119.5" x2="268.5" y2="126.5" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
-      <line x1="268.5" y1="119.5" x2="261.5" y2="126.5" stroke="white" strokeWidth="1.8" strokeLinecap="round" />
-      {/* Inline error message */}
-      <rect x="80" y="144" width="128" height="7" rx="3.5" fill={accent} opacity="0.44" />
-      {/* Field 3 — neutral */}
-      <rect x="80" y="164" width="200" height="30" rx="8" fill={accent} opacity="0.04" />
-      <rect x="80" y="164" width="200" height="30" rx="8" stroke={accent} strokeWidth="1" opacity="0.14" />
-      <rect x="92" y="176" width="68" height="7" rx="3.5" fill={accent} opacity="0.12" />
-    </svg>
-  )
-}
-
-function InterstitialThumb({ accent }) {
-  return (
-    <svg viewBox="0 0 360 220" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%', display: 'block' }}>
-      {/* Screen frame */}
-      <rect x="22" y="14" width="316" height="194" rx="14" fill={accent} opacity="0.09" />
-      <rect x="22" y="14" width="316" height="194" rx="14" stroke={accent} strokeWidth="1.5" opacity="0.28" />
-      {/* Expanding brand rings */}
-      <circle cx="180" cy="100" r="24" fill={accent} opacity="0.88" />
-      <circle cx="180" cy="100" r="50" stroke={accent} strokeWidth="3" opacity="0.44" />
-      <circle cx="180" cy="100" r="76" stroke={accent} strokeWidth="2" opacity="0.22" />
-      <circle cx="180" cy="100" r="102" stroke={accent} strokeWidth="1.5" opacity="0.1" />
-      {/* Center mark — two overlapping squares */}
-      <rect x="171" y="91" width="18" height="18" rx="3" fill="white" opacity="0.55" />
-      <rect x="171" y="91" width="18" height="18" rx="3" fill="white" opacity="0.4" transform="rotate(45 180 100)" />
-      {/* Progress bar */}
-      <rect x="128" y="186" width="104" height="4" rx="2" fill={accent} opacity="0.14" />
-      <rect x="128" y="186" width="66" height="4" rx="2" fill={accent} opacity="0.62" />
-    </svg>
-  )
-}
-
 export default function ProjectThumb({ href, accent }) {
   const thumbs = {
-    '/design-system':         DesignSystemThumb,
     '/brand-identity-tokens': DesignSystemThumb,
-    '/messaging-redesign':    MessagingThumb,
     '/magic-signal':          MagicSignalThumb,
-    '/validation':            ValidationDiagram,
-    '/interstitial':          InterstitialThumb,
     '/q2code-agents':         Q2CodeAgentsThumb,
     '/brand-identity-tokens-v2': BrandIdentityTokensV2Thumb,
   }

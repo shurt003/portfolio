@@ -27,9 +27,6 @@ const PUBLIC_IMAGE_PREFIXES = [
 ]
 
 const PUBLIC_IMAGE_FILES = new Set([
-  '/images/FormValidation/formvalidationherobg.webp',
-  '/images/Interstitial/NewCustomImage.png',
-  '/images/SecureMessaging/securemessagingbgheroimage.webp',
   '/images/magicSignal/magicSignalHero.webp',
 ])
 

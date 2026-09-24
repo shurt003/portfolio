@@ -44,9 +44,6 @@ console.log('\nPath rules')
   const shouldBePublic = [
     '/images/aboutv2/cat.jpg',
     '/images/profile/StephenImage.webp',
-    '/images/FormValidation/formvalidationherobg.webp',
-    '/images/Interstitial/NewCustomImage.png',
-    '/images/SecureMessaging/securemessagingbgheroimage.webp',
     '/images/magicSignal/magicSignalHero.webp',
   ]
   const shouldBeGated = [

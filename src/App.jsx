@@ -16,12 +16,7 @@ import CaseStudyGate from './components/CaseStudyGate'
    downloads the full text of every case study, and the gated content ends up in
    its own files, which is what makes blocking it at the edge possible. */
 const Work                  = lazy(() => import('./pages/Work'))
-const MessagingRedesign     = lazy(() => import('./pages/case-studies/MessagingRedesign'))
 const MagicSignal           = lazy(() => import('./pages/case-studies/MagicSignal'))
-const Validation            = lazy(() => import('./pages/case-studies/Validation'))
-const Interstitial          = lazy(() => import('./pages/case-studies/Interstitial'))
-const AlertsRedesign        = lazy(() => import('./pages/case-studies/AlertsRedesign'))
-const DesignSystem          = lazy(() => import('./pages/case-studies/DesignSystem'))
 const Q2Clarity             = lazy(() => import('./pages/case-studies/Q2Clarity'))
 const Q2CodeAgents          = lazy(() => import('./pages/case-studies/Q2CodeAgents'))
 const BrandIdentityTokensV2 = lazy(() => import('./pages/case-studies/BrandIdentityTokensV2'))
@@ -58,18 +53,17 @@ function AppContent() {
           <Route path="/" element={<Home />} />
           {/* Projects page retired: old links land on the Work page */}
           <Route path="/projects" element={<Navigate to="/work" replace />} />
+          {/* Retired case studies: old links land on the Work page */}
+          {['/interstitial', '/messaging-redesign', '/validation', '/alerts-redesign', '/design-system'].map((path) => (
+            <Route key={path} path={path} element={<Navigate to="/work" replace />} />
+          ))}
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/motion-lab" element={<MotionLab />} />
-          {/* Case studies (and the Work index) sit behind a shared cosmetic password gate */}
+          {/* Case studies (and the Work index) sit behind the shared password gate */}
           <Route element={<CaseStudyGate />}>
             <Route path="/work" element={<Work />} />
-            <Route path="/messaging-redesign" element={<MessagingRedesign />} />
             <Route path="/magic-signal" element={<MagicSignal />} />
-            <Route path="/validation" element={<Validation />} />
-            <Route path="/interstitial" element={<Interstitial />} />
-            <Route path="/alerts-redesign" element={<AlertsRedesign />} />
-            <Route path="/design-system" element={<DesignSystem />} />
             <Route path="/q2-clarity" element={<Q2Clarity />} />
             <Route path="/q2code-agents" element={<Q2CodeAgents />} />
             <Route path="/brand-identity-tokens-v2" element={<BrandIdentityTokensV2 />} />

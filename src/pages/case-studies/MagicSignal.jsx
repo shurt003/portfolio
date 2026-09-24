@@ -1173,7 +1173,7 @@ export default function MagicSignal() {
           <div className="max-w-6xl mx-auto">
             <Rule />
             <motion.div {...fadeUp} className="pt-16">
-              <Link to="/messaging-redesign" className="group inline-block mt-4">
+              <Link to="/q2code-agents" className="group inline-block mt-4">
                 <p className="font-sans text-sm mb-2" style={{ color: DIMMER }}>
                   Next project
                 </p>
@@ -1181,7 +1181,7 @@ export default function MagicSignal() {
                   className="font-display font-black leading-[0.9] transition-opacity duration-300 group-hover:opacity-60"
                   style={{ fontSize: 'clamp(2.5rem, 6vw, 5.5rem)', color: TEXT }}
                 >
-                  Secure Messaging
+                  Q2Code Agents
                 </h2>
               </Link>
             </motion.div>
