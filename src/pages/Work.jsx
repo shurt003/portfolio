@@ -41,7 +41,7 @@ function ProjectRow({ project, index }) {
         <div className={reverse ? 'lg:order-2' : 'lg:order-1'}>
           <div className="relative rounded-2xl overflow-hidden transition-transform duration-700 ease-out group-hover:scale-[1.03]" style={{ aspectRatio: '16/10' }}>
             {project.image
-              ? <img src={project.image} alt={project.title} className="w-full h-full object-cover" loading="lazy" />
+              ? <img decoding="async" src={project.image} alt={project.title} className="w-full h-full object-cover" loading="lazy" />
               : <ProjectThumb href={project.href} accent={project.accent} />
             }
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
@@ -112,7 +112,7 @@ const PROJECTS = [
     title: 'Q2 Clarity',
     subtitle: 'A vendor widget became a bank-owned money hub: pitched from outside the team, in beta with three FIs 2.5 months later.',
     href: '/q2-clarity',
-    image: '/images/Q2Clarity/Designs_july17/overview-desktop.png',
+    image: '/images/Q2Clarity/Designs_july17/overview-thumb.webp',
   },
   {
     id: 'brand-identity-tokens',
@@ -126,7 +126,7 @@ const PROJECTS = [
     title: 'MagicSignal',
     subtitle: 'A product I designed, built, and shipped solo to iOS and Android.',
     href: '/magic-signal',
-    image: '/images/magicSignal/ms-home-thumbnail.png',
+    image: '/images/magicSignal/ms-home-thumbnail.webp',
   },
 ]
 

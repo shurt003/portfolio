@@ -17,7 +17,7 @@ const RULE_STRONG = 'rgba(242,242,240,0.24)'   // dashed media-placeholder borde
 
 // ── Hero device screenshots (existing assets) ──────────────────────────────────
 const SCREENS = Array.from({ length: 9 }, (_, i) =>
-  i === 0 ? '/images/magicSignal/Group 124.png' : `/images/magicSignal/Group 124-${i}.png`
+  i === 0 ? '/images/magicSignal/Group 124.webp' : `/images/magicSignal/Group 124-${i}.webp`
 )
 
 // ── Scroll-triggered motion ────────────────────────────────────────────────────
@@ -109,7 +109,7 @@ function MediaSlot({ id, note, kind = 'video', aspect = '9 / 19.5', specAspect, 
   // Reduced motion, or a still image slot → render the poster / image
   if (kind === 'image' || reduceMotion) {
     return (
-      <img
+      <img decoding="async"
         ref={ref}
         src={kind === 'image' ? src : poster}
         alt={alt}
@@ -384,7 +384,7 @@ export default function MagicSignal() {
                 style={{ width: 'clamp(225px, 19.5vw, 300px)', marginTop: mt, marginLeft: ml, zIndex, position: 'relative' }}
                 aria-hidden={i !== 1 ? 'true' : undefined}
               >
-                <img
+                <img decoding="async"
                   src={SCREENS[idx]}
                   alt={i === 1 ? 'Magic Signal app: the AI stock-signal interface, verdict-first with a signal-strength ring' : ''}
                   className="w-full h-auto block"

@@ -117,7 +117,7 @@ function PhoneSlot({ note, file, src, kind = 'IMG', label, onOpen }) {
         {src ? (
           <>
             {/* Cropped to the fold in the frame; click opens the full screen */}
-            <img src={src} alt={note} loading="lazy" className="absolute inset-0 w-full h-full object-cover object-top" />
+            <img decoding="async" src={src} alt={note} loading="lazy" className="absolute inset-0 w-full h-full object-cover object-top" />
             <span
               className="hidden md:flex absolute bottom-2 left-1/2 -translate-x-1/2 items-center gap-1 px-2.5 py-1 rounded-full font-mono text-[8px] tracking-[0.12em] uppercase opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap"
               style={{ backgroundColor: 'rgba(16,27,45,0.78)', color: '#fff' }}
@@ -147,13 +147,13 @@ function PhoneSlot({ note, file, src, kind = 'IMG', label, onOpen }) {
 
 /* ── §01 · Before carousel: the buried overpanel, two frames at a time ── */
 const BEFORE_SHOTS = [
-  { src: `${IMG}/q2dashboard.png`,                              label: 'The dashboard · Q2-owned UI',   note: 'The Spending tile is the only doorway in' },
-  { src: `${IMG}/previousdesign/Previous-Spending 1.png`,       label: 'The overpanel · Spending',      note: 'The vendor\'s UI from here on: its own donut, its own pink button' },
-  { src: `${IMG}/previousdesign/Previous-Budget 1.png`,         label: 'The overpanel · Budget',        note: 'An empty state most members never discovered' },
-  { src: `${IMG}/previousdesign/Previous-Trends 1.png`,         label: 'The overpanel · Trends',        note: 'Twelve months of history, one click from invisible' },
-  { src: `${IMG}/previousdesign/Previous-CashFlow 1.png`,       label: 'The overpanel · Cash Flow',     note: 'A projection tool hidden behind a chart' },
-  { src: `${IMG}/previousdesign/Previous-NetWorth 1.png`,       label: 'The overpanel · Net Worth',     note: 'Vendor patterns that exist nowhere else in the product' },
-  { src: `${IMG}/previousdesign/Previous-Debts 1.png`,          label: 'The overpanel · Debts',         note: 'The sixth tab almost nobody knew existed' },
+  { src: `${IMG}/q2dashboard.webp`,                              label: 'The dashboard · Q2-owned UI',   note: 'The Spending tile is the only doorway in' },
+  { src: `${IMG}/previousdesign/Previous-Spending 1.webp`,       label: 'The overpanel · Spending',      note: 'The vendor\'s UI from here on: its own donut, its own pink button' },
+  { src: `${IMG}/previousdesign/Previous-Budget 1.webp`,         label: 'The overpanel · Budget',        note: 'An empty state most members never discovered' },
+  { src: `${IMG}/previousdesign/Previous-Trends 1.webp`,         label: 'The overpanel · Trends',        note: 'Twelve months of history, one click from invisible' },
+  { src: `${IMG}/previousdesign/Previous-CashFlow 1.webp`,       label: 'The overpanel · Cash Flow',     note: 'A projection tool hidden behind a chart' },
+  { src: `${IMG}/previousdesign/Previous-NetWorth 1.webp`,       label: 'The overpanel · Net Worth',     note: 'Vendor patterns that exist nowhere else in the product' },
+  { src: `${IMG}/previousdesign/Previous-Debts 1.webp`,          label: 'The overpanel · Debts',         note: 'The sixth tab almost nobody knew existed' },
 ]
 
 function BeforeCarousel() {
@@ -171,7 +171,7 @@ function BeforeCarousel() {
           {BEFORE_SHOTS.map((s) => (
             <figure key={s.src} className="w-1/2 shrink-0 px-2 md:px-3">
               <div className="rounded-2xl overflow-hidden" style={{ border: `1px solid ${LINE}`, aspectRatio: '4 / 3', backgroundColor: CARD }}>
-                <img src={s.src} alt={`${s.label} — ${s.note}`} loading="lazy" className="w-full h-full object-cover object-top" />
+                <img decoding="async" src={s.src} alt={`${s.label} — ${s.note}`} loading="lazy" className="w-full h-full object-cover object-top" />
               </div>
               <figcaption className="mt-3">
                 <p className="font-mono text-[10px] tracking-[0.14em] uppercase" style={{ color: MUTE }}>{s.label}</p>
@@ -389,7 +389,7 @@ function Lightbox({ open, src, alt, onClose, fit = 'width', onPrev, onNext }) {
               ›
             </button>
           )}
-          <motion.img
+          <motion.img decoding="async"
             key={src}
             src={src}
             alt={alt}
@@ -415,7 +415,7 @@ const SURFACES = [
   {
     id: 'overview',
     tab: 'Overview',
-    src: `${IMG}/Designs_july17/overview-desktop.png`,
+    src: `${IMG}/Designs_july17/overview-desktop.webp`,
     ratio: '2984 / 3269',
     title: 'Overview answers "am I okay this month?"',
     body: 'A written summary of the month sits up top: spending up 18%, mostly dining, Vacation goal slipped, here is the fix. Net worth, safe-to-spend and goals-on-track read from one glance. Every number is computed; only the words are generated.',
@@ -423,7 +423,7 @@ const SURFACES = [
   {
     id: 'spending',
     tab: 'Spending',
-    src: `${IMG}/Designs_july17/spending-desktop.png`,
+    src: `${IMG}/Designs_july17/spending-desktop.webp`,
     ratio: '2984 / 3035',
     title: 'Fix a category once, and it sticks',
     body: 'Tap any transaction to recategorize it. Say "remember this" and a plain forward rule fixes every future charge from that merchant. The uncategorized pile arrives already shrunk, because enrichment ran before the member ever saw it.',
@@ -431,7 +431,7 @@ const SURFACES = [
   {
     id: 'budget',
     tab: 'Budget',
-    src: `${IMG}/Designs_july17/budget-desktop.png`,
+    src: `${IMG}/Designs_july17/budget-desktop.webp`,
     ratio: '2984 / 3409',
     title: 'A zero-based budget with an exit ramp',
     body: 'Every dollar of income gets a job. When a category runs over, the page offers to cover it by moving money from one with room, keeping the plan balanced instead of just red.',
@@ -439,7 +439,7 @@ const SURFACES = [
   {
     id: 'trends',
     tab: 'Trends',
-    src: `${IMG}/Designs_july17/trends-desktop.png`,
+    src: `${IMG}/Designs_july17/trends-desktop.webp`,
     ratio: '2984 / 2483',
     title: '"Is this normal for me?"',
     body: 'Spending against income across twelve months, plus the biggest movers versus your own three-month average: dining up 38%, transport down 13%. Bars pin on tap, so the chart works without a steady hover. The comparison is math; AI writes only the one-line read.',
@@ -447,7 +447,7 @@ const SURFACES = [
   {
     id: 'goals',
     tab: 'Goals',
-    src: `${IMG}/Designs_july17/goals-desktop.png`,
+    src: `${IMG}/Designs_july17/goals-desktop.webp`,
     ratio: '2984 / 2829',
     title: 'Goals that track themselves',
     body: 'Each goal shows funded-versus-target, whether it is on pace, and the spending that moved it: Vacation slipped a month after dining ran over. "Get back on track" offers a concrete fix instead of a scold, raise the transfer or trim the category.',
@@ -455,7 +455,7 @@ const SURFACES = [
   {
     id: 'cashflow',
     tab: 'Cash Flow',
-    src: `${IMG}/Designs_july17/cashflow-desktop.png`,
+    src: `${IMG}/Designs_july17/cashflow-desktop.webp`,
     ratio: '2984 / 2985',
     title: 'The tight week, called ahead of time',
     body: 'A 30-day projected balance names the problem in advance: bills land before the next paycheck and the balance dips low. The forecast is time-series math; AI only writes the heads-up.',
@@ -463,7 +463,7 @@ const SURFACES = [
   {
     id: 'subscriptions',
     tab: 'Subscriptions',
-    src: `${IMG}/Designs_july17/subscriptions-desktop.png`,
+    src: `${IMG}/Designs_july17/subscriptions-desktop.webp`,
     ratio: '2984 / 2263',
     title: 'Recurring waste, surfaced with receipts',
     body: 'Every recurring charge in one place, with price hikes flagged, annual-plan savings computed, and overlapping services called out. Any plan change hands off to the provider; the app narrates, it doesn\'t decide.',
@@ -471,7 +471,7 @@ const SURFACES = [
   {
     id: 'debts',
     tab: 'Debts',
-    src: `${IMG}/Designs_july17/debts-desktop.png`,
+    src: `${IMG}/Designs_july17/debts-desktop.webp`,
     ratio: '2984 / 1984',
     title: 'Every balance, and the order to clear them',
     body: 'A drag-to-reorder attack list and an extra-per-month slider weigh minimums-only against your plan: $150 more a month clears the debt about two years sooner and saves $5,947 in interest. The simulation is arithmetic; nothing here moves money.',
@@ -506,7 +506,7 @@ function SurfaceShowcase() {
           }}
         >
           {SURFACES.map((s, i) => (
-            <img
+            <img decoding="async"
               key={s.id}
               src={s.src}
               alt={s.title}
@@ -589,14 +589,14 @@ function MobileRail() {
             key={slug}
             label={label}
             note={`${label} tab, mobile`}
-            src={`${IMG}/Designs_july17/${slug}-mobile.png`}
+            src={`${IMG}/Designs_july17/${slug}-mobile.webp`}
             onOpen={() => setOpenIndex(i)}
           />
         ))}
       </div>
       <Lightbox
         open={open}
-        src={current ? `${IMG}/Designs_july17/${current[0]}-mobile.png` : ''}
+        src={current ? `${IMG}/Designs_july17/${current[0]}-mobile.webp` : ''}
         alt={current ? `${current[1]} tab, mobile` : ''}
         onClose={() => setOpenIndex(null)}
         onPrev={() => go(-1)}
@@ -801,8 +801,8 @@ export default function Q2Clarity() {
           </motion.div>
 
           <motion.figure {...fadeUp}>
-            <img
-              src={`${IMG}/Flowcharts/Worked Example — Q2 Clarity Flow.png`}
+            <img decoding="async"
+              src={`${IMG}/Flowcharts/Worked Example — Q2 Clarity Flow.webp`}
               alt="Worked example: one member's month traced through the system, from four raw transactions to a goal-linked insight"
               loading="lazy"
               className="w-full rounded-2xl"

@@ -42,12 +42,12 @@ console.log('\nSession token')
 console.log('\nPath rules')
 {
   const shouldBePublic = [
-    '/images/aboutv2/cat.jpg',
+    '/images/aboutv2/cat.webp',
     '/images/profile/StephenImage.webp',
     '/images/magicSignal/magicSignalHero.webp',
   ]
   const shouldBeGated = [
-    '/images/Q2Clarity/Designs_july17/overview-desktop.png',
+    '/images/Q2Clarity/Designs_july17/overview-desktop.webp',
     '/images/EnhancedMoneyHub/SpendingDesktop.png',
     '/images/magicSignal/da-01.webp',
     '/images/validation/anything.png',
@@ -72,7 +72,12 @@ if (!existsSync(distAssets)) {
 
   const publicChunks = readdirSync(distAssets).filter((f) => f.endsWith('.js'))
   const gatedChunks = existsSync(gatedDir) ? readdirSync(gatedDir).filter((f) => f.endsWith('.js')) : []
-  check('every case study has a gated chunk', gatedChunks.length >= 10, `${gatedChunks.length} found`)
+  // Every page App.jsx lazy-loads from a gated source should have produced its own gated chunk.
+  const appSource = readFileSync(join(process.cwd(), 'src', 'App.jsx'), 'utf8')
+  const lazyGated = [...appSource.matchAll(/lazy\(\(\) => import\('\.\/pages\/(?:case-studies\/)?(\w+)'\)\)/g)].map((m) => m[1])
+  for (const name of lazyGated) {
+    check(`gated chunk emitted for ${name}`, gatedChunks.some((f) => f.startsWith(`${name}-`)))
+  }
 
   // Prose that must never appear in a chunk an anonymous visitor can fetch.
   const secrets = [
@@ -123,7 +128,7 @@ if (base) {
   }
 
   for (const p of [
-    '/images/Q2Clarity/Designs_july17/overview-desktop.png',
+    '/images/Q2Clarity/Designs_july17/overview-desktop.webp',
     '/images/EnhancedMoneyHub/SpendingDesktop.png',
     '/videos/magicSignal/ob-01.mp4',
     '/videos/magicSignal/rec-01.mp4',

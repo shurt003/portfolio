@@ -189,7 +189,7 @@ export default function Home() {
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-0">
               {/* Image */}
               <div className="lg:col-span-2 relative" style={{ minHeight: '360px' }}>
-                <img
+                <img decoding="async"
                   src="/images/profile/StephenImage.webp"
                   alt="Stephen Hurt"
                   className="w-full h-full object-cover"

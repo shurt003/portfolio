@@ -40,9 +40,9 @@ const CAPABILITIES = [
 // place them as: [ramen][lake lake] / [cat cat][swing].
 // Below md the grid collapses to a single stacked column of 4:3 tiles.
 const OUTSIDE = [
-  { type: 'img', src: '/images/aboutv2/ramen.jpg', alt: 'A bowl of homemade ramen with a soft egg, pork, and scallions', span: 1 },
-  { type: 'img', src: '/images/aboutv2/lake.jpg', alt: 'Green Lake in Seattle on a clear summer day', span: 2 },
-  { type: 'img', src: '/images/aboutv2/cat.jpg', alt: 'My grey cat with its tongue out', span: 2 },
+  { type: 'img', src: '/images/aboutv2/ramen.webp', alt: 'A bowl of homemade ramen with a soft egg, pork, and scallions', span: 1 },
+  { type: 'img', src: '/images/aboutv2/lake.webp', alt: 'Green Lake in Seattle on a clear summer day', span: 2 },
+  { type: 'img', src: '/images/aboutv2/cat.webp', alt: 'My grey cat with its tongue out', span: 2 },
   { type: 'video', src: '/images/aboutv2/swing.mp4', alt: 'Floating a clear, tree-lined river on a summer day', span: 1 },
 ]
 
@@ -87,7 +87,7 @@ export default function About() {
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             >
-              <img
+              <img decoding="async"
                 src="/images/profile/StephenImage.webp"
                 alt="Stephen Hurt"
                 fetchpriority="high"
@@ -244,7 +244,7 @@ export default function About() {
                     aria-label={m.alt}
                   />
                 ) : (
-                  <img
+                  <img decoding="async"
                     src={m.src}
                     alt={m.alt}
                     loading="lazy"
